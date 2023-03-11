@@ -4,24 +4,13 @@ A Gem to parse and compare semver versions AND bump versions for Ruby Gems.
 
 * [Semversion](#semversion)
   * [Installation](#installation)
-  * [Usage](#usage)
-    * [Rake Tasks](#rake-tasks)
-      * [semversion:current](#semversioncurrent)
-      * [semversion:file](#semversionfile)
-      * [semversion:bump\_major](#semversionbump_major)
-      * [semversion:bump\_minor](#semversionbump_minor)
-      * [semversion:bump\_patch](#semversionbump_patch)
-      * [semversion:bump\_pre\_release](#semversionbump_pre_release)
-      * [semversion:bump\_release](#semversionbump_release)
-    * [Command Line](#command-line)
-      * [semver current](#semver-current)
-      * [semver file](#semver-file)
-      * [semver bump-major](#semver-bump-major)
-      * [semver bump-minor](#semver-bump-minor)
-      * [semver bump patch](#semver-bump-patch)
-      * [semver bump pre](#semver-bump-pre)
-      * [semver bump release](#semver-bump-release)
-    * [Library](#library)
+  * [Command Line Usage](#command-line-usage)
+    * [current](#current)
+    * [file](#file)
+    * [validate](#validate)
+    * [bump](#bump)
+    * [set](#set)
+  * [Library Usage](#library-usage)
   * [Development](#development)
   * [Contributing](#contributing)
   * [License](#license)
@@ -40,75 +29,108 @@ If bundler is not being used to manage dependencies, install the gem by executin
 gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
 ```
 
-## Usage
+## Command Line Usage
 
-### Rake Tasks
+### current
 
-#### semversion:current
+`semver current [--quiet]`
 
-#### semversion:file
+Validate and output the current gem version.
 
-#### semversion:bump_major
+The command fails if the current gem version is not valid.
 
-#### semversion:bump_minor
+Use `--quiet` to validate the current gem version without producing any output.
 
-#### semversion:bump_patch
+### file
 
-#### semversion:bump_pre_release
+`semver file [--quiet]`
 
-#### semversion:bump_release
+Output the relative path to the file that store the gem version.
 
-### Command Line
+The command fails if the gem version could not be found.
 
-#### semver current
+Use `--quiet` to ensure that a gem version could be found without producing any output.
 
-```shell
-semver current [VERSION]
-```
+### validate
 
-If `VERSION` is not given, the version will be found in the current gem's source code.
+`semver validate VERSION [--quiet]`
 
-Validates and outputs the version.
+Validate and output `VERSION`.
 
-#### semver file
+Use `--quiet` to validate `VERSION` without producing any output.
 
-```shell
-semver file
-```
+The command fails if `VERSION` is not valid.
 
-Show the relative path to the file containing the current gem version AND the type of file.
-
-#### semver bump-major
+### bump
 
 ```shell
-semver bump-major [VERSION] [--build=BUILD]
+semversion bump {major|minor|patch|pre|release} [VERSION] \
+[--pre] [--pre-prefix=PREFIX] [--build=BUILD] [--quiet] [--dry-run]
 ```
 
-#### semver bump-minor
+Increase the current gem version, update the file that stores the version, and
+output the resulting version.
+
+The command fails if the current gem version is not valid.
+
+If `VERSION` is given, use that instead of the current gem version.
+Giving `VERSION` implies `--dry-run`. The command fails if `VERSION` is not valid.
+
+`major`, `minor`, `patch`, `pre`, and `release` determines how the version is
+incremented.
+
+* `major` increments `1.x.y` to `2.0.0`.
+* `minor` increments `1.2.x` to `1.3.0`.
+* `patch` increments `1.2.3` to `1.2.4`
+* `pre` increments `1.2.3-pre.1` to `1.2.3-pre.2`.
+* `release` drops the pre-release part of the version. Increments `1.2.3-pre.1` to `1.2.3`.
+
+By default, the pre-release prefix is `pre`. Use `--pre-prefix=PREFIX` to use
+`PREFIX` instead (like `alpha`, `beta`, `rc`, etc.).
+
+If both `pre` and `--pre-prefix=PREFIX` are given AND the current version already
+has a pre-release part where the pre-release prefix does not match the given `PREFIX`,
+then the pre-release number is reset to 1. For example, `semversion pre --pre-prefix=beta`
+will increment `1.2.3-alpha.3` to `1.2.3-beta.1`.
+
+The command fails if the existing pre-release prefix is not lexically less than or
+equal to `PREFIX`.
+
+The command fails if `pre` is given and either the current version does not
+already have a pre-relaese part OR `--pre-prefix` is not also given.
+
+`--pre` can be used with `major`, `minor`, and `patch` to specify that the version
+should be incremented AND given a pre-release part. For instance, `semversion major --pre`
+increments `1.2.3` to `2.0.0-pre.1`.
+
+`--pre-prefix` can be used with `--pre` to specify a different pre-release prefix. For
+instance, `semversion major --pre --pre-prefix=alpha`  increments `1.2.3` to
+`2.0.0-alpha.1`.
+
+The command fails if `release` is given and the version does not have a pre-release
+part.
+
+Use `--build=BUILD` to set the build metadata for the new version (See
+[Build Metadata in the Semantic Versioning Specification](https://semver.org/spec/v2.0.0.html#spec-item-10)).
+If `--build` is not given, the incremented version will not include build metadata.
+
+Use `--quiet` to increment the version without producing any output.
+
+Use `--dry-run` to run this command without updating the version file.
+
+### set
 
 ```shell
-semver bump-minor [VERSION] [--build=BUILD]
+semversion set VERSION [--quiet]
 ```
 
-#### semver bump patch
+Update the file that stores the version and output the version.
 
-```shell
-semver bump-patch [VERSION] [--build=BUILD]
-```
+The command fails if `VERSION` is not valid.
 
-#### semver bump pre
+Use `--quiet` to increment the version without producing any output.
 
-```shell
-semver bump-pre [VERSION] [--prefix=PREFIX] [--build=BUILD]
-```
-
-#### semver bump release
-
-```shell
-semver bump-release [VERSION] [--build=BUILD] [--dry-run|-n] [--quiet|-q]
-```
-
-### Library
+## Library Usage
 
 ## Development
 
