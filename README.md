@@ -5,11 +5,11 @@ A Gem to parse and compare semver versions AND bump versions for Ruby Gems.
 * [Semversion](#semversion)
   * [Installation](#installation)
   * [Command Line Usage](#command-line-usage)
+    * [bump](#bump)
+    * [set](#set)
     * [current](#current)
     * [file](#file)
     * [validate](#validate)
-    * [bump](#bump)
-    * [set](#set)
   * [Library Usage](#library-usage)
   * [Development](#development)
   * [Contributing](#contributing)
@@ -30,36 +30,6 @@ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
 ```
 
 ## Command Line Usage
-
-### current
-
-`semver current [--quiet]`
-
-Validate and output the current gem version.
-
-The command fails if the current gem version is not valid.
-
-Use `--quiet` to validate the current gem version without producing any output.
-
-### file
-
-`semver file [--quiet]`
-
-Output the relative path to the file that store the gem version.
-
-The command fails if the gem version could not be found.
-
-Use `--quiet` to ensure that a gem version could be found without producing any output.
-
-### validate
-
-`semver validate VERSION [--quiet]`
-
-Validate and output `VERSION`.
-
-Use `--quiet` to validate `VERSION` without producing any output.
-
-The command fails if `VERSION` is not valid.
 
 ### bump
 
@@ -129,6 +99,36 @@ Update the file that stores the version and output the version.
 The command fails if `VERSION` is not valid.
 
 Use `--quiet` to increment the version without producing any output.
+
+### current
+
+`semversion current [--quiet]`
+
+Validate and output the current gem version.
+
+The command fails if the current gem version is not valid.
+
+Use `--quiet` to validate the current gem version without producing any output.
+
+### file
+
+`semversion file [--quiet]`
+
+Output the relative path to the file that store the gem version.
+
+The command fails if the gem version could not be found.
+
+Use `--quiet` to ensure that a gem version could be found without producing any output.
+
+### validate
+
+`semversion validate VERSION [--quiet]`
+
+Validate and output `VERSION`.
+
+Use `--quiet` to validate `VERSION` without producing any output.
+
+The command fails if `VERSION` is not valid.
 
 ## Library Usage
 
