@@ -234,8 +234,9 @@ module Semversion
 
     private
 
+    # Match a semver within a string
     SEMVER_REGEXP = /
-      ^
+      (?<semver>
         (?<major>0|[1-9]\d*)
         \.
         (?<minor>0|[1-9]\d*)
@@ -262,14 +263,17 @@ module Semversion
             )*
           )
         )?
-      $
+      )
     /x
+
+    # Match a semver to the full string
+    SEMVER_REGEXP_FULL = /\A#{SEMVER_REGEXP.source}\z/x
 
     # Parse @version into its parts
     # @return [void]
     # @api private
     def parse
-      return unless (match_data = version.match(SEMVER_REGEXP))
+      return unless (match_data = version.match(SEMVER_REGEXP_FULL))
 
       @major = match_data[:major]
       @minor = match_data[:minor]
