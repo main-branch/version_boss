@@ -9,6 +9,7 @@ module Semversion
     # @api public
     #
     class VersionRb < Base
+      # The regexp to find the version and surrounding content within the version.rb file
       VERSION_REGEXP = /
         \A
           (?<content_before>
