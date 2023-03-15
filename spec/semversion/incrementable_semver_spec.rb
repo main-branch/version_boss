@@ -62,7 +62,7 @@ RSpec.describe Semversion::IncrementableSemver do
       end
 
       context "when args pre: true, pre_suffix: 'alpha' are given" do
-        let(:args) { { pre: true, pre_prefix: 'alpha' } }
+        let(:args) { { pre: true, pre_type: 'alpha' } }
         let(:version) { '1.2.3' }
         let(:expected_version) { Semversion::IncrementableSemver.new('2.0.0-alpha.1') }
         it 'should increment the major part and set the pre-release part to "alpha.1"' do
@@ -117,8 +117,8 @@ RSpec.describe Semversion::IncrementableSemver do
         end
       end
 
-      context 'when the args pre: true, pre_prefix: "alpha" are given' do
-        let(:args) { { pre: true, pre_prefix: 'alpha' } }
+      context 'when the args pre: true, pre_type: "alpha" are given' do
+        let(:args) { { pre: true, pre_type: 'alpha' } }
         let(:version) { '1.2.3-pre.3' }
         let(:expected_version) { Semversion::IncrementableSemver.new('2.0.0-alpha.1') }
         it "should increment the major part and set pre-release part to 'alpha.1'" do
@@ -150,7 +150,7 @@ RSpec.describe Semversion::IncrementableSemver do
       end
 
       context "when args pre: true, pre_suffix: 'alpha' are given" do
-        let(:args) { { pre: true, pre_prefix: 'alpha' } }
+        let(:args) { { pre: true, pre_type: 'alpha' } }
         let(:version) { '1.2.3' }
         let(:expected_version) { Semversion::IncrementableSemver.new('1.3.0-alpha.1') }
         it 'should increment the minor part and set the pre-release part to "alpha.1"' do
@@ -205,12 +205,89 @@ RSpec.describe Semversion::IncrementableSemver do
         end
       end
 
-      context 'when the args pre: true, pre_prefix: "alpha" are given' do
-        let(:args) { { pre: true, pre_prefix: 'alpha' } }
+      context 'when the args pre: true, pre_type: "alpha" are given' do
+        let(:args) { { pre: true, pre_type: 'alpha' } }
         let(:version) { '1.2.3-pre.3' }
         let(:expected_version) { Semversion::IncrementableSemver.new('1.3.0-alpha.1') }
         it "should increment the minor part and set pre-release part to 'alpha.1'" do
           expect(subject).to eq(expected_version)
+        end
+      end
+    end
+  end
+
+  describe '#next_pre' do
+    subject { version_object.next_pre(**args) }
+    let(:args) { {} }
+
+    context 'when the version does not have a pre_release part' do
+      let(:version) { '1.2.3' }
+      it 'should raise a Seversion::Error because you can not pre increment a release version' do
+        expect { subject }.to raise_error(Semversion::Error)
+      end
+    end
+
+    context "when the version has a pre_release part 'beta.1'" do
+      let(:version) { '1.2.3-beta.1' }
+
+      context 'when no args are given' do
+        it 'should increment the pre-release part to "beta.2"' do
+          expect(subject).to eq(Semversion::IncrementableSemver.new('1.2.3-beta.2'))
+        end
+      end
+
+      context 'when pre_type arg is given' do
+        context "when the arg { pre_type: 'alpha' } is given" do
+          let(:args) { { pre_type: 'alpha' } }
+          it 'should raise a Seversion::Error because the pre_type is lexically " \
+            "before the existing pre-release part' do
+            expect { subject }.to raise_error(Semversion::Error)
+          end
+        end
+
+        context "when the arg { pre_type: 'beta' } is given" do
+          let(:args) { { pre_type: 'beta' } }
+          it "should increment the pre-release part to 'beta.2'" do
+            expect(subject).to eq(Semversion::IncrementableSemver.new('1.2.3-beta.2'))
+          end
+        end
+
+        context "when the arg { pre_type: 'rc' } is given" do
+          let(:args) { { pre_type: 'rc' } }
+          it "should increment the pre-release part to 'rc.1'" do
+            expect(subject).to eq(Semversion::IncrementableSemver.new('1.2.3-rc.1'))
+          end
+        end
+
+        context 'when the version has a build metadata part' do
+          let(:version) { '1.2.3-beta.1+AMD64' }
+
+          context 'when build_metadata arg is not given' do
+            it 'should increment the pre_release part and preserve the build_metadata part' do
+              expect(subject).to eq(Semversion::IncrementableSemver.new('1.2.3-beta.2+AMD64'))
+            end
+          end
+
+          context 'when the arg { build_metadata: nil } is given' do
+            let(:args) { { build_metadata: nil } }
+            it 'should increment the pre_release part and remove the build_metadata part' do
+              expect(subject).to eq(Semversion::IncrementableSemver.new('1.2.3-beta.2+AMD64'))
+            end
+          end
+
+          context "when the arg { build_metadata: '' } is given" do
+            let(:args) { { build_metadata: '' } }
+            it 'should increment the pre_release part and remove the build_metadata part' do
+              expect(subject).to eq(Semversion::IncrementableSemver.new('1.2.3-beta.2'))
+            end
+          end
+
+          context "when the arg { build_metadata: '386' } is given" do
+            let(:args) { { build_metadata: '386' } }
+            it 'should increment the pre_release part and replace the build_metadata part' do
+              expect(subject).to eq(Semversion::IncrementableSemver.new('1.2.3-beta.2+386'))
+            end
+          end
         end
       end
     end
@@ -238,7 +315,7 @@ RSpec.describe Semversion::IncrementableSemver do
       end
 
       context "when args pre: true, pre_suffix: 'alpha' are given" do
-        let(:args) { { pre: true, pre_prefix: 'alpha' } }
+        let(:args) { { pre: true, pre_type: 'alpha' } }
         let(:version) { '1.2.3' }
         let(:expected_version) { Semversion::IncrementableSemver.new('1.2.4-alpha.1') }
         it 'should increment the patch part and set the pre-release part to "alpha.1"' do
@@ -293,8 +370,8 @@ RSpec.describe Semversion::IncrementableSemver do
         end
       end
 
-      context 'when the args pre: true, pre_prefix: "alpha" are given' do
-        let(:args) { { pre: true, pre_prefix: 'alpha' } }
+      context 'when the args pre: true, pre_type: "alpha" are given' do
+        let(:args) { { pre: true, pre_type: 'alpha' } }
         let(:version) { '1.2.3-pre.3' }
         let(:expected_version) { Semversion::IncrementableSemver.new('1.2.4-alpha.1') }
         it "should increment the patch part and set pre-release part to 'alpha.1'" do

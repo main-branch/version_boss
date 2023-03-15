@@ -35,7 +35,7 @@ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
 
 ```shell
 semversion bump {major|minor|patch|pre|release} [VERSION] \
-[--pre] [--pre-prefix=PREFIX] [--build=BUILD] [--quiet] [--dry-run]
+[--pre] [--pre-type=TYPE] [--build=BUILD] [--quiet] [--dry-run]
 ```
 
 Increase the current gem version, update the file that stores the version, and
@@ -55,26 +55,28 @@ incremented.
 * `pre` increments `1.2.3-pre.1` to `1.2.3-pre.2`.
 * `release` drops the pre-release part of the version. Increments `1.2.3-pre.1` to `1.2.3`.
 
-By default, the pre-release prefix is `pre`. Use `--pre-prefix=PREFIX` to use
-`PREFIX` instead (like `alpha`, `beta`, `rc`, etc.).
+By default, the pre-release type is `pre`. Use `--pre-type=TYPE` to use
+`TYPE` instead (like `alpha`, `beta`, `rc`, etc.).
 
-If both `pre` and `--pre-prefix=PREFIX` are given AND the current version already
-has a pre-release part where the pre-release prefix does not match the given `PREFIX`,
-then the pre-release number is reset to 1. For example, `semversion pre --pre-prefix=beta`
+If both `pre` and `--pre-type=TYPE` are given AND the current version already
+has a pre-release part where the pre-release type does not match the given `TYPE`,
+then the pre-release number is reset to 1. For example, `semversion pre --pre-type=beta`
 will increment `1.2.3-alpha.3` to `1.2.3-beta.1`.
 
-The command fails if the existing pre-release prefix is not lexically less than or
-equal to `PREFIX`.
+The command fails if the existing pre-release type is not lexically less than or
+equal to `TYPE`. For example, it the current version is `1.2.3-beta.1` and `TYPE`
+is `beta`, the the command will fail since the new version would sort before the
+existing version.
 
-The command fails if `pre` is given and either the current version does not
-already have a pre-relaese part OR `--pre-prefix` is not also given.
+The command fails if `pre` is given and the current version does not
+already have a pre-relaese part.
 
 `--pre` can be used with `major`, `minor`, and `patch` to specify that the version
 should be incremented AND given a pre-release part. For instance, `semversion major --pre`
 increments `1.2.3` to `2.0.0-pre.1`.
 
-`--pre-prefix` can be used with `--pre` to specify a different pre-release prefix. For
-instance, `semversion major --pre --pre-prefix=alpha`  increments `1.2.3` to
+`--pre-type` can be used with `--pre` to specify a different pre-release prefix. For
+instance, `semversion major --pre --pre-type=alpha`  increments `1.2.3` to
 `2.0.0-alpha.1`.
 
 The command fails if `release` is given and the version does not have a pre-release
@@ -89,6 +91,8 @@ Use `--quiet` to increment the version without producing any output.
 Use `--dry-run` to run this command without updating the version file.
 
 ### set
+
+TODO: give an error if you are decrementing the version, allow --force option to override
 
 ```shell
 semversion set VERSION [--quiet]
