@@ -1,6 +1,8 @@
 # Semversion
 
-A Gem to parse and compare semver versions AND bump versions for Ruby Gems.
+A Gem to parse, compare, and increment versions for RubyGems.
+
+Can be used as an alternative to the [bump RubyGem](https://rubygems.org/gems/bump/).
 
 * [Semversion](#semversion)
   * [Installation](#installation)
@@ -64,27 +66,28 @@ then the pre-release number is reset to 1. For example, `semversion pre --pre-ty
 will increment `1.2.3-alpha.3` to `1.2.3-beta.1`.
 
 The command fails if the existing pre-release type is not lexically less than or
-equal to `TYPE`. For example, it the current version is `1.2.3-beta.1` and `TYPE`
+equal to `TYPE`. For example, it the current version is `1.2.3-alpha.1` and `TYPE`
 is `beta`, the the command will fail since the new version would sort before the
 existing version.
 
 The command fails if `pre` is given and the current version does not
-already have a pre-relaese part.
+already have a pre-release part.
 
 `--pre` can be used with `major`, `minor`, and `patch` to specify that the version
-should be incremented AND given a pre-release part. For instance, `semversion major --pre`
+should be incremented AND given a pre-release part. For instance, `semversion bump major --pre`
 increments `1.2.3` to `2.0.0-pre.1`.
 
-`--pre-type` can be used with `--pre` to specify a different pre-release prefix. For
-instance, `semversion major --pre --pre-type=alpha`  increments `1.2.3` to
+`--pre-type` can be used with `--pre` to specify a different pre-release type. For
+instance, `semversion bump major --pre --pre-type=alpha`  increments `1.2.3` to
 `2.0.0-alpha.1`.
 
 The command fails if `release` is given and the version does not have a pre-release
-part.
+part. For example, `semversion bump release` when the version is `1.2.3` will fail.
+The version is `1.2.3-pre.3` is incremented to `1.2.3`.
 
 Use `--build=BUILD` to set the build metadata for the new version (See
 [Build Metadata in the Semantic Versioning Specification](https://semver.org/spec/v2.0.0.html#spec-item-10)).
-If `--build` is not given, the incremented version will not include build metadata.
+If `--build` is not given, the incremented version retain the previous build metadata.
 
 Use `--quiet` to increment the version without producing any output.
 

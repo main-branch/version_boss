@@ -380,4 +380,56 @@ RSpec.describe Semversion::IncrementableSemver do
       end
     end
   end
+
+  describe '#next_release' do
+    subject { version_object.next_release(**args) }
+    let(:args) { {} }
+
+    context 'when the version does not have a pre_release part' do
+      let(:version) { '1.2.3' }
+      it 'should raise a Seversion::Error because you can not release a non-pre-release version' do
+        expect { subject }.to raise_error(Semversion::Error)
+      end
+    end
+
+    context 'when the version is a pre-release version' do
+      let(:version) { '1.2.3-beta.1' }
+      it 'should return a non-pre-release version' do
+        expect(subject).to eq(Semversion::IncrementableSemver.new('1.2.3'))
+      end
+
+      context 'when the version does not include a build_metadata part' do
+        context 'when the arg build_metadata: "AMD64" is given' do
+          let(:args) { { build_metadata: 'AMD64' } }
+          it "should return a non-pre-release version with the build_metadata set to 'AMD64'" do
+            expect(subject).to eq(Semversion::IncrementableSemver.new('1.2.3+AMD64'))
+          end
+        end
+      end
+
+      context "when the version includes a build_metadata part '123456'" do
+        let(:version) { '1.2.3-beta.1+123456' }
+
+        context 'when no args are given' do
+          it 'should return a non-pre-release version with the build_metadata preserved' do
+            expect(subject).to eq(Semversion::IncrementableSemver.new('1.2.3+123456'))
+          end
+        end
+
+        context 'when the arg build_metadata: "AMD64" is given' do
+          let(:args) { { build_metadata: 'AMD64' } }
+          it "should return a non-pre-release version with the build_metadata set to 'AMD64'" do
+            expect(subject).to eq(Semversion::IncrementableSemver.new('1.2.3+AMD64'))
+          end
+        end
+
+        context "when the arg build_metadata: '' is given" do
+          let(:args) { { build_metadata: '' } }
+          it 'should return a non-pre-release version with the build_metadata removed' do
+            expect(subject).to eq(Semversion::IncrementableSemver.new('1.2.3'))
+          end
+        end
+      end
+    end
+  end
 end

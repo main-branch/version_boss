@@ -107,7 +107,23 @@ module Semversion
       IncrementableSemver.new(version_string)
     end
 
-    # The pre-release type
+    # Drop the pre-release part of the version
+    #
+    # @example
+    #   IncrementableSemversion::Semver.new('1.2.3-pre.1').next_release.to_s # => '1.2.3'
+    #
+    # @return [IncrementableSemver] a new IncrementableSemver object with the pre_release part dropped
+    # @raise [Semversion::Error] if the version is not a pre-release version
+    #
+    def next_release(build_metadata: nil)
+      assert_is_a_pre_release_version
+      version_string = "#{major}.#{minor}.#{patch}"
+      build_metadata ||= self.build_metadata
+      version_string += "+#{build_metadata}" unless build_metadata.empty?
+      IncrementableSemver.new(version_string)
+    end
+
+    # The pre-release type (for example, 'alpha', 'beta', 'pre', etc.)
     #
     # @example
     #   IncrementableSemversion::Semver.new('1.2.3-pre.1').pre_type # => 'pre'
@@ -119,6 +135,8 @@ module Semversion
     end
 
     # The pre-release sequence number
+    #
+    # The pre-release sequence number starts at 1 for each pre-release type.
     #
     # @example
     #   IncrementableSemversion::Semver.new('1.2.3-pre.1').pre_number # => 1

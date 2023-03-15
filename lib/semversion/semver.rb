@@ -232,6 +232,30 @@ module Semversion
       !major.nil?
     end
 
+    # Two versions are equal if their version strings are equal
+    #
+    # @example
+    #   Semversion::Semver.new('1.2.3') == '1.2.3' # => true
+    #
+    # @param other [Semver] the other Semver to compare to
+    #
+    # @return [Boolean] true if the version strings are equal
+    #
+    def ==(other)
+      version == other.to_s
+    end
+
+    # The string representation of a Semver is its version string
+    #
+    # @example
+    #   Semversion::Semver.new('1.2.3').to_s # => '1.2.3'
+    #
+    # @return [String] the version string
+    #
+    def to_s
+      version
+    end
+
     private
 
     # Match a semver within a string

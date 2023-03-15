@@ -201,4 +201,36 @@ RSpec.describe Semversion::Semver do
       end
     end
   end
+
+  describe '#to_s' do
+    subject { described_class.new(version).to_s }
+    let(:version) { '1.0.0-pre.1+AMD64' }
+
+    it 'should return the version string' do
+      expect(subject).to eq(version)
+    end
+  end
+
+  describe '#==' do
+    subject { described_class.new(version) == described_class.new(other_version) }
+    context "with version '1.2.3-alpha.1+AMD64'" do
+      let(:version) { '1.2.3-alpha.1+AMD64' }
+      context "with other version '1.2.3-alpha.1+AMD64'" do
+        let(:other_version) { '1.2.3-alpha.1+AMD64' }
+        it { is_expected.to eq(true) }
+      end
+      context "with other version '1.2.3'" do
+        let(:other_version) { '1.2.3' }
+        it { is_expected.to eq(false) }
+      end
+      context "with other version '1.2.3-alpha.1'" do
+        let(:other_version) { '1.2.3-alpha.1' }
+        it { is_expected.to eq(false) }
+      end
+      context "with other version '1.2.3+AMD64'" do
+        let(:other_version) { '1.2.3+AMD64' }
+        it { is_expected.to eq(false) }
+      end
+    end
+  end
 end
