@@ -19,7 +19,8 @@ module Semversion
       def self.find
         Dir[glob].filter_map do |path|
           if (match = File.read(path).match(content_regexp))
-            Semversion::VersionFile.new(path, match[:content_before], match[:version], match[:content_after])
+            version = Semversion::IncrementableSemver.new(match[:version])
+            Semversion::VersionFile.new(path, match[:content_before], version, match[:content_after])
           end
         end.first
       end

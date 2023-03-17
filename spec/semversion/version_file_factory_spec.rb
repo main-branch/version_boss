@@ -37,7 +37,7 @@ RSpec.describe Semversion::VersionFileFactory do
           have_attributes(
             path: 'VERSION',
             content_before: '',
-            version: '1.2.3-pre.1+build.999',
+            version: Semversion::IncrementableSemver.new('1.2.3-pre.1+build.999'),
             content_after: ''
           )
         )
@@ -66,7 +66,7 @@ RSpec.describe Semversion::VersionFileFactory do
           have_attributes(
             path: 'lib/semversion/version.rb',
             content_before: "module Semversion\n  VERSION = '",
-            version: '0.1.0',
+            version: Semversion::IncrementableSemver.new('0.1.0'),
             content_after: "'\nend\n"
           )
         )
@@ -94,7 +94,7 @@ RSpec.describe Semversion::VersionFileFactory do
           have_attributes(
             path: 'semversion.gemspec',
             content_before: "Gem::Specification.new do |spec|\n  spec.version = '",
-            version: '2.0.0-pre.1',
+            version: Semversion::IncrementableSemver.new('2.0.0-pre.1'),
             content_after: "'\nend\n"
           )
         )

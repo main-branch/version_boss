@@ -11,7 +11,7 @@ RSpec.describe Semversion::VersionFile do
       VERSION = '
   CONTENT_BEFORE
 
-  let(:version) { '1.2.3' }
+  let(:version) { Semversion::IncrementableSemver.new('1.2.3') }
 
   let(:content_after) { <<~CONTENT_AFTER }
     '
@@ -34,7 +34,7 @@ RSpec.describe Semversion::VersionFile do
   end
 
   describe '#version=' do
-    let(:new_version) { '9.9.9' }
+    let(:new_version) { Semversion::IncrementableSemver.new('9.9.9') }
 
     let(:original_content) { <<~ORIGINAL_CONTENT }
       # frozen_string_literal: true

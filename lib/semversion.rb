@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'semversion/command_line'
 require 'semversion/incrementable_semver'
 require 'semversion/semver'
 require 'semversion/version_file'

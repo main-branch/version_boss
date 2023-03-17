@@ -20,9 +20,14 @@ module Semversion
     # @param version [String] the version
     # @param content_after [String] the content after the version
     #
+    # @raise [Semversion::Error] if the version is not an IncrementableSemver
+    #
     # @api private
     #
     def initialize(path, content_before, version, content_after)
+      raise Semversion::Error, 'version must be an IncrementableSemver' unless
+        version.is_a?(Semversion::IncrementableSemver)
+
       @path = path
       @content_before = content_before
       @version = version
@@ -56,9 +61,11 @@ module Semversion
     # The version from the version file
     #
     # @example
-    #   version_file = Semversion::VersionFile.new('lib/semversion/version.rb', 'VERSION = "', '1.2.3', '"')
-    #   version_file.version # => '1.2.3'
-    # @return [String]
+    #   version = Semversion::IncrementableSemver.new('1.2.3')
+    #   version_file = Semversion::VersionFile.new('lib/semversion/version.rb', 'VERSION = "', version, '"')
+    #   version_file.version.to_s # => '1.2.3'
+    # @return [Semversion::IncrementableSemver]
+    # @raise [Semversion::Error] if the version is not an IncrementableSemver
     # @api public
     attr_reader :version
 
@@ -75,15 +82,20 @@ module Semversion
 
     # Update the version in the version file
     #
+    # @param new_version [Semversion::IncrementableSemver] the new version
     # @example
     #   version_file = Semversion::VersionFile.new('lib/semversion/version.rb', 'VERSION = "', '1.2.3', '"')
     #   version_file.version = '1.2.4'
     # @return [Void]
+    # @raise [Semversion::Error] if new_version is not an IncrementableSemver
     # @api public
     #
     def version=(new_version)
+      raise Semversion::Error, 'new_version must be an IncrementableSemver' unless
+        new_version.is_a?(Semversion::IncrementableSemver)
+
       @version = version
-      File.write(path, content_before + new_version + content_after)
+      File.write(path, content_before + new_version.to_s + content_after)
     end
   end
 end

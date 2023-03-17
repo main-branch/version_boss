@@ -13,8 +13,8 @@ RSpec.describe Semversion::IncrementableSemver do
 
     context 'with a version that has a pre-release part with one identifier' do
       let(:version) { '1.2.3-alpha' }
-      it 'is expected to raise an ArgumentError' do
-        expect { subject }.to raise_error(ArgumentError)
+      it 'is expected to raise an Semversion::Error' do
+        expect { subject }.to raise_error(Semversion::Error)
       end
     end
 
@@ -26,16 +26,16 @@ RSpec.describe Semversion::IncrementableSemver do
 
       context 'when either the first identifier is NOT a string or the second is NOT an Integer' do
         let(:version) { '1.2.3-alpha.one' }
-        it 'is expected to raise an ArgumentError' do
-          expect { subject }.to raise_error(ArgumentError)
+        it 'is expected to raise an Semversion::Error' do
+          expect { subject }.to raise_error(Semversion::Error)
         end
       end
     end
 
     context 'when the version has a pre-release part with more than two identifiers' do
       let(:version) { '1.2.3-alpha.1.2' }
-      it 'is expected to raise an ArgumentError' do
-        expect { subject }.to raise_error(ArgumentError)
+      it 'is expected to raise an Semversion::Error' do
+        expect { subject }.to raise_error(Semversion::Error)
       end
     end
   end

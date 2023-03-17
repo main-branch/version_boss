@@ -23,9 +23,9 @@ module Semversion
     # @example
     #   Semversion::Semver.new('1.2.3').valid? # => true
     #   Semversion::Semver.new('1.2.3-alpha.1+build.001').valid? # => true
-    #   Semversion::Semver.new('1.2.3-alpha').valid? # => raise ArgumentError
-    #   Semversion::Semver.new('1.2.3-alpha.1.2').valid? # => raise ArgumentError
-    #   Semversion::Semver.new('1.2.3-alpha.one').valid? # => raise ArgumentError
+    #   Semversion::Semver.new('1.2.3-alpha').valid? # => raise Semversion::Error
+    #   Semversion::Semver.new('1.2.3-alpha.1.2').valid? # => raise Semversion::Error
+    #   Semversion::Semver.new('1.2.3-alpha.one').valid? # => raise Semversion::Error
     #
     # @return [Boolean] true if the version string is a valid semver and meets the conditions above
     #

@@ -16,6 +16,7 @@ Layout/LineLength:
 # The DSL for RSpec and the gemspec file make it very hard to limit block length:
 Metrics/BlockLength:
   Exclude:
+    - "spec/spec_helper.rb"
     - "spec/**/*_spec.rb"
     - "*.gemspec"
 

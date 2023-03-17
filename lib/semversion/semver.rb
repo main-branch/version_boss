@@ -45,14 +45,14 @@ module Semversion
     #
     # @param version [String] The version string to parse
     #
-    # @raise [ArgumentError] version is not a string or not a valid semver version
+    # @raise [Semversion::Error] version is not a string or not a valid semver version
     #
     def initialize(version)
-      raise ArgumentError, 'Version must be a string' unless version.is_a?(String)
+      raise Semversion::Error, 'Version must be a string' unless version.is_a?(String)
 
       @version = version
       parse
-      raise ArgumentError, "Not a valid version string: #{version}" unless valid?
+      raise Semversion::Error, "Not a valid version string: #{version}" unless valid?
     end
 
     # @!attribute version [r]
@@ -203,8 +203,10 @@ module Semversion
     #
     # @return [Integer] -1 if self < other, 0 if self == other, or 1 if self > other
     #
+    # @raise [Semversion::Error] other is not a semver
+    #
     def <=>(other)
-      raise ArgumentError, 'other must be a Semver' unless other.is_a?(Semver)
+      raise Semversion::Error, 'other must be a Semver' unless other.is_a?(Semver)
 
       result = compare_major_minor_patch(other)
 
@@ -223,7 +225,7 @@ module Semversion
     # @example
     #   Semversion::Semver.new('1.2.3').valid? # => true
     #   Semversion::Semver.new('1.2.3-alpha.1+build.001').valid? # => true
-    #   Semversion::Semver.new('bogus').valid? # => raises ArgumentError
+    #   Semversion::Semver.new('bogus').valid? # => raises Semversion::Error
     #
     # @return [Boolean] true if the version string is a valid semver
     #
