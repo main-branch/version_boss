@@ -71,10 +71,3 @@ require 'yardstick/rake/verify'
 Yardstick::Rake::Verify.new(:'yard:coverage') do |verify|
   verify.threshold = 100
 end
-
-# task :'argtest', [:build_metadata, :pre_release_prefix] do |_t, args|
-#   build_metadata = args[:build_metadata] || ENV['SEMVER_BUILD_METADATA']
-#   pre_release_prefix = args[:pre_release_prefix] || ENV['PRE_RELEASE_PREFIX']
-#   puts "build_metadata: #{build_metadata.inspect}"
-#   puts "pre_release_prefix: #{pre_release_prefix.inspect}"
-# end
