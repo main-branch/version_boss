@@ -13,7 +13,7 @@ module Semversion
       VERSION_REGEXP = /
         \A
           (?<content_before>\s*)
-          (?<version>#{Semversion::Semver::SEMVER_REGEXP.source})
+          (?<version>#{Semversion::SEMVER_REGEXP.source})
           (?<content_after>\s*)
         \z
       /x

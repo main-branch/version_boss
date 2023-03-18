@@ -98,10 +98,7 @@ module Semversion
     def next_pre(pre_type: nil, build_metadata: nil)
       assert_is_a_pre_release_version
       version_string = "#{major}.#{minor}.#{patch}"
-      pre_type ||= self.pre_type
-      assert_pre_type_is_valid(pre_type)
-      next_pre_number = self.pre_type == pre_type ? (pre_number + 1) : 1
-      version_string += "-#{pre_type}.#{next_pre_number}"
+      version_string += next_pre_part(pre_type)
       build_metadata ||= self.build_metadata
       version_string += "+#{build_metadata}" unless build_metadata.empty?
       IncrementableSemver.new(version_string)
@@ -177,6 +174,17 @@ module Semversion
                 "because '#{self.pre_type}' is lexically less than '#{pre_type}'"
 
       raise Semversion::Error, message
+    end
+
+    # Return the next pre-release part
+    # @param pre_type [String, nil] the given pre-release type or nil to use the existing pre-release type
+    # @return [String]
+    # @api private
+    def next_pre_part(pre_type)
+      pre_type ||= self.pre_type
+      assert_pre_type_is_valid(pre_type)
+      next_pre_number = self.pre_type == pre_type ? (pre_number + 1) : 1
+      "-#{pre_type}.#{next_pre_number}"
     end
   end
 end

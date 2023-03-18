@@ -2,6 +2,7 @@
 
 require 'semversion/command_line'
 require 'semversion/incrementable_semver'
+require 'semversion/regexp'
 require 'semversion/semver'
 require 'semversion/version_file'
 require 'semversion/version_file_factory'

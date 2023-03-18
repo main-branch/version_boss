@@ -40,7 +40,7 @@ commands by invoking `semversion` with no arguments or `semversion help` as
 follows:
 
 ```shell
-bundle exec exe/semversion help
+$ bundle exec exe/semversion help
 Commands:
   semversion current [-q]                                              # Show the current gem version
   semversion file [-q]                                                 # Show the path to the file containing the g...
