@@ -40,7 +40,12 @@ commands by invoking `semversion` with no arguments or `semversion help` as
 follows:
 
 ```shell
-$ bundle exec exe/semversion help
+semversion help
+```
+
+The output is the following:
+
+```shell
 Commands:
   semversion current [-q]                                              # Show the current gem version
   semversion file [-q]                                                 # Show the path to the file containing the g...
@@ -57,7 +62,12 @@ $
 The `semversion help COMMAND` command will give further help for a specific command:
 
 ```shell
-$ semversion help current
+semversion help current
+```
+
+The output is the following:
+
+```shell
 Usage:
   semversion current [-q]
 
@@ -75,7 +85,21 @@ $
 
 ## Library Usage
 
-TODO
+[Detailed API documenation](https://rubydoc.info/gems/semversion/) is hosted on rubygems.org.
+
+The main classes are:
+
+* **Semversion::Semver**: Parse and compare generic semver version strings. See
+  [semver.org](https://semver.org) for details on what makes a valid semver string.
+
+* **Semversion::IncrementableSemver**: Extends the Semversion::Semver class that knows
+  how to increment (aka bump) parts of the version string (major, minor, patch,
+  pre-release). Some additional restrictions are put onto the pre-release part
+  so that the pre-release part of the version can be incremented.
+
+* **Semversion::VersionFileFactory**: find the gem's version file and returns a
+  **Semversion::VersionFile** that knows it's path, the contained version, and how to update
+  the version file with a new version.
 
 ## Development
 
