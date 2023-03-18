@@ -235,7 +235,7 @@ SimpleCov.at_exit do
   unless RSpec.configuration.dry_run?
     SimpleCov.result.format!
 
-    if ENV['NOCOV'] != 'TRUE' && SimpleCov.result.covered_percent < test_coverage_threshold
+    if ENV['NOCOV']&.upcase != 'TRUE' && SimpleCov.result.covered_percent < test_coverage_threshold
       warn "FAIL: RSpec Test coverage fell below #{test_coverage_threshold}%"
 
       warn "\nThe following lines were not covered by tests:\n"
