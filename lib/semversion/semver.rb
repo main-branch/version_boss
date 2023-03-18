@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'semversion/regexp'
+
 module Semversion
   # Parse and compare semver version strings
   #
@@ -48,11 +50,10 @@ module Semversion
     # @raise [Semversion::Error] version is not a string or not a valid semver version
     #
     def initialize(version)
-      raise Semversion::Error, 'Version must be a string' unless version.is_a?(String)
-
+      assert_version_must_be_a_string(version)
       @version = version
       parse
-      raise Semversion::Error, "Not a valid version string: #{version}" unless valid?
+      assert_valid_version
     end
 
     # @!attribute version [r]
@@ -206,16 +207,15 @@ module Semversion
     # @raise [Semversion::Error] other is not a semver
     #
     def <=>(other)
-      raise Semversion::Error, 'other must be a Semver' unless other.is_a?(Semver)
+      assert_other_is_a_semver(other)
 
-      result = compare_major_minor_patch(other)
+      result = compare_core_parts(other)
 
       return result unless result.zero? && pre_release != other.pre_release
-
       return 1 if pre_release.empty?
       return -1 if other.pre_release.empty?
 
-      compare_pre_release_parts(other)
+      compare_pre_release_part(other)
     end
 
     # Determine if the version string is a valid semver
@@ -260,60 +260,22 @@ module Semversion
 
     private
 
-    # Match a semver within a string
-    SEMVER_REGEXP = /
-      (?<semver>
-        (?<major>0|[1-9]\d*)
-        \.
-        (?<minor>0|[1-9]\d*)
-        \.
-        (?<patch>0|[1-9]\d*)
-        (?:-
-          (?<pre_release>
-            (?:
-              0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*
-            )
-            (?:
-              \.
-              (?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)
-            )*
-          )
-        )?
-        (?:
-          \+
-          (?<build_metadata>
-            [0-9a-zA-Z-]+
-            (?:
-              \.
-              [0-9a-zA-Z-]+
-            )*
-          )
-        )?
-      )
-    /x
-
-    # Match a semver to the full string
-    SEMVER_REGEXP_FULL = /\A#{SEMVER_REGEXP.source}\z/x
-
     # Parse @version into its parts
     # @return [void]
     # @api private
     def parse
-      return unless (match_data = version.match(SEMVER_REGEXP_FULL))
+      return unless (match_data = version.match(Semversion::SEMVER_REGEXP_FULL))
 
-      @major = match_data[:major]
-      @minor = match_data[:minor]
-      @patch = match_data[:patch]
-      @pre_release = match_data[:pre_release] || ''
-      @pre_release_identifiers = @pre_release.split('.').map { |f| f =~ /\A\d+\z/ ? f.to_i : f }
-      @build_metadata = match_data[:build_metadata] || ''
+      core_parts(match_data)
+      pre_release_part(match_data)
+      build_metadata_part(match_data)
     end
 
-    # Compare the major, minor, and patch parts of this Semver to another
+    # Compare the major, minor, and patch parts of this Semver to other
     # @param other [Semver] the other Semver to compare to
     # @return [Integer] -1 if self < other, 0 if self == other, or 1 if self > other
     # @api private
-    def compare_major_minor_patch(other)
+    def compare_core_parts(other)
       identifiers = [major.to_i, minor.to_i, patch.to_i]
       other_identifiers = [other.major.to_i, other.minor.to_i, other.patch.to_i]
 
@@ -346,12 +308,65 @@ module Semversion
     # @param other [Semver] the other Semver to compare to
     # @return [Integer] -1, 0, or 1
     # @api private
-    def compare_pre_release_parts(other)
+    def compare_pre_release_part(other)
       pre_release_identifiers.zip(other.pre_release_identifiers).each do |field, other_field|
         result = compare_identifiers(field, other_field)
         return result unless result.zero?
       end
       pre_release_identifiers.size < other.pre_release_identifiers.size ? -1 : 0
+    end
+
+    # Raise a error if other is not a valid Semver
+    # @param other [Semver] the other to check
+    # @return [void]
+    # @raise [Semversion::Error] if other is not a valid Semver
+    # @api private
+    def assert_other_is_a_semver(other)
+      raise Semversion::Error, 'other must be a Semver' unless other.is_a?(Semver)
+    end
+
+    # Raise a error if the given version is not a string
+    # @param version [Semver] the version to check
+    # @return [void]
+    # @raise [Semversion::Error] if the given version is not a string
+    # @api private
+    def assert_version_must_be_a_string(version)
+      raise Semversion::Error, 'Version must be a string' unless version.is_a?(String)
+    end
+
+    # Raise a error if this version object is not a valid Semver
+    # @return [void]
+    # @raise [Semversion::Error] if other is not a valid Semver
+    # @api private
+    def assert_valid_version
+      raise Semversion::Error, "Not a valid version string: #{version}" unless valid?
+    end
+
+    # Set the major, minor, and patch parts of this Semver
+    # @param match_data [MatchData] the match data from the version string
+    # @return [void]
+    # @api private
+    def core_parts(match_data)
+      @major = match_data[:major]
+      @minor = match_data[:minor]
+      @patch = match_data[:patch]
+    end
+
+    # Set the pre-release of this Semver
+    # @param match_data [MatchData] the match data from the version string
+    # @return [void]
+    # @api private
+    def pre_release_part(match_data)
+      @pre_release = match_data[:pre_release] || ''
+      @pre_release_identifiers = @pre_release.split('.').map { |f| f =~ /\A\d+\z/ ? f.to_i : f }
+    end
+
+    # Set the build_metadata of this Semver
+    # @param match_data [MatchData] the match data from the version string
+    # @return [void]
+    # @api private
+    def build_metadata_part(match_data)
+      @build_metadata = match_data[:build_metadata] || ''
     end
   end
 end

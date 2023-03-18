@@ -16,7 +16,7 @@ module Semversion
             .*
             \.version\s*=\s*(?<quote>['"])
           )
-          (?<version>#{Semversion::Semver::SEMVER_REGEXP.source})
+          (?<version>#{Semversion::SEMVER_REGEXP.source})
           (?<content_after>\k<quote>.*)
         \z
       /xm
