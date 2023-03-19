@@ -2,7 +2,7 @@
 
 require 'tmpdir'
 
-RSpec.describe Semversion::CommandLine do
+RSpec.describe Semverify::CommandLine do
   from_version = '1.2.3-beta.4'
 
   context '#next_release' do

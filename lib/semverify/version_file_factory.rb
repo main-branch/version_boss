@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'semversion/version_file_sources'
+require 'semverify/version_file_sources'
 
-module Semversion
+module Semverify
   # Finds the file that contains the gem's version and returns a VersionFile instance
   #
   # @api public
@@ -13,19 +13,19 @@ module Semversion
     # The order of the list is important. The first VersionFileSource that finds a version file will be used.
     #
     VERSION_FILE_SOURCES = [
-      Semversion::VersionFileSources::Version,
-      Semversion::VersionFileSources::VersionRb,
-      Semversion::VersionFileSources::Gemspec
+      Semverify::VersionFileSources::Version,
+      Semverify::VersionFileSources::VersionRb,
+      Semverify::VersionFileSources::Gemspec
     ].freeze
 
     # Finds the version file for the gem
     #
     # @example
-    #   version_file = Semversion::VersionFileFactory.find
-    #   version_file.path # => 'lib/semversion/version.rb'
+    #   version_file = Semverify::VersionFileFactory.find
+    #   version_file.path # => 'lib/semverify/version.rb'
     #   version_file.version # => '1.2.3'
     #
-    # @return [Semversion::VersionFile, nil] the version file or nil if no version file was found
+    # @return [Semverify::VersionFile, nil] the version file or nil if no version file was found
     #
     def self.find
       VERSION_FILE_SOURCES.each do |version_file_source|

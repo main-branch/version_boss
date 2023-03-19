@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-require 'semversion/version_file_sources/base'
+require 'semverify/version_file_sources/base'
 
-module Semversion
+module Semverify
   module VersionFileSources
-    # Checks for the gem's version in a file named *.gemspec
+    # Checks for the gem's version in a file named lib/**/version.rb
     #
     # @api public
     #
-    class Gemspec < Base
-      # The regexp to find the version and surrounding content within the gemspec
+    class VersionRb < Base
+      # The regexp to find the version and surrounding content within the version.rb file
       VERSION_REGEXP = /
         \A
           (?<content_before>
             .*
-            \.version\s*=\s*(?<quote>['"])
+            VERSION\s*=\s*(?<quote>['"])
           )
-          (?<version>#{Semversion::SEMVER_REGEXP.source})
+          (?<version>#{Semverify::SEMVER_REGEXP.source})
           (?<content_after>\k<quote>.*)
         \z
       /xm
@@ -31,7 +31,7 @@ module Semversion
       # A glob that matches potential version files
       # @return [String]
       # @api private
-      private_class_method def self.glob = '*.gemspec'
+      private_class_method def self.glob = 'lib/**/version.rb'
     end
   end
 end

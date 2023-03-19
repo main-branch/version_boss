@@ -2,7 +2,7 @@
 
 require 'tempfile'
 
-RSpec.describe Semversion::VersionFileFactory do
+RSpec.describe Semverify::VersionFileFactory do
   describe '.find' do
     subject { described_class.find }
 
@@ -30,14 +30,14 @@ RSpec.describe Semversion::VersionFileFactory do
         end
       end
 
-      it { is_expected.to be_a(Semversion::VersionFile) }
+      it { is_expected.to be_a(Semverify::VersionFile) }
 
       it do
         is_expected.to(
           have_attributes(
             path: 'VERSION',
             content_before: '',
-            version: Semversion::IncrementableSemver.new('1.2.3-pre.1+build.999'),
+            version: Semverify::IncrementableSemver.new('1.2.3-pre.1+build.999'),
             content_after: ''
           )
         )
@@ -48,9 +48,9 @@ RSpec.describe Semversion::VersionFileFactory do
       around do |example|
         Dir.mktmpdir do |dir|
           Dir.chdir(dir) do
-            FileUtils.mkdir_p('lib/semversion')
-            File.write('lib/semversion/version.rb', <<~VERSION_RB)
-              module Semversion
+            FileUtils.mkdir_p('lib/semverify')
+            File.write('lib/semverify/version.rb', <<~VERSION_RB)
+              module Semverify
                 VERSION = '0.1.0'
               end
             VERSION_RB
@@ -59,14 +59,14 @@ RSpec.describe Semversion::VersionFileFactory do
         end
       end
 
-      it { is_expected.to be_a(Semversion::VersionFile) }
+      it { is_expected.to be_a(Semverify::VersionFile) }
 
       it do
         is_expected.to(
           have_attributes(
-            path: 'lib/semversion/version.rb',
-            content_before: "module Semversion\n  VERSION = '",
-            version: Semversion::IncrementableSemver.new('0.1.0'),
+            path: 'lib/semverify/version.rb',
+            content_before: "module Semverify\n  VERSION = '",
+            version: Semverify::IncrementableSemver.new('0.1.0'),
             content_after: "'\nend\n"
           )
         )
@@ -77,7 +77,7 @@ RSpec.describe Semversion::VersionFileFactory do
       around do |example|
         Dir.mktmpdir do |dir|
           Dir.chdir(dir) do
-            File.write('semversion.gemspec', <<~GEMSPEC)
+            File.write('semverify.gemspec', <<~GEMSPEC)
               Gem::Specification.new do |spec|
                 spec.version = '2.0.0-pre.1'
               end
@@ -87,14 +87,14 @@ RSpec.describe Semversion::VersionFileFactory do
         end
       end
 
-      it { is_expected.to be_a(Semversion::VersionFile) }
+      it { is_expected.to be_a(Semverify::VersionFile) }
 
       it do
         is_expected.to(
           have_attributes(
-            path: 'semversion.gemspec',
+            path: 'semverify.gemspec',
             content_before: "Gem::Specification.new do |spec|\n  spec.version = '",
-            version: Semversion::IncrementableSemver.new('2.0.0-pre.1'),
+            version: Semverify::IncrementableSemver.new('2.0.0-pre.1'),
             content_after: "'\nend\n"
           )
         )

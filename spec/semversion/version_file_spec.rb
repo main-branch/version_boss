@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-RSpec.describe Semversion::VersionFile do
+RSpec.describe Semverify::VersionFile do
   let(:version_file) { described_class.new(path, content_before, version, content_after) }
 
-  let(:path) { 'lib/semversion/version.rb' }
+  let(:path) { 'lib/semverify/version.rb' }
   let(:content_before) { <<~CONTENT_BEFORE.chomp }
     # frozen_string_literal: true
 
-    module Semversion
+    module Semverify
       VERSION = '
   CONTENT_BEFORE
 
-  let(:version) { Semversion::IncrementableSemver.new('1.2.3') }
+  let(:version) { Semverify::IncrementableSemver.new('1.2.3') }
 
   let(:content_after) { <<~CONTENT_AFTER }
     '
@@ -34,12 +34,12 @@ RSpec.describe Semversion::VersionFile do
   end
 
   describe '#version=' do
-    let(:new_version) { Semversion::IncrementableSemver.new('9.9.9') }
+    let(:new_version) { Semverify::IncrementableSemver.new('9.9.9') }
 
     let(:original_content) { <<~ORIGINAL_CONTENT }
       # frozen_string_literal: true
 
-      module Semversion
+      module Semverify
         VERSION = '1.2.3'
       end
     ORIGINAL_CONTENT
@@ -47,7 +47,7 @@ RSpec.describe Semversion::VersionFile do
     let(:expected_content) { <<~UPDATED_CONTENT }
       # frozen_string_literal: true
 
-      module Semversion
+      module Semverify
         VERSION = '#{new_version}'
       end
     UPDATED_CONTENT

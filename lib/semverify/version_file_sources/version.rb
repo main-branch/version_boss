@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'semversion/version_file_sources/base'
+require 'semverify/version_file_sources/base'
 
-module Semversion
+module Semverify
   module VersionFileSources
     # Checks for the gem's version in a file named VERSION
     #
@@ -13,7 +13,7 @@ module Semversion
       VERSION_REGEXP = /
         \A
           (?<content_before>\s*)
-          (?<version>#{Semversion::SEMVER_REGEXP.source})
+          (?<version>#{Semverify::SEMVER_REGEXP.source})
           (?<content_after>\s*)
         \z
       /x

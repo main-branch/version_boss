@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Semversion::VersionFileSources::Base do
+RSpec.describe Semverify::VersionFileSources::Base do
   describe '#glob' do
     it 'should raise a NotImplementedError' do
       expect { described_class.send(:glob) }.to raise_error(NotImplementedError)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Semversion
+module Semverify
   # Match a semver within a string
   SEMVER_REGEXP = /
     (?<semver>

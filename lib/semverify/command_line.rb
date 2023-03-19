@@ -2,15 +2,15 @@
 
 require 'thor'
 
-module Semversion
+module Semverify
   # rubocop:disable Metrics/ClassLength
 
-  # The semversion cli
+  # The semverify cli
   #
   # @example
-  #   require 'semversion'
+  #   require 'semverify'
   #
-  #   Semversion::CommandLine.start(ARGV)
+  #   Semverify::CommandLine.start(ARGV)
   #
   # @api private
   #
@@ -33,7 +33,7 @@ module Semversion
     # Show the current gem version
     # @return [void]
     def current
-      version_file = Semversion::VersionFileFactory.find
+      version_file = Semverify::VersionFileFactory.find
 
       if version_file.nil?
         warn 'version file not found or is not valid' unless options[:quiet]
@@ -58,7 +58,7 @@ module Semversion
     # Show the gem's version file
     # @return [void]
     def file
-      version_file = Semversion::VersionFileFactory.find
+      version_file = Semverify::VersionFileFactory.find
 
       if version_file.nil?
         warn 'version file not found or is not valid' unless options[:quiet]
@@ -85,7 +85,7 @@ module Semversion
       --pre can be used to specify that the version should be incremented AND
       given a pre-release part. For instance:
 
-      /x5 $ semversion next-major --pre
+      /x5 $ semverify next-major --pre
 
       increments '1.2.3' to '2.0.0-pre.1'.
 
@@ -93,7 +93,7 @@ module Semversion
       --pre to specify a different pre-release type such as alpha, beta, rc, etc.
       For instance:
 
-      /x5 $ semversion next-major --pre --pre-type=alpha
+      /x5 $ semverify next-major --pre --pre-type=alpha
 
       increments '1.2.3' to '2.0.0-alpha.1'.
 
@@ -144,7 +144,7 @@ module Semversion
       --pre can be used to specify that the version should be incremented AND
       given a pre-release part. For instance:
 
-      /x5 $ semversion next-minor --pre
+      /x5 $ semverify next-minor --pre
 
       increments '1.2.3' to '2.0.0-pre.1'.
 
@@ -152,7 +152,7 @@ module Semversion
       --pre to specify a different pre-release type such as alpha, beta, rc, etc.
       For instance:
 
-      /x5 $ semversion next-patch --pre --pre-type=alpha
+      /x5 $ semverify next-patch --pre --pre-type=alpha
 
       increments '1.2.3' to '1.2.4-alpha.1'.
 
@@ -203,7 +203,7 @@ module Semversion
       --pre can be used to specify that the version should be incremented AND
       given a pre-release part. For instance:
 
-      /x5 $ semversion next-patch --pre
+      /x5 $ semverify next-patch --pre
 
       increments '1.2.3' to '1.2.4-pre.1'.
 
@@ -211,7 +211,7 @@ module Semversion
       --pre to specify a different pre-release type such as alpha, beta, rc, etc.
       For instance:
 
-      /x5 $ semversion next-patch --pre --pre-type=alpha
+      /x5 $ semverify next-patch --pre --pre-type=alpha
 
       increments '1.2.3' to '1.2.4-alpha.1'.
 
@@ -260,7 +260,7 @@ module Semversion
 
       By default, the existing pre-release type is preserved. For instance:
 
-      /x5 $ semversion next-pre
+      /x5 $ semverify next-pre
 
       Increments 1.2.3-alpha.1 to 1.2.3-alpha.2.
 
@@ -270,7 +270,7 @@ module Semversion
 
       For example, if the version starts as 1.2.3-alpha.4, then:
 
-      /x5 $ semversion current
+      /x5 $ semverify current
       /x5 1.2.3-alpha.4
       /x5 $ semver next-pre --pre-type=beta
       /x5 1.2.3-beta.1
@@ -278,7 +278,7 @@ module Semversion
       /x5 1.2.3-beta.2
       /x5 $ semver next-pre --pre-type=rc
       /x5 1.2.3-rc.1
-      /x5 $ semversion next-release
+      /x5 $ semverify next-release
       /x5 1.2.3
 
       The command fails if the existing pre-release type is not lexically less than or
@@ -375,8 +375,8 @@ module Semversion
     # @return [void]
     #
     def validate(version)
-      Semversion::IncrementableSemver.new(version)
-    rescue Semversion::Error => e
+      Semverify::IncrementableSemver.new(version)
+    rescue Semverify::Error => e
       warn e.message unless options[:quiet]
       exit 1
     else
@@ -432,7 +432,7 @@ module Semversion
       else
         increment_gem_version(method, args)
       end
-    rescue Semversion::Error => e
+    rescue Semverify::Error => e
       warn e.message unless options[:quiet]
       exit 1
     end
@@ -443,11 +443,11 @@ module Semversion
     # @param args [Hash] The arguments to pass to the method
     # @param version [String] The version to increment
     #
-    # @return [Semversion::IncrementableSemver] the incremented version
-    # @raise [Semversion::Error] if the version is not a valid IncrementableSemver version
+    # @return [Semverify::IncrementableSemver] the incremented version
+    # @raise [Semverify::Error] if the version is not a valid IncrementableSemver version
     #
     def increment_literal_version(method, args, version)
-      Semversion::IncrementableSemver.new(version).send(method, **args)
+      Semverify::IncrementableSemver.new(version).send(method, **args)
     end
 
     # Increment the gem's version from the gem's version file
@@ -455,11 +455,11 @@ module Semversion
     # @param method [Symbol] The method to call on the IncrementableSemver object
     # @param args [Hash] The arguments to pass to the method
     #
-    # @return [Semversion::IncrementableSemver] the incremented version
-    # @raise [Semversion::Error] if the version is not a valid IncrementableSemver version
+    # @return [Semverify::IncrementableSemver] the incremented version
+    # @raise [Semverify::Error] if the version is not a valid IncrementableSemver version
     #
     def increment_gem_version(method, args)
-      version_file = Semversion::VersionFileFactory.find
+      version_file = Semverify::VersionFileFactory.find
 
       if version_file.nil?
         warn 'version file not found or is not valid' unless options[:quiet]

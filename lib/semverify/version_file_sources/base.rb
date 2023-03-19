@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'semversion/version_file'
+require 'semverify/version_file'
 
-module Semversion
+module Semverify
   module VersionFileSources
     # Base class for a version file source which implements #find
     #
@@ -12,15 +12,15 @@ module Semversion
       # The first file from #glob whose content matches #content_regexp
       #
       # @example
-      #   version_file = Semversion::VersionFileSources::Gemspec.find
+      #   version_file = Semverify::VersionFileSources::Gemspec.find
       #
-      # @return [Semversion::VersionFile, nil] the version file or nil if no version file was found
+      # @return [Semverify::VersionFile, nil] the version file or nil if no version file was found
       #
       def self.find
         Dir[glob].filter_map do |path|
           if (match = File.read(path).match(content_regexp))
-            version = Semversion::IncrementableSemver.new(match[:version])
-            Semversion::VersionFile.new(path, match[:content_before], version, match[:content_after])
+            version = Semverify::IncrementableSemver.new(match[:version])
+            Semverify::VersionFile.new(path, match[:content_before], version, match[:content_after])
           end
         end.first
       end

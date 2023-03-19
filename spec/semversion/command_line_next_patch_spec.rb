@@ -2,7 +2,7 @@
 
 require 'tmpdir'
 
-RSpec.describe Semversion::CommandLine do
+RSpec.describe Semverify::CommandLine do
   context '#next_patch' do
     it_behaves_like 'Core Version Incrementer', :patch, '1.2.3', '1.2.4'
   end
