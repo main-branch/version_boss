@@ -1,3 +1,12 @@
+## v0.3.0 (2023-03-19)
+
+[Full Changelog](https://github.com/main-branch/semverify/compare/v0.2.0..v0.3.0)
+
+Changes since v0.2.0:
+
+* 83cf403 Update CodeClimate badges after project rename (#13)
+* 7079244 Rename gem from 'semversion' to 'semverify' (#11)
+
 ## v0.2.0 (2023-03-18)
 
 [Full Changelog](https://github.com/main-branch/semverify/compare/v0.1.0..v0.2.0)
