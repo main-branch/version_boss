@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'thor', '~> 1.2'
 
   spec.add_development_dependency 'bundler-audit', '~> 0.9'
+  spec.add_development_dependency 'create_github_release', '~> 1.0'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.12'
   spec.add_development_dependency 'rubocop', '~> 1.48'
