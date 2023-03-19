@@ -255,4 +255,4 @@ SimpleCov.start
 
 # Make sure to require your project AFTER SimpleCov.start
 #
-require 'semversion'
+require 'semverify'

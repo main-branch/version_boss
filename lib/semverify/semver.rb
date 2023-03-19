@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'semversion/regexp'
+require 'semverify/regexp'
 
-module Semversion
+module Semverify
   # Parse and compare semver version strings
   #
   # This class will parse a semver version string that complies to Semantic
@@ -12,23 +12,23 @@ module Semversion
   # according to the rules of Semantic Versioning 2.0.0.
   #
   # @example Basic version parsing
-  #   semver = Semversion::Semver.new('1.2.3')
+  #   semver = Semverify::Semver.new('1.2.3')
   #   semver.major # => '1'
   #   semver.minor # => '2'
   #   semver.patch # => '3'
   #
   # @example Parsing a version with a pre-release identifier
-  #   semver = Semversion::Semver.new('1.2.3-alpha.1')
+  #   semver = Semverify::Semver.new('1.2.3-alpha.1')
   #   semver.pre_release # => 'alpha.1'
   #   semver.pre_release_identifiers # => ['alpha', '1']
   #
   # @example A version with build metadata
-  #   semver = Semversion::Semver.new('1.2.3+build.1')
+  #   semver = Semverify::Semver.new('1.2.3+build.1')
   #   semver.build_metadata # => 'build.1'
   #
   # @example Comparing versions
-  #   semver1 = Semversion::Semver.new('1.2.3')
-  #   semver2 = Semversion::Semver.new('1.2.4')
+  #   semver1 = Semverify::Semver.new('1.2.3')
+  #   semver2 = Semverify::Semver.new('1.2.4')
   #   semver1 <=> semver2 # => true
   #
   # See the Semantic Versioning 2.0.0 specification for more details.
@@ -43,11 +43,11 @@ module Semversion
     # Create a new Semver object
     #
     # @example
-    #   version = Semversion::Semver.new('1.2.3-alpha.1')
+    #   version = Semverify::Semver.new('1.2.3-alpha.1')
     #
     # @param version [String] The version string to parse
     #
-    # @raise [Semversion::Error] version is not a string or not a valid semver version
+    # @raise [Semverify::Error] version is not a string or not a valid semver version
     #
     def initialize(version)
       assert_version_must_be_a_string(version)
@@ -61,7 +61,7 @@ module Semversion
     # The complete version string
     #
     # @example
-    #   semver = Semversion::Semver.new('1.2.3-alpha.1+build.001')
+    #   semver = Semverify::Semver.new('1.2.3-alpha.1+build.001')
     #   semver.version #=> '1.2.3-alpha.1+build.001'
     #
     # @return [String]
@@ -75,7 +75,7 @@ module Semversion
     # The major part of the version
     #
     # @example
-    #   semver = Semversion::Semver.new('1.2.3-alpha.1+build.001')
+    #   semver = Semverify::Semver.new('1.2.3-alpha.1+build.001')
     #   semver.major #=> '1'
     #
     # @return [String]
@@ -89,7 +89,7 @@ module Semversion
     # The minor part of the version
     #
     # @example
-    #   semver = Semversion::Semver.new('1.2.3-alpha.1+build.001')
+    #   semver = Semverify::Semver.new('1.2.3-alpha.1+build.001')
     #   semver.minor #=> '2'
     #
     # @return [String]
@@ -103,7 +103,7 @@ module Semversion
     # The patch part of the version
     #
     # @example
-    #   semver = Semversion::Semver.new('1.2.3-alpha.1+build.001')
+    #   semver = Semverify::Semver.new('1.2.3-alpha.1+build.001')
     #   semver.patch #=> '3'
     #
     # @return [String]
@@ -119,11 +119,11 @@ module Semversion
     # Will be an empty string if the version has no pre_release part.
     #
     # @example
-    #   semver = Semversion::Semver.new('1.2.3-alpha.1+build.001')
+    #   semver = Semverify::Semver.new('1.2.3-alpha.1+build.001')
     #   semver.pre_release #=> 'alpha.1'
     #
     # @example When the version has no pre_release part
-    #   semver = Semversion::Semver.new('1.2.3')
+    #   semver = Semverify::Semver.new('1.2.3')
     #   semver.pre_release #=> ''
     #
     # @return [String]
@@ -137,11 +137,11 @@ module Semversion
     # The pre_release identifiers of the version
     #
     # @example
-    #   semver = Semversion::Semver.new('1.2.3-alpha.1+build.001')
+    #   semver = Semverify::Semver.new('1.2.3-alpha.1+build.001')
     #   semver.pre_release_identifiers #=> ['alpha', '1']
     #
     # @example When the version has no pre_release part
-    #   semver = Semversion::Semver.new('1.2.3')
+    #   semver = Semverify::Semver.new('1.2.3')
     #   semver.pre_release_identifiers #=> []
     #
     # @return [Array<String>]
@@ -157,11 +157,11 @@ module Semversion
     # Will be an empty string if the version has no build_metadata part.
     #
     # @example
-    #   semver = Semversion::Semver.new('1.2.3-alpha.1+build.001')
+    #   semver = Semverify::Semver.new('1.2.3-alpha.1+build.001')
     #   semver.build_metadata #=> 'build.001'
     #
     # @example When the version has no build_metadata part
-    #   semver = Semversion::Semver.new('1.2.3')
+    #   semver = Semverify::Semver.new('1.2.3')
     #   semver.build_metadata #=> ''
     #
     # @return [String]
@@ -176,35 +176,35 @@ module Semversion
     # in the Semantic Versioning 2.0.0 Specification for more details.
     #
     # @example
-    #   semver1 = Semversion::Semver.new('1.2.3')
-    #   semver2 = Semversion::Semver.new('1.2.4')
+    #   semver1 = Semverify::Semver.new('1.2.3')
+    #   semver2 = Semverify::Semver.new('1.2.4')
     #   semver1 <=> semver2 # => -1
     #   semver2 <=> semver1 # => 1
     #
     # @example A Semver is equal to itself
-    #   semver1 = Semversion::Semver.new('1.2.3')
+    #   semver1 = Semverify::Semver.new('1.2.3')
     #   semver1 <=> semver1 # => 0
     #
     # @example A pre-release version is always older than a normal version
-    #   semver1 = Semversion::Semver.new('1.2.3-alpha.1')
-    #   semver2 = Semversion::Semver.new('1.2.3')
+    #   semver1 = Semverify::Semver.new('1.2.3-alpha.1')
+    #   semver2 = Semverify::Semver.new('1.2.3')
     #   semver1 <=> semver2 # => -1
     #
     # @example Pre-releases are compared by the parts of the pre-release version
-    #   semver1 = Semversion::Semver.new('1.2.3-alpha.1')
-    #   semver2 = Semversion::Semver.new('1.2.3-alpha.2')
+    #   semver1 = Semverify::Semver.new('1.2.3-alpha.1')
+    #   semver2 = Semverify::Semver.new('1.2.3-alpha.2')
     #   semver1 <=> semver2 # => -1
     #
     # @example Build metadata is ignored when comparing versions
-    #   semver1 = Semversion::Semver.new('1.2.3+build.100')
-    #   semver2 = Semversion::Semver.new('1.2.3+build.101')
+    #   semver1 = Semverify::Semver.new('1.2.3+build.100')
+    #   semver2 = Semverify::Semver.new('1.2.3+build.101')
     #   semver1 <=> semver2 # => 0
     #
     # @param other [Semver] the other Semver to compare to
     #
     # @return [Integer] -1 if self < other, 0 if self == other, or 1 if self > other
     #
-    # @raise [Semversion::Error] other is not a semver
+    # @raise [Semverify::Error] other is not a semver
     #
     def <=>(other)
       assert_other_is_a_semver(other)
@@ -223,9 +223,9 @@ module Semversion
     # Override this method in a subclass to provide extra or custom validation.
     #
     # @example
-    #   Semversion::Semver.new('1.2.3').valid? # => true
-    #   Semversion::Semver.new('1.2.3-alpha.1+build.001').valid? # => true
-    #   Semversion::Semver.new('bogus').valid? # => raises Semversion::Error
+    #   Semverify::Semver.new('1.2.3').valid? # => true
+    #   Semverify::Semver.new('1.2.3-alpha.1+build.001').valid? # => true
+    #   Semverify::Semver.new('bogus').valid? # => raises Semverify::Error
     #
     # @return [Boolean] true if the version string is a valid semver
     #
@@ -237,7 +237,7 @@ module Semversion
     # Two versions are equal if their version strings are equal
     #
     # @example
-    #   Semversion::Semver.new('1.2.3') == '1.2.3' # => true
+    #   Semverify::Semver.new('1.2.3') == '1.2.3' # => true
     #
     # @param other [Semver] the other Semver to compare to
     #
@@ -250,7 +250,7 @@ module Semversion
     # The string representation of a Semver is its version string
     #
     # @example
-    #   Semversion::Semver.new('1.2.3').to_s # => '1.2.3'
+    #   Semverify::Semver.new('1.2.3').to_s # => '1.2.3'
     #
     # @return [String] the version string
     #
@@ -264,7 +264,7 @@ module Semversion
     # @return [void]
     # @api private
     def parse
-      return unless (match_data = version.match(Semversion::SEMVER_REGEXP_FULL))
+      return unless (match_data = version.match(Semverify::SEMVER_REGEXP_FULL))
 
       core_parts(match_data)
       pre_release_part(match_data)
@@ -319,27 +319,27 @@ module Semversion
     # Raise a error if other is not a valid Semver
     # @param other [Semver] the other to check
     # @return [void]
-    # @raise [Semversion::Error] if other is not a valid Semver
+    # @raise [Semverify::Error] if other is not a valid Semver
     # @api private
     def assert_other_is_a_semver(other)
-      raise Semversion::Error, 'other must be a Semver' unless other.is_a?(Semver)
+      raise Semverify::Error, 'other must be a Semver' unless other.is_a?(Semver)
     end
 
     # Raise a error if the given version is not a string
     # @param version [Semver] the version to check
     # @return [void]
-    # @raise [Semversion::Error] if the given version is not a string
+    # @raise [Semverify::Error] if the given version is not a string
     # @api private
     def assert_version_must_be_a_string(version)
-      raise Semversion::Error, 'Version must be a string' unless version.is_a?(String)
+      raise Semverify::Error, 'Version must be a string' unless version.is_a?(String)
     end
 
     # Raise a error if this version object is not a valid Semver
     # @return [void]
-    # @raise [Semversion::Error] if other is not a valid Semver
+    # @raise [Semverify::Error] if other is not a valid Semver
     # @api private
     def assert_valid_version
-      raise Semversion::Error, "Not a valid version string: #{version}" unless valid?
+      raise Semverify::Error, "Not a valid version string: #{version}" unless valid?
     end
 
     # Set the major, minor, and patch parts of this Semver

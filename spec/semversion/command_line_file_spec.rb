@@ -2,7 +2,7 @@
 
 require 'tmpdir'
 
-RSpec.describe Semversion::CommandLine do
+RSpec.describe Semverify::CommandLine do
   around do |example|
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) do

@@ -1,27 +1,27 @@
 # frozen_string_literal: true
 
-RSpec.describe Semversion::Semver do
+RSpec.describe Semverify::Semver do
   describe '#initialize' do
     subject { described_class.new(version) }
 
     context 'when version is not a string' do
       let(:version) { 1 }
-      it 'should raise an Semversion::Error' do
-        expect { subject }.to raise_error(Semversion::Error)
+      it 'should raise an Semverify::Error' do
+        expect { subject }.to raise_error(Semverify::Error)
       end
     end
 
     context 'with an invalid version' do
       let(:version) { 'asdf' }
-      it 'should raise an Semversion::Error' do
-        expect { subject }.to raise_error(Semversion::Error)
+      it 'should raise an Semverify::Error' do
+        expect { subject }.to raise_error(Semverify::Error)
       end
     end
 
     context 'with a partial version' do
       let(:version) { '1.2' }
-      it 'should raise an Semversion::Error' do
-        expect { subject }.to raise_error(Semversion::Error)
+      it 'should raise an Semverify::Error' do
+        expect { subject }.to raise_error(Semverify::Error)
       end
     end
 

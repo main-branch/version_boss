@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_relative 'lib/semversion/version'
+require_relative 'lib/semverify/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'semversion'
-  spec.version = Semversion::VERSION
+  spec.name = 'semverify'
+  spec.version = Semverify::VERSION
   spec.authors = ['James Couball']
   spec.email = ['jcouball@yahoo.com']
 
   spec.summary = 'A Gem to parse and compare semver versions AND bump versions for Ruby Gems'
   spec.description = spec.summary
-  spec.homepage = 'http://github.com/main-branch/semversion'
+  spec.homepage = 'http://github.com/main-branch/semverify'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.0.0'
 
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = spec.homepage
-  spec.metadata['changelog_uri'] = 'https://rubydoc.info/gems/semversion/file/CHANGELOG.md'
+  spec.metadata['changelog_uri'] = 'https://rubydoc.info/gems/semverify/file/CHANGELOG.md'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

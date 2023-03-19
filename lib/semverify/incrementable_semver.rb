@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'semversion/semver'
+require 'semverify/semver'
 
-module Semversion
-  # A Semversion::Semver with additional constraints on the pre-release part of the version
+module Semverify
+  # A Semverify::Semver with additional constraints on the pre-release part of the version
   #
   # A IncrementableSemver is valid if one of the two following conditions is met:
   #   1. The pre-release part is empty
@@ -21,11 +21,11 @@ module Semversion
     # Create a new IncrementableSemver object
     #
     # @example
-    #   Semversion::Semver.new('1.2.3').valid? # => true
-    #   Semversion::Semver.new('1.2.3-alpha.1+build.001').valid? # => true
-    #   Semversion::Semver.new('1.2.3-alpha').valid? # => raise Semversion::Error
-    #   Semversion::Semver.new('1.2.3-alpha.1.2').valid? # => raise Semversion::Error
-    #   Semversion::Semver.new('1.2.3-alpha.one').valid? # => raise Semversion::Error
+    #   Semverify::Semver.new('1.2.3').valid? # => true
+    #   Semverify::Semver.new('1.2.3-alpha.1+build.001').valid? # => true
+    #   Semverify::Semver.new('1.2.3-alpha').valid? # => raise Semverify::Error
+    #   Semverify::Semver.new('1.2.3-alpha.1.2').valid? # => raise Semverify::Error
+    #   Semverify::Semver.new('1.2.3-alpha.one').valid? # => raise Semverify::Error
     #
     # @return [Boolean] true if the version string is a valid semver and meets the conditions above
     #
@@ -46,7 +46,7 @@ module Semversion
     # Increment the major version
     #
     # @example
-    #   IncrementableSemversion::Semver.new('1.2.3').next_major # => IncrementableSemversion::Semver.new('2.0.0')
+    #   IncrementableSemverify::Semver.new('1.2.3').next_major # => IncrementableSemverify::Semver.new('2.0.0')
     #
     # @return [IncrementableSemver] a new IncrementableSemver object with the major version incremented
     #
@@ -61,7 +61,7 @@ module Semversion
     # Increment the minor version
     #
     # @example
-    #   IncrementableSemversion::Semver.new('1.2.3').next_minor # => IncrementableSemversion::Semver.new('1.3.0')
+    #   IncrementableSemverify::Semver.new('1.2.3').next_minor # => IncrementableSemverify::Semver.new('1.3.0')
     #
     # @return [IncrementableSemver] a new IncrementableSemver object with the major version incremented
     #
@@ -76,7 +76,7 @@ module Semversion
     # Increment the patch version
     #
     # @example
-    #   IncrementableSemversion::Semver.new('1.2.3').next_patch # => IncrementableSemversion::Semver.new('1.2.1')
+    #   IncrementableSemverify::Semver.new('1.2.3').next_patch # => IncrementableSemverify::Semver.new('1.2.1')
     #
     # @return [IncrementableSemver] a new IncrementableSemver object with the patch part incremented
     #
@@ -91,7 +91,7 @@ module Semversion
     # Increment the pre_release part of the version
     #
     # @example
-    #   IncrementableSemversion::Semver.new('1.2.3-pre.1').next_patch.to_s # => '1.2.3-pre.2'
+    #   IncrementableSemverify::Semver.new('1.2.3-pre.1').next_patch.to_s # => '1.2.3-pre.2'
     #
     # @return [IncrementableSemver] a new IncrementableSemver object with the pre_release part incremented
     #
@@ -107,10 +107,10 @@ module Semversion
     # Drop the pre-release part of the version
     #
     # @example
-    #   IncrementableSemversion::Semver.new('1.2.3-pre.1').next_release.to_s # => '1.2.3'
+    #   IncrementableSemverify::Semver.new('1.2.3-pre.1').next_release.to_s # => '1.2.3'
     #
     # @return [IncrementableSemver] a new IncrementableSemver object with the pre_release part dropped
-    # @raise [Semversion::Error] if the version is not a pre-release version
+    # @raise [Semverify::Error] if the version is not a pre-release version
     #
     def next_release(build_metadata: nil)
       assert_is_a_pre_release_version
@@ -123,7 +123,7 @@ module Semversion
     # The pre-release type (for example, 'alpha', 'beta', 'pre', etc.)
     #
     # @example
-    #   IncrementableSemversion::Semver.new('1.2.3-pre.1').pre_type # => 'pre'
+    #   IncrementableSemverify::Semver.new('1.2.3-pre.1').pre_type # => 'pre'
     #
     # @return [String]
     #
@@ -136,7 +136,7 @@ module Semversion
     # The pre-release sequence number starts at 1 for each pre-release type.
     #
     # @example
-    #   IncrementableSemversion::Semver.new('1.2.3-pre.1').pre_number # => 1
+    #   IncrementableSemverify::Semver.new('1.2.3-pre.1').pre_number # => 1
     #
     # @return [Integer]
     #
@@ -149,12 +149,12 @@ module Semversion
     # Raise an error if the version is not a pre-release version
     #
     # @return [void]
-    # @raise [Semversion::Error] if the version is not a pre-release version
+    # @raise [Semverify::Error] if the version is not a pre-release version
     # @api private
     def assert_is_a_pre_release_version
       return unless pre_release.empty?
 
-      raise Semversion::Error, 'Cannot increment the pre-release part of a release version'
+      raise Semverify::Error, 'Cannot increment the pre-release part of a release version'
     end
 
     # Raise an error if new pre-release type is less than the old pre-release type
@@ -164,7 +164,7 @@ module Semversion
     # version.
     #
     # @return [void]
-    # @raise [Semversion::Error] if the pre-release type is not valid
+    # @raise [Semverify::Error] if the pre-release type is not valid
     # @api private
     def assert_pre_type_is_valid(pre_type)
       return if self.pre_type <= pre_type
@@ -173,7 +173,7 @@ module Semversion
                 "from '#{self.pre_type}' to '#{pre_type}' " \
                 "because '#{self.pre_type}' is lexically less than '#{pre_type}'"
 
-      raise Semversion::Error, message
+      raise Semverify::Error, message
     end
 
     # Return the next pre-release part

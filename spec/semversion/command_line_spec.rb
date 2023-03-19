@@ -2,7 +2,7 @@
 
 require 'tmpdir'
 
-RSpec.describe Semversion::CommandLine do
+RSpec.describe Semverify::CommandLine do
   subject { described_class.start([*args]) }
 
   around do |example|
