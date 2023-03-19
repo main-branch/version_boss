@@ -4,8 +4,8 @@
 [![Documentation](https://img.shields.io/badge/Documentation-Latest-green)](https://rubydoc.info/gems/semverify/)
 [![Change Log](https://img.shields.io/badge/CHANGELOG-Latest-green)](https://rubydoc.info/gems/semverify/file/CHANGELOG.md)
 [![Build Status](https://github.com/main-branch/semverify/workflows/CI%20Build/badge.svg?branch=main)](https://github.com/main-branch/semverify/actions?query=workflow%3ACI%20Build)
-[![Maintainability](https://api.codeclimate.com/v1/badges/836982cfce050461dc99/maintainability)](https://codeclimate.com/github/main-branch/semverify/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/836982cfce050461dc99/test_coverage)](https://codeclimate.com/github/main-branch/semverify/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/maintainability)](https://codeclimate.com/github/main-branch/semverify/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/test_coverage)](https://codeclimate.com/github/main-branch/semverify/test_coverage)
 
 A Gem to parse, compare, and increment versions for RubyGems.
 
