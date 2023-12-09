@@ -9,6 +9,9 @@ AllCops:
   # your project supports:
   TargetRubyVersion: 3.0
 
+Gemspec/DevelopmentDependencies:
+  EnforcedStyle: gemspec
+
 # The default max line length is 80 characters
 Layout/LineLength:
   Max: 120
@@ -20,7 +23,14 @@ Metrics/BlockLength:
     - "spec/**/*_spec.rb"
     - "*.gemspec"
 
+Metrics/ModuleLength:
+  CountAsOne: ['hash']
+
 # When writing minitest tests, it is very hard to limit test class length:
 Metrics/ClassLength:
+  CountAsOne: ['hash']
   Exclude:
     - "test/**/*_test.rb"
+
+Style/AsciiComments:
+  Enabled: false
