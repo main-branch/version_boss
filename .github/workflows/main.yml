@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "Job ${NAME}: ${STATUS}" > "status_${NAME}.txt"
         env:
-          NAME: ${{ matrix.config }}
+          NAME: ${{ github.run_id }}
           STATUS: ${{ job.status }}
         if: always()
 
