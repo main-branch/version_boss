@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    name: Job ${{ matrix.config }}
+    name: Config ${{ matrix.config }} on ${{ matrix.operating-system }}
 
     strategy:
       matrix:
@@ -35,8 +35,8 @@ jobs:
         run: |
           echo "Job ${NAME}: ${STATUS}" > "status_${NAME}.txt"
         env:
-          NAME: ${{ github.run_id }}
-          STATUS: ${{ job.status }}
+          NAME: ${{ matrix.config }}
+          STATUS: ${{ jobs.build.name }}
         if: always()
 
       - name: Upload status artifact
