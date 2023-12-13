@@ -20,6 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         config: [1, 2, 3]
+        operating-system: [ubuntu-latest]
 
     steps:
       - name: Checkout
@@ -28,19 +29,26 @@ jobs:
       - name: Build successfully
         run: echo "SUCCESS"
         #run only if config is 1 or 3
-        if: matrix.config == 1 || matrix.config == 3
+        if: matrix.config != 2
 
       - name: Build failed
         run: echo "FAILED" && exit 1
         #run only if config is 2
         if: matrix.config == 2
 
-      - name: Save status artifact
+      - name: Save failed status
         run: |
           echo "Job ${NAME}: ${STATUS}" > "status_${NAME}.txt"
         env:
-          STATUS: ${{ job.status }}
-        if: always()
+          STATUS: FAILED
+        if: !success()
+
+      - name: Save success status
+        run: |
+          echo "Job ${NAME}: ${STATUS}" > "status_${NAME}.txt"
+        env:
+          STATUS: SUCCESS
+        if: success()
 
       - name: Upload status artifact
         uses: actions/upload-artifact@v3
