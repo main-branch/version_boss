@@ -54,8 +54,8 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Check statuses
         run: |
-          cat status_1.txt
-          cat status_2.txt
-          cat status_3.txt
-
+          for file in status/status_*.txt; do
+            echo "Checking $file"
+            cat $file
+          done
     if: always()
