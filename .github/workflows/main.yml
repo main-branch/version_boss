@@ -13,6 +13,9 @@ jobs:
 
     name: Config ${{ matrix.config }} on ${{ matrix.operating-system }}
 
+    env:
+      NAME: Config ${{ matrix.config }} on ${{ matrix.operating-system }}
+
     strategy:
       fail-fast: false
       matrix:
@@ -34,9 +37,8 @@ jobs:
 
       - name: Save status artifact
         run: |
-          echo "Job ${GITHUB_JOB}: ${STATUS}" > "status_${NAME}.txt"
+          echo "Job ${NAME}: ${STATUS}" > "status_${NAME}.txt"
         env:
-          NAME: ${{ matrix.config }}
           STATUS: ${{ job.status }}
         if: always()
 
