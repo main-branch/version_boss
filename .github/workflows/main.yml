@@ -36,7 +36,7 @@ jobs:
           echo "Job ${NAME}: ${STATUS}" > "status_${NAME}.txt"
         env:
           NAME: ${{ matrix.config }}
-          STATUS: ${{ jobs.build.name }}
+          STATUS: ${{ job.name }}
         if: always()
 
       - name: Upload status artifact
