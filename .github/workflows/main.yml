@@ -39,9 +39,26 @@ jobs:
         #run only if config is
         if: ${{ matrix.ruby == 'head' }}
 
-      - name: Save failed status
-        run: 'echo "${NAME}: FAILED" > "status_${NAME}.txt"'
-        if: failure()
+      - name: Save status
+        run: |
+          echo "${NAME}: ${{ job.status }}" > "status_${NAME}.txt"
+        if: always()
+
+      - name: Upload status artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: status
+          path: "*.txt"
+        if: always()
+
+  build-job2:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      NAME: Build Job 2
+
+    steps:
+      - run: echo "SUCCESS"
 
       - name: Save status
         run: |
@@ -56,7 +73,7 @@ jobs:
         if: always()
 
   report:
-    needs: build
+    needs: build-job2
     runs-on: ubuntu-latest
     steps:
       - name: Download all artifacts
