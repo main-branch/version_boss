@@ -40,7 +40,7 @@ jobs:
         if: always()
 
       - name: Upload status artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: status_${{ matrix.config }}
           path: status_${{ matrix.config }}.txt
@@ -51,11 +51,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download all artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
       - name: Check statuses
         run: |
-          for file in status_*.txt; do
-            echo "Checking $file"
-            cat $file
-          done
+          ls -R
     if: always()
