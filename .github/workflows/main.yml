@@ -54,5 +54,8 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Check statuses
         run: |
-          ls -R
+          cat status_1.txt
+          cat status_2.txt
+          cat status_3.txt
+
     if: always()
