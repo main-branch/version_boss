@@ -81,8 +81,7 @@ jobs:
 
       - name: Check statuses
         run: |
-          for file in "$(ls status/*.txt | sort)"; do
-            # echo "Checking $file"
+          ls "status/*.txt" | sort | while IFS= read -r file; do
             cat "$file"
           done
     if: always()
