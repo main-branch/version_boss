@@ -81,6 +81,7 @@ jobs:
 
       - name: Check statuses
         run: |
+          ls -R
           ls "status/*.txt" | sort | while IFS= read -r file; do
             cat "$file"
           done
