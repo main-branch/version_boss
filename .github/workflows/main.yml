@@ -56,7 +56,7 @@ jobs:
       - name: Slack Failure Notification
         uses: 8398a7/action-slack@v3
         with:
-          status: ${{ job.status }}
+          status: custom
           custom_payload: |
             {
               attachments: [
