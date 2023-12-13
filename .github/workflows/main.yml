@@ -58,3 +58,4 @@ jobs:
             echo "Checking $file"
             cat $file
           done
+    if: always()
