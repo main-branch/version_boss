@@ -32,12 +32,12 @@ jobs:
       - name: Build successfully
         run: echo "SUCCESS"
         #run only if config is 1 or 3
-        if: matrix.ruby != head
+        if: matrix.ruby != "head"
 
       - name: Build failed
         run: echo "FAILED" && exit 1
         #run only if config is
-        if: matrix.ruby == head
+        if: matrix.ruby == "head"
 
       - name: Save failed status
         run: 'echo "Job ${NAME}: Failed" > "status_${NAME}.txt"'
