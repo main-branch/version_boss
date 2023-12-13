@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: status
-          path: status_${{ matrix.config }}.txt
+          path: status_${{ github.run_id }}.txt
         if: always()
 
   deploy:
