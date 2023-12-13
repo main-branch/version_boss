@@ -43,8 +43,16 @@ jobs:
         run: 'echo "${NAME}: FAILED" > "status_${NAME}.txt"'
         if: failure()
 
-      - name: Save success status
-        run: 'echo "${NAME}: SUCCESS" > "status_${NAME}.txt"'
+      - name: Save status
+        run: |
+          if [[ ${{ cancelled() }} == true ]]; then
+            STATUS=CANCELED
+          elif [[ ${{ failure() }} == true ]]; then
+            STATUS=FAILED
+          else
+            STATUS=SUCCESS
+          fi
+          echo "${NAME}: SUCCESS" > "status_${NAME}.txt"
         if: success()
 
       - name: Upload status artifact
