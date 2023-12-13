@@ -41,14 +41,15 @@ jobs:
 
       - name: Save status
         run: |
-          echo "${NAME}: ${{ job.status }}" > "$(date +'%Y%m%d%H%M%S') status_${NAME}.txt"
+          mkdir -p status
+          echo "${NAME}: ${{ job.status }}" > "status/$(date +'%Y%m%d%H%M%S') ${NAME}.txt"
         if: always()
 
       - name: Upload status artifact
         uses: actions/upload-artifact@v3
         with:
           name: status
-          path: "*.txt"
+          path: "status/*.txt"
         if: always()
 
   build-job2:
@@ -62,14 +63,15 @@ jobs:
 
       - name: Save status
         run: |
-          echo "${NAME}: ${{ job.status }}" > "$(date +'%Y%m%d%H%M%S') status_${NAME}.txt"
+          mkdir -p status
+          echo "${NAME}: ${{ job.status }}" > "status/$(date +'%Y%m%d%H%M%S') ${NAME}.txt"
         if: always()
 
       - name: Upload status artifact
         uses: actions/upload-artifact@v3
         with:
           name: status
-          path: "*.txt"
+          path: "status/*.txt"
         if: always()
 
   report:
