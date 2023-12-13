@@ -41,7 +41,7 @@ jobs:
           echo "Job ${NAME}: ${STATUS}" > "status_${NAME}.txt"
         env:
           STATUS: FAILED
-        if: !success()
+        if: cancelled() || failure()
 
       - name: Save success status
         run: |
