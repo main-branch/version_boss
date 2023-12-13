@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Build successfully
         run: echo "SUCCESS"
@@ -35,15 +35,15 @@ jobs:
         run: |
           echo "Job ${NAME}: ${STATUS}" > "status_${NAME}.txt"
         env:
-          NAME: ${{ job.name }}
+          NAME: ${{ matrix.config }}
           STATUS: ${{ job.status }}
         if: always()
 
       - name: Upload status artifact
         uses: actions/upload-artifact@v2
         with:
-          name: status_${{ job.name }}
-          path: status_${{ job.name }}.txt
+          name: status_${{ matrix.config }}
+          path: status_${{ matrix.config }}.txt
         if: always()
 
   deploy:
