@@ -45,15 +45,8 @@ jobs:
 
       - name: Save status
         run: |
-          if [[ ${{ cancelled() }} == true ]]; then
-            STATUS=CANCELED
-          elif [[ ${{ failure() }} == true ]]; then
-            STATUS=FAILED
-          else
-            STATUS=SUCCESS
-          fi
-          echo "${NAME}: SUCCESS" > "status_${NAME}.txt"
-        if: success()
+          echo "${NAME}: ${{ job.status }}" > "status_${NAME}.txt"
+        if: always()
 
       - name: Upload status artifact
         uses: actions/upload-artifact@v3
