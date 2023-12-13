@@ -40,11 +40,11 @@ jobs:
         if: ${{ matrix.ruby == 'head' }}
 
       - name: Save failed status
-        run: 'echo "Job ${NAME}: Failed" > "status_${NAME}.txt"'
+        run: 'echo "${NAME}: FAILED" > "status_${NAME}.txt"'
         if: failure()
 
       - name: Save success status
-        run: 'echo "Job ${NAME}: ${STATUS}" > "status_${NAME}.txt"'
+        run: 'echo "${NAME}: SUCCESS" > "status_${NAME}.txt"'
         if: success()
 
       - name: Upload status artifact
