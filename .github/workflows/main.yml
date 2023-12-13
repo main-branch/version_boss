@@ -63,7 +63,7 @@ jobs:
       - name: Check statuses
         run: |
           for file in status/status_*.txt; do
-            echo "Checking $file"
+            # echo "Checking $file"
             cat "$file"
           done
     if: always()
