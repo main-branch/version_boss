@@ -42,7 +42,7 @@ jobs:
       - name: Upload status artifact
         uses: actions/upload-artifact@v3
         with:
-          name: status_${{ matrix.config }}
+          name: status
           path: status_${{ matrix.config }}.txt
         if: always()
 
