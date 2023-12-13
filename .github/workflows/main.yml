@@ -41,7 +41,7 @@ jobs:
 
       - name: Save status
         run: |
-          echo "${NAME}: ${{ job.status }}" > "status_${NAME}.txt"
+          echo "${NAME}: ${{ job.status }}" > "$(date +'%Y%m%d%H%M%S'): status_${NAME}.txt"
         if: always()
 
       - name: Upload status artifact
@@ -62,7 +62,7 @@ jobs:
 
       - name: Save status
         run: |
-          echo "${NAME}: ${{ job.status }}" > "status_${NAME}.txt"
+          echo "${NAME}: ${{ job.status }}" > "$(date +'%Y%m%d%H%M%S'): status_${NAME}.txt"
         if: always()
 
       - name: Upload status artifact
@@ -80,7 +80,7 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Check statuses
         run: |
-          for file in status/status_*.txt; do
+          for file in "$(ls *.txt | sort)"; do
             # echo "Checking $file"
             cat "$file"
           done
