@@ -78,9 +78,10 @@ jobs:
     steps:
       - name: Download all artifacts
         uses: actions/download-artifact@v3
+
       - name: Check statuses
         run: |
-          for file in "$(ls *.txt | sort)"; do
+          for file in "$(ls status/*.txt | sort)"; do
             # echo "Checking $file"
             cat "$file"
           done
