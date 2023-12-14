@@ -93,8 +93,8 @@ jobs:
       - name: job context
         run: echo "${{ toJson(job) }}"
 
-      - name: jobs context
-        run: echo "${{ toJson(jobs) }}"
+      # - name: jobs context
+      #   run: echo "${{ toJson(jobs) }}"
 
       - name: steps context
         run: echo "${{ toJson(steps) }}"
@@ -105,11 +105,11 @@ jobs:
       - name: secrets context
         run: echo "${{ toJson(secrets) }}"
 
-      - name: strategy context
-        run: echo "${{ toJson(strategy) }}"
+      # - name: strategy context
+      #   run: echo "${{ toJson(strategy) }}"
 
-      - name: matrix context
-        run: echo "${{ toJson(matrix) }}"
+      # - name: matrix context
+      #   run: echo "${{ toJson(matrix) }}"
 
       - name: needs context
         run: echo "${{ toJson(needs) }}"
