@@ -81,6 +81,23 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v3
 
+      - name: all contexts
+        run: |
+          echo "{"
+          echo "github: ${{ toJson(github) }},"
+          echo "env: ${{ toJson(env) }},"
+          echo "vars: ${{ toJson(vars) }},"
+          echo "job: ${{ toJson(job) }},"
+          echo "jobs: ${{ toJson(jobs) }},"
+          echo "steps: ${{ toJson(steps) }},"
+          echo "runner: ${{ toJson(runner) }},"
+          echo "secrets: ${{ toJson(secrets) }},"
+          echo "strategy: ${{ toJson(strategy) }},"
+          echo "matrix: ${{ toJson(matrix) }},"
+          echo "needs: ${{ toJson(needs) }},"
+          echo "inputs: ${{ toJson(inputs) }}"
+          echo "}"
+
       - name: github context
         run: echo "${{ toJson(github) }}"
 
