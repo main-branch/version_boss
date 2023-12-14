@@ -83,18 +83,14 @@ jobs:
 
       - name: Runner Info
         run: |
-          echo "Runner OS: ${{ runner.os }}"
-          echo "Runner Labels: ${{ runner.labels }}"
           echo "Runner Name: ${{ runner.name }}"
-          echo "Runner ID: ${{ runner.id }}"
-          echo "Runner Group: ${{ runner.group }}"
-          echo "Runner Workspace: ${{ runner.workspace }}"
+          echo "Runner OS: ${{ runner.os }}"
+          echo "Runner Arch: ${{ runner.arch }}"
           echo "Runner Temp: ${{ runner.temp }}"
           echo "Runner Tool Cache: ${{ runner.tool_cache }}"
-          echo "Runner OS Architecture: ${{ runner.os_architecture }}"
-          echo "Runner Path: ${{ runner.path }}"
-          echo "Runner Is Hosted: ${{ runner.is_hosted }}"
-          echo "Runner Is Virtual Machine: ${{ runner.is_virtual }}"
+          echo "Runner Debug: ${{ runner.debug }}"
+          echo "Runner ID: ${{ github.run_id }}"
+          echo "Job ID ID: ${{ github.job }}"
 
       - name: Check statuses
         run: |
