@@ -81,16 +81,8 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v3
 
-      - name: Runner Info
-        run: |
-          echo "Runner Name: ${{ runner.name }}"
-          echo "Runner OS: ${{ runner.os }}"
-          echo "Runner Arch: ${{ runner.arch }}"
-          echo "Runner Temp: ${{ runner.temp }}"
-          echo "Runner Tool Cache: ${{ runner.tool_cache }}"
-          echo "Runner Debug: ${{ runner.debug }}"
-          echo "Runner ID: ${{ github.run_id }}"
-          echo "Job ID ID: ${{ github.job }}"
+      - name: Github Context
+        run: echo "${{ toJson(github) }}"
 
       - name: Check statuses
         run: |
