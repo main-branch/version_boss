@@ -95,45 +95,22 @@ jobs:
           echo "inputs: ${{ toJson(inputs) }}"
           echo "}"
 
-      - name: github context
-        run: echo "${{ toJson(github) }}"
+      - name: Get Current Job Log URL
+        uses: Tiryoh/gha-jobid-action@v1
+        id: jobs
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          job_name: "${{ github.job }}"
 
-      - name: env context
-        run: echo "${{ toJson(env) }}"
-
-      - name: vars context
-        run: echo "${{ toJson(vars) }}"
-
-      - name: job context
-        run: echo "${{ toJson(job) }}"
-
-      # - name: jobs context
-      #   run: echo "${{ toJson(jobs) }}"
-
-      - name: steps context
-        run: echo "${{ toJson(steps) }}"
-
-      - name: runner context
-        run: echo "${{ toJson(runner) }}"
-
-      - name: secrets context
-        run: echo "${{ toJson(secrets) }}"
-
-      # - name: strategy context
-      #   run: echo "${{ toJson(strategy) }}"
-
-      # - name: matrix context
-      #   run: echo "${{ toJson(matrix) }}"
-
-      - name: needs context
-        run: echo "${{ toJson(needs) }}"
-
-      - name: inputs context
-        run: echo "${{ toJson(inputs) }}"
+      - name: Current Job ID and URL
+        run: !
+          echo ${{ steps.jobs.outputs.job_id }}
+          echo ${{ steps.jobs.outputs.html_url }}
 
       - name: Check statuses
         run: |
           ls status/*.txt | sort | while IFS= read -r file; do
             cat "$file"
           done
+
     if: always()
