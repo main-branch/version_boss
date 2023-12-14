@@ -103,7 +103,7 @@ jobs:
           job_name: "${{ github.job }}"
 
       - name: Current Job ID and URL
-        run: !
+        run: |
           echo ${{ steps.jobs.outputs.job_id }}
           echo ${{ steps.jobs.outputs.html_url }}
 
