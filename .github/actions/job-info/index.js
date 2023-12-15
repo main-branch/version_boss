@@ -18,7 +18,7 @@ const jobConclusionEmojis = {
   failure: ':x:',
   neutral: ':neutral_face:',
   cancelled: ':no_entry_sign:',
-  skipped: ':fast_forward:',
+  skipped: ':black_right_pointing_double_triangle_with_vertical_bar:',
   timed_out: ':hourglass:',
   action_required: ':warning:'
 };
