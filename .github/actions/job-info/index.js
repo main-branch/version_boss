@@ -32,15 +32,15 @@ async function run() {
     // core.info(JSON.stringify(jobs, null, 2));
 
     // Create a slack message using a heredoc string template to report the workflow status
-    const workflow_status = workflowSucceeded(jobs) ? 'SUCCESS :sunny:' : 'FAILURE :rain_cloud:';
+    const workflowStatus = workflowSucceeded(jobs) ? 'SUCCESS :sunny:' : 'FAILURE :rain_cloud:';
 
-    const pull_request = github.context.payload.pull_request;
+    const pullRequest = github.context.payload.pull_request;
     const serverUrl = process.env.GITHUB_SERVER_URL;
-    const run_url = `${serverUrl}/${owner}/${repository}/actions/runs/${runId}`;
-    const title = `[${pull_request.title}](${run_url})`;
+    const runUrl = `${serverUrl}/${owner}/${repository}/actions/runs/${runId}`;
+    const title = `[${pullRequest.title}](${runUrl})`;
 
     // ref should be a link to the pull request and the link text should be the repository owner/name and the pull request number
-    const ref = `[${owner}/${repository}#${pull_request.number}](${pull_request.html_url})`;
+    const ref = `[${owner}/${repository}#${pullRequest.number}](${pullRequest.html_url})`;
 
     const message = `${workflowStatus} ${title} (${ref})`;
     core.info(`\n\nMessage: ${message}`);
