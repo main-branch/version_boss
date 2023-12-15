@@ -1,0 +1,27 @@
+name: "Fetch Workflow Job Info"
+description: "GitHub Action to get the a workflow run's job information"
+inputs:
+  github_token:
+    description: "GITHUB_TOKEN to use GitHub API v3"
+    required: true
+  repository:
+    description: "target GitHub repository"
+    required: false
+  run_id:
+    description: "run_id of target workflow run"
+    required: false
+  per_page:
+    description: "Results per page (max 100) of target workflow run"
+    required: false
+outputs:
+  jobs:
+    description: "info of all jobs"
+    value: ${{ steps.request.outputs.jobs }}
+
+branding:
+  icon: "link"
+  color: "blue"
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

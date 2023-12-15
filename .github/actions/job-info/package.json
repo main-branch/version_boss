@@ -1,0 +1,12 @@
+{
+  "name": "github-actions-job-info",
+  "version": "1.0.0",
+  "description": "GitHub Action to get the a workflow run's job information",
+  "main": "index.js",
+  "author": "James Couball",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0"
+  }
+}
