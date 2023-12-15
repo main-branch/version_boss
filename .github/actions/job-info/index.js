@@ -6,6 +6,31 @@ function workflowSucceeded(jobs) {
   return jobs.filter(job => job.status === 'completed').every(job => job.conclusion === 'success');
 }
 
+// create a map of job statuses to slack emojis
+const jobStatusEmojis = {
+  queued: ':hourglass:',
+  in_progress: ':hourglass:',
+};
+
+// create a map of job conclusions to slack emojis
+const jobConclusionEmojis = {
+  success: ':white_check_mark:',
+  failure: ':x:',
+  neutral: ':neutral_face:',
+  cancelled: ':no_entry_sign:',
+  skipped: ':fast_forward:',
+  timed_out: ':hourglass:',
+  action_required: ':warning:'
+};
+
+function jobEmoji(job) {
+  if (job.status === 'completed') {
+    return jobConclusionEmojis[job.conclusion];
+  } else {
+    return jobStatusEmojis[job.status];
+  }
+}
+
 async function run() {
   try {
     const token = core.getInput('github_token');
@@ -13,6 +38,7 @@ async function run() {
     const owner = github.context.repo.owner;
     const runId = core.getInput('run_id') || github.context.runId;
     const perPage = core.getInput('per_page') || 30;
+    const verbose = core.getInput('verbose') || false;
 
     const octokit = github.getOctokit(token);
 
@@ -25,14 +51,6 @@ async function run() {
 
     const jobs = response.data.jobs;
 
-    // // Log the github context
-    // core.info("\nGithub context:");
-    // core.info(JSON.stringify(github.context, null, 2));
-
-    // // Log the jobs array
-    // core.info("\n\nJobs data:");
-    // core.info(JSON.stringify(jobs, null, 2));
-
     // Create a slack message using a heredoc string template to report the workflow status
     const workflowStatus = workflowSucceeded(jobs) ? 'SUCCESS :sunny:' : 'FAILURE :rain_cloud:';
 
@@ -44,8 +62,13 @@ async function run() {
     // ref should be a link to the pull request and the link text should be the repository owner/name and the pull request number
     const ref = `[${owner}/${repository}#${pullRequest.number}](${pullRequest.html_url})`;
 
-    const message = `${workflowStatus} ${title} (${ref})`;
-    core.info(`\n\nMessage: ${message}`);
+    const jobHeading = '\nAll Jobs:\n* ';
+    const jobsList = jobs.map(job => {
+      return `${jobEmoji(job)} [${job.name}](${job.html_url}) ${job.name}`;
+    });
+
+    const message = `${workflowStatus} ${title} (${ref})${jobHeading}${jobsList.join('\n* ')}`;
+    core.info(`\n\nMessage:\n${message}`);
 
     core.setOutput('jobs', jobs);
   } catch (error) {
