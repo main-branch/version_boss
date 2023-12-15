@@ -39,29 +39,26 @@ jobs:
       #   #run only if config is
       #   if: ${{ matrix.ruby == 'head' }}
 
-      - name: Get Current Job Log URL
-        uses: Tiryoh/gha-jobid-action@v1
-        id: jobs
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          job_name: "${{ github.job }}"
-        run: |
-          mkdir -p status
-          echo "${NAME}: ${{ job.status }}" > "status/$(date +'%Y%m%d%H%M%S') ${NAME}.txt"
-        if: always()
+      # - name: Get Current Job Log URL
+      #   uses: Tiryoh/gha-jobid-action@v1
+      #   id: jobs
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     job_name: "${{ github.job }}"
 
-      - name: Save status
-        run: |
-          mkdir -p status
-          echo "${NAME}: ${{ job.status }}" > "status/$(date +'%Y%m%d%H%M%S') ${NAME}.txt"
-        if: always()
 
-      - name: Upload status artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: status
-          path: "status/*.txt"
-        if: always()
+      # - name: Save status
+      #   run: |
+      #     mkdir -p status
+      #     echo "${NAME}: ${{ job.status }}" > "status/$(date +'%Y%m%d%H%M%S') ${NAME}.txt"
+      #   if: always()
+
+      # - name: Upload status artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: status
+      #     path: "status/*.txt"
+      #   if: always()
 
   build-job2:
     needs: build
@@ -72,25 +69,25 @@ jobs:
     steps:
       - run: echo "SUCCESS"
 
-      - name: Save status
-        run: |
-          mkdir -p status
-          echo "${NAME}: ${{ job.status }}" > "status/$(date +'%Y%m%d%H%M%S') ${NAME}.txt"
-        if: always()
+      # - name: Save status
+      #   run: |
+      #     mkdir -p status
+      #     echo "${NAME}: ${{ job.status }}" > "status/$(date +'%Y%m%d%H%M%S') ${NAME}.txt"
+      #   if: always()
 
-      - name: Upload status artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: status
-          path: "status/*.txt"
-        if: always()
+      # - name: Upload status artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: status
+      #     path: "status/*.txt"
+      #   if: always()
 
   report:
     needs: build-job2
     runs-on: ubuntu-latest
     steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v3
+      # - name: Download all artifacts
+      #   uses: actions/download-artifact@v3
 
       - name: Output Job Info
         uses: .github/actions/job-info
@@ -111,22 +108,22 @@ jobs:
           echo "inputs: ${{ toJson(inputs) }}"
           echo "}"
 
-      - name: Get Current Job Log URL
-        uses: Tiryoh/gha-jobid-action@v1
-        id: jobs
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          job_name: "${{ github.job }}"
+      # - name: Get Current Job Log URL
+      #   uses: Tiryoh/gha-jobid-action@v1
+      #   id: jobs
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     job_name: "${{ github.job }}"
 
-      - name: Current Job ID and URL
-        run: |
-          echo ${{ steps.jobs.outputs.job_id }}
-          echo ${{ steps.jobs.outputs.html_url }}
+      # - name: Current Job ID and URL
+      #   run: |
+      #     echo ${{ steps.jobs.outputs.job_id }}
+      #     echo ${{ steps.jobs.outputs.html_url }}
 
-      - name: Check statuses
-        run: |
-          ls status/*.txt | sort | while IFS= read -r file; do
-            cat "$file"
-          done
+      # - name: Check statuses
+      #   run: |
+      #     ls status/*.txt | sort | while IFS= read -r file; do
+      #       cat "$file"
+      #     done
 
     if: always()
