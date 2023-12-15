@@ -33537,12 +33537,14 @@ async function run() {
 
     const octokit = github.getOctokit(token);
 
-    const jobs = await octokit.rest.actions.listJobsForWorkflowRun({
+    const response = await octokit.rest.actions.listJobsForWorkflowRun({
       owner,
       repo: repository,
       run_id: runId,
       per_page: parseInt(perPage)
-    }).data.jobs;
+    })
+
+    const jobs = response.data.jobs;
 
     // // Log the github context
     // core.info("\nGithub context:");
