@@ -93,7 +93,7 @@ jobs:
       #   uses: actions/download-artifact@v3
 
       - name: Output Job Info
-        uses: ./.github/actions/job-info@v1
+        uses: ./.github/actions/job-info
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
