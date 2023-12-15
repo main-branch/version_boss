@@ -12,7 +12,7 @@ async function run() {
 
     // const octokit = github.getOctokit(token);
 
-    const response = await github.rest.actions.listJobsForWorkflowRun({
+    const response = await github.actions.listJobsForWorkflowRun({
       owner,
       repo: repository,
       run_id: runId,
