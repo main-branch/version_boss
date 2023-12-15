@@ -10,9 +10,9 @@ async function run() {
     const jobName = core.getInput('job_name');
     const perPage = core.getInput('per_page') || 30;
 
-    const octokit = github.getOctokit(token);
+    // const octokit = github.getOctokit(token);
 
-    const response = await octokit.actions.listJobsForWorkflowRun({
+    const response = await github.rest.actions.listJobsForWorkflowRun({
       owner,
       repo: repository,
       run_id: runId,
