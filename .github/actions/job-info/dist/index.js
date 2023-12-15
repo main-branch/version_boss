@@ -33570,7 +33570,8 @@ async function run() {
       per_page: parseInt(perPage)
     })
 
-    const jobs = response.data.jobs;
+    // filter out the current job
+    const jobs = response.data.jobs.filter(job => job.id !== github.context.job);
 
     // Create a slack message using a heredoc string template to report the workflow status
     const workflowStatus = workflowSucceeded(jobs) ? 'SUCCESS :sunny:' : 'FAILURE :rain_cloud:';
