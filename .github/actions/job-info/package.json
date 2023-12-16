@@ -5,8 +5,14 @@
   "main": "index.js",
   "author": "James Couball",
   "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "ncc build index.js --license licenses.txt"
+  },
   "dependencies": {
     "@actions/core": "^1.6.0",
-    "@actions/github": "^5.0.0"
+    "@actions/github": "^5.0.0",
+    "@slack/web-api": "^6.10.0",
+    "handlebars": "^4.7.8"
   }
 }
