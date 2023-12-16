@@ -33522,6 +33522,8 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(724);
 const github = __nccwpck_require__(4258);
 
+// Prototype for the workflow run object:
+//
 // const workflowRun = {
 //   'id': '0',
 //   'htmlUrl': '',
@@ -33559,6 +33561,8 @@ function workflowRunStatus(jobs) {
 
 async function jobsForWorkflowRun(owner, repository, runId) {
   const perPage = parseInt(core.getInput('per_page') || '30');
+  const token = core.getInput('github_token');
+  const octokit = github.getOctokit(token);
 
   const response = await octokit.rest.actions.listJobsForWorkflowRun({
     owner,
