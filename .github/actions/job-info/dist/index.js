@@ -33603,6 +33603,7 @@ async function workflowRunObject() {
     } : undefined,
     'jobs': jobs.map(job => {
       return {
+        'id': job.id,
         'name': job.name,
         'status': job.status,
         'conclusion': job.conclusion,
