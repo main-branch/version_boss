@@ -33611,8 +33611,10 @@ async function workflowRunObject() {
       }
     }),
     'repository': {
+      'id': github.context.payload.repository.id,
       'owner': owner,
-      'repo': repository
+      'repo': repository,
+      'htmlUrl': `${serverUrl}/${owner}/${repository}`
     }
   }
 }
