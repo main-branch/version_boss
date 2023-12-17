@@ -2,6 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const Handlebars = require('handlebars');
 const fs = require('fs');
+const path = require('path');
 
 // Prototype for the workflow run object:
 //
@@ -108,8 +109,10 @@ async function run() {
     const workflowRun = await workflowRunObject();
     // core.info(JSON.stringify(workflowRun, null, 2));
 
+    const templatePath = path.join(__dirname, 'message.hbs');
+
     // Read the template file
-    const source = fs.readFileSync('message.hbs', 'utf-8');
+    const source = fs.readFileSync(templatePath, 'utf-8');
 
     // Compile the template
     const template = Handlebars.compile(source);

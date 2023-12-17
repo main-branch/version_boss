@@ -41907,6 +41907,7 @@ const core = __nccwpck_require__(724);
 const github = __nccwpck_require__(4258);
 const Handlebars = __nccwpck_require__(5353);
 const fs = __nccwpck_require__(7147);
+const path = __nccwpck_require__(1017);
 
 // Prototype for the workflow run object:
 //
@@ -42013,8 +42014,10 @@ async function run() {
     const workflowRun = await workflowRunObject();
     // core.info(JSON.stringify(workflowRun, null, 2));
 
+    const templatePath = path.join(__dirname, 'message.hbs');
+
     // Read the template file
-    const source = fs.readFileSync('message.hbs', 'utf-8');
+    const source = fs.readFileSync(templatePath, 'utf-8');
 
     // Compile the template
     const template = Handlebars.compile(source);
