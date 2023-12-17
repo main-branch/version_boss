@@ -1,1 +1,11 @@
-{{ workflowRunStatusEmoji status }} {{ pullRequest.title }}
+{
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "{{ workflowRunStatusEmoji status }} <{{ pullRequest.htmlUrl }}|{{ pullRequest.title }}>"
+			}
+		}
+	]
+}
