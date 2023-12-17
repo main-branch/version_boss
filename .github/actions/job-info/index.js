@@ -119,6 +119,7 @@ async function run() {
 
     Handlebars.registerHelper('jobStatueEmoji', jobStatusEmoji);
     Handlebars.registerHelper('workflowRunStatusEmoji', workflowRunStatusEmoji);
+    Handlebars.registerHelper('workflowRunStatus', workflowRunStatus);
 
     // Render the template
     const result = template(workflowRun);
@@ -138,13 +139,13 @@ const jobStatusEmojis = {
 
 // create a map of job conclusions to slack emojis
 const jobConclusionEmojis = {
-  success: ':white_check_mark:',
-  failure: ':x:',
-  neutral: ':neutral_face:',
-  cancelled: ':no_entry_sign:',
-  skipped: ':black_right_pointing_double_triangle_with_vertical_bar:',
-  timed_out: ':hourglass:',
-  action_required: ':warning:'
+  success: 'white_check_mark',
+  failure: 'x',
+  neutral: 'neutral_face',
+  cancelled: 'no_entry_sign',
+  skipped: 'black_right_pointing_double_triangle_with_vertical_bar',
+  timed_out: 'hourglass',
+  action_required: 'warning'
 };
 
 function jobStatusEmoji(status, conclusion) {
@@ -157,10 +158,14 @@ function jobStatusEmoji(status, conclusion) {
 
 function workflowRunStatusEmoji(status) {
   if (status === 'success') {
-    return ':sunny:';
+    return 'sunny';
   } else {
-    return ':rain_cloud:';
+    return 'rain_cloud';
   }
+}
+
+function workflowRunStatus(status) {
+  return status.toUpperCase();
 }
 
 // async function run2() {
