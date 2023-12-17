@@ -14,3 +14,5 @@
 /rspec-report.xml
 /rubocop-report.json
 /sig
+
+.github/actions/**/node_modules

@@ -9,56 +9,124 @@ on:
 
 jobs:
   build:
-    continue-on-error: true
+    runs-on: ubuntu-latest
+
+    name: Ruby ${{ matrix.ruby }} on ${{ matrix.operating-system }}
+
+    env:
+      NAME: Ruby ${{ matrix.ruby }} on ${{ matrix.operating-system }}
 
     strategy:
+      fail-fast: false
       matrix:
         ruby: ['3.0', '3.2', head, jruby-head]
         operating-system: [ubuntu-latest]
         include:
           - ruby: '3.0'
             operating-system: windows-latest
-          # - ruby: jruby-head
-          #   operating-system: windows-latest
-
-    name: Ruby ${{ matrix.ruby }} on ${{ matrix.operating-system }}
-    runs-on: ${{ matrix.operating-system }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Initialize Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
+      - name: Build successfully
+        run: echo "SUCCESS"
+        #run only if config is 1 or 3
+        # if: ${{ matrix.ruby != 'head' }}
 
-      - name: Run rake
-        run: bundle exec rake
+      - name: Build failed
+        run: echo "FAILED" && exit 1
+        #run only if config is
+        if: ${{ matrix.ruby == 'head' }}
 
-  coverage:
-    needs: [ build ]
+      # - name: Get Current Job Log URL
+      #   uses: Tiryoh/gha-jobid-action@v1
+      #   id: jobs
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     job_name: "${{ github.job }}"
+
+
+      # - name: Save status
+      #   run: |
+      #     mkdir -p status
+      #     echo "${NAME}: ${{ job.status }}" > "status/$(date +'%Y%m%d%H%M%S') ${NAME}.txt"
+      #   if: always()
+
+      # - name: Upload status artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: status
+      #     path: "status/*.txt"
+      #   if: always()
+
+  build-job2:
+    needs: build
     runs-on: ubuntu-latest
-
-    name: Report test coverage to CodeClimate
+    env:
+      NAME: Build Job 2
 
     steps:
+      - run: echo "SUCCESS"
+
+      # - name: Save status
+      #   run: |
+      #     mkdir -p status
+      #     echo "${NAME}: ${{ job.status }}" > "status/$(date +'%Y%m%d%H%M%S') ${NAME}.txt"
+      #   if: always()
+
+      # - name: Upload status artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: status
+      #     path: "status/*.txt"
+      #   if: always()
+
+  report:
+    needs: build-job2
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Initialize Ruby
-        uses: ruby/setup-ruby@v1
+      # - name: Download all artifacts
+      #   uses: actions/download-artifact@v3
+
+      - name: Output Job Info
+        uses: ./.github/actions/job-info
         with:
-          ruby-version: 3.1
-          bundler-cache: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run tests
-        run: bundle exec rake spec
+      - name: all contexts
+        run: |
+          echo "{"
+          echo "github: ${{ toJson(github) }},"
+          echo "env: ${{ toJson(env) }},"
+          echo "vars: ${{ toJson(vars) }},"
+          echo "job: ${{ toJson(job) }},"
+          echo "steps: ${{ toJson(steps) }},"
+          echo "runner: ${{ toJson(runner) }},"
+          echo "secrets: ${{ toJson(secrets) }},"
+          echo "needs: ${{ toJson(needs) }},"
+          echo "inputs: ${{ toJson(inputs) }}"
+          echo "}"
 
-      - name: Report test coverage
-        uses: paambaati/codeclimate-action@v3.2.0
-        env:
-          CC_TEST_REPORTER_ID: f0b6388a435f5b93101b27edc5c7fb8d5db2ee6f38216f5e4eeb9e1caf686afa
-        with:
-          coverageLocations: ${{github.workspace}}/coverage/lcov/*.lcov:lcov
+      # - name: Get Current Job Log URL
+      #   uses: Tiryoh/gha-jobid-action@v1
+      #   id: jobs
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     job_name: "${{ github.job }}"
+
+      # - name: Current Job ID and URL
+      #   run: |
+      #     echo ${{ steps.jobs.outputs.job_id }}
+      #     echo ${{ steps.jobs.outputs.html_url }}
+
+      # - name: Check statuses
+      #   run: |
+      #     ls status/*.txt | sort | while IFS= read -r file; do
+      #       cat "$file"
+      #     done
+
+    if: always()
