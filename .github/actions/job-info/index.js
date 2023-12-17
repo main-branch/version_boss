@@ -1,5 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const Handlebars = require('handlebars');
+const fs = require('fs');
 
 // Prototype for the workflow run object:
 //
@@ -7,30 +9,33 @@ const github = require('@actions/github');
 //   'id': '0',
 //   'htmlUrl': '',
 //   'status': 'success', // success, failure, or cancelled
-//   'triggerEvent': 'pull_request', // push, pull_request, or workflow_dispatch
+//   'triggerEventType': 'pull_request', // push, pull_request, or workflow_dispatch
 //   'pullRequest': { // only present if triggerEvent is pull_request
 //     'title': 'Update README.md',
 //     'number': 1,
 //     'openedBy': 'user',
-//     'htmlUrl': ''
+//     'htmlUrl': 'https://...'
 //   },
 //   'commit': {
 //     'sha': 'sha',
 //     'message': 'message',
 //     'pushedBy': 'user',
-//     'htmlUrl': ''
+//     'htmlUrl': 'https://...'
 //   },
 //   'jobs': [
 //     {
+//       'id': 0,
 //       'name': 'build',
 //       'status': 'completed',
 //       'conclusion': 'success',
-//       'htmlUrl': ''
+//       'htmlUrl': 'https://...'
 //     }
 //   ],
 //   'repository': {
+//     'id': 0,
 //     'owner': 'owner',
-//     'repo': 'repo'
+//     'repo': 'repo',
+//     'htmlUrl': 'https://...'
 //   }
 // }
 
@@ -67,7 +72,7 @@ async function workflowRunObject() {
     'id': runId,
     'htmlUrl': `${serverUrl}/${owner}/${repository}/actions/runs/${runId}`,
     'status': workflowRunStatus(jobs),
-    'triggerEvent': github.context.eventName,
+    'triggerEventType': github.context.eventName,
     'pullRequest': pullRequest ? {
       'title': pullRequest.title,
       'number': pullRequest.number,
@@ -98,11 +103,21 @@ async function workflowRunObject() {
   }
 }
 
-// write a function named run that will use the Bolt for JavaScript api to post a message 'Hello World' to Slack
 async function run() {
   try {
     const workflowRun = await workflowRunObject();
-    core.info(JSON.stringify(workflowRun, null, 2));
+    // core.info(JSON.stringify(workflowRun, null, 2));
+
+    // Read the template file
+    const source = fs.readFileSync('message.hbs', 'utf-8');
+
+    // Compile the template
+    const template = Handlebars.compile(source);
+
+    // Render the template
+    const result = template(data);
+
+    core.info(result);
   }
   catch (error) {
     core.setFailed(error.message);
