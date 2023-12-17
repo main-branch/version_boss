@@ -42022,6 +42022,9 @@ async function run() {
     // Compile the template
     const template = Handlebars.compile(source);
 
+    Handlebars.registerHelper('jobStatueEmoji', jobStatusEmoji);
+    Handlebars.registerHelper('workflowRunStatusEmoji', workflowRunStatusEmoji);
+
     // Render the template
     const result = template(workflowRun);
 
@@ -42032,30 +42035,38 @@ async function run() {
   }
 }
 
-// // create a map of job statuses to slack emojis
-// const jobStatusEmojis = {
-//   queued: ':hourglass:',
-//   in_progress: ':hourglass:',
-// };
+// create a map of job statuses to slack emojis
+const jobStatusEmojis = {
+  queued: ':hourglass:',
+  in_progress: ':hourglass:',
+};
 
-// // create a map of job conclusions to slack emojis
-// const jobConclusionEmojis = {
-//   success: ':white_check_mark:',
-//   failure: ':x:',
-//   neutral: ':neutral_face:',
-//   cancelled: ':no_entry_sign:',
-//   skipped: ':black_right_pointing_double_triangle_with_vertical_bar:',
-//   timed_out: ':hourglass:',
-//   action_required: ':warning:'
-// };
+// create a map of job conclusions to slack emojis
+const jobConclusionEmojis = {
+  success: ':white_check_mark:',
+  failure: ':x:',
+  neutral: ':neutral_face:',
+  cancelled: ':no_entry_sign:',
+  skipped: ':black_right_pointing_double_triangle_with_vertical_bar:',
+  timed_out: ':hourglass:',
+  action_required: ':warning:'
+};
 
-// function jobEmoji(job) {
-//   if (job.status === 'completed') {
-//     return jobConclusionEmojis[job.conclusion];
-//   } else {
-//     return jobStatusEmojis[job.status];
-//   }
-// }
+function jobStatusEmoji(status, conclusion) {
+  if (status === 'completed') {
+    return jobConclusionEmojis[conclusion];
+  } else {
+    return jobStatusEmojis[status];
+  }
+}
+
+function workflowRunStatusEmoji(status) {
+  if (status === 'success') {
+    return ':sunny:';
+  } else {
+    return ':rain_cloud:';
+  }
+}
 
 // async function run2() {
 //   try {
