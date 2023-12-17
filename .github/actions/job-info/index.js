@@ -118,7 +118,7 @@ async function run() {
     const template = Handlebars.compile(source);
 
     // Render the template
-    const result = template(data);
+    const result = template(workflowRun);
 
     core.info(result);
   }
