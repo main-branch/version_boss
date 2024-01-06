@@ -1,3 +1,12 @@
+## v0.3.1 (2024-01-05)
+
+[Full Changelog](https://github.com/main-branch/semverify/compare/v0.3.0..v0.3.1)
+
+Changes since v0.3.0:
+
+* 51f649f Add Ruby 3.3 to CI build (#17)
+* 3255436 Update rubocop configuration for new Rubocop changes (#15)
+
 ## v0.3.0 (2023-03-19)
 
 [Full Changelog](https://github.com/main-branch/semverify/compare/v0.2.0..v0.3.0)
