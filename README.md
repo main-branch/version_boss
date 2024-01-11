@@ -7,30 +7,59 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/maintainability)](https://codeclimate.com/github/main-branch/semverify/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/test_coverage)](https://codeclimate.com/github/main-branch/semverify/test_coverage)
 
-A Gem to parse, compare, and increment versions for RubyGems.
+Parse, compare, and increment RubyGem versions.
 
-Can be used as an alternative to the [bump RubyGem](https://rubygems.org/gems/bump/).
+This gem installs the `semverify` CLI tool to display and increment a gem's version
+based on SemVer rules. This tool can replace the `bump` command from the
+[bump gem](https://rubygems.org/gems/bump/) for incrementing gem version strings.
 
-* [Semverify](#semverify)
-  * [Installation](#installation)
-  * [Command Line Usage](#command-line-usage)
-  * [Library Usage](#library-usage)
-  * [Development](#development)
-  * [Contributing](#contributing)
-  * [License](#license)
+This gem also provides the `Semverify::Semver` class which knows how to parse,
+validate, and compare [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html) version
+strings.
+
+Both the CLI tool and the library code support prerelease versions and versions
+with build metadata.
+
+Example CLI commands:
+
+```bash
+# Increment the gem version
+semverify {next-major|next-minor|next-patch} [--pre [--pretype=TYPE]] [--build=METADATA] [--dryrun]
+semverify next-pre [--pretype=TYPE] [--build=METADATA] [--dryrun]
+semverify next-release [--build=METADATA] [--dryrun]
+
+# Command to display the current gem version
+semverify current
+
+# Display the gem version file
+semverify file
+
+# Validate that a version conforms to SemVer 2.0.0
+semverify validate VERSION
+
+# Get more detailed help for each command listed above
+semverify help [COMMAND]
+```
+
+* [Installation](#installation)
+* [Command Line Usage](#command-line-usage)
+* [Library Usage](#library-usage)
+* [Development](#development)
+* [Contributing](#contributing)
+* [License](#license)
 
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
 
 ```shell
-bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+bundle add semverify
 ```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```shell
-gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+gem install semverify
 ```
 
 ## Command Line Usage
