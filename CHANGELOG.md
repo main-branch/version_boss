@@ -1,3 +1,11 @@
+## v0.3.3 (2024-01-11)
+
+[Full Changelog](https://github.com/main-branch/semverify/compare/v0.3.2..v0.3.3)
+
+Changes since v0.3.2:
+
+* 8219bf1 Remove markdown from gemspec description (#21)
+
 ## v0.3.2 (2024-01-11)
 
 [Full Changelog](https://github.com/main-branch/semverify/compare/v0.3.1..v0.3.2)
