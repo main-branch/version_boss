@@ -1,3 +1,11 @@
+## v0.3.2 (2024-01-11)
+
+[Full Changelog](https://github.com/main-branch/semverify/compare/v0.3.1..v0.3.2)
+
+Changes since v0.3.1:
+
+* 91c3780 Update README and gemspec introduction text (#19)
+
 ## v0.3.1 (2024-01-05)
 
 [Full Changelog](https://github.com/main-branch/semverify/compare/v0.3.0..v0.3.1)
