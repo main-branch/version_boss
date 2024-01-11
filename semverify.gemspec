@@ -10,39 +10,8 @@ Gem::Specification.new do |spec|
 
   spec.summary = 'A Gem to parse and compare SemVer versions AND increment versions for Ruby Gems'
   spec.description = <<~DESC
-    Parse, compare, and increment RubyGem versions.
-
-    This gem installs the `semverify` CLI tool to display and increment a gem's version
-    based on SemVer rules. This tool can replace the `bump` command from the
-    [bump gem](https://rubygems.org/gems/bump/) for incrementing gem version strings.
-
-    This gem also provides the `Semverify::Semver` class which knows how to parse,
-    validate, and compare [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html) version
-    strings.
-
-    Both the CLI tool and the library code support prerelease versions and versions
-    with build metadata.
-
-    Example CLI commands:
-
-    ```bash
-    # Increment the gem version
-    semverify {next-major|next-minor|next-patch} [--pre [--pretype=TYPE]] [--build=METADATA] [--dryrun]
-    semverify next-pre [--pretype=TYPE] [--build=METADATA] [--dryrun]
-    semverify next-release [--build=METADATA] [--dryrun]
-
-    # Command to display the current gem version
-    semverify current
-
-    # Display the gem version file
-    semverify file
-
-    # Validate that a version conforms to SemVer 2.0.0
-    semverify validate VERSION
-
-    # Get more detailed help for each command listed above
-    semverify help [COMMAND]
-    ```
+    Parse, compare, and increment RubyGem versions with the 'semverify' CLI
+    command or the 'Semverify::Semver' class.
   DESC
 
   spec.homepage = 'http://github.com/main-branch/semverify'
