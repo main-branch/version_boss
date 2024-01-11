@@ -85,7 +85,7 @@ module Semverify
       --pre can be used to specify that the version should be incremented AND
       given a pre-release part. For instance:
 
-      /x5 $ semverify next-major --pre
+      $ semverify next-major --pre
 
       increments '1.2.3' to '2.0.0-pre.1'.
 
@@ -93,7 +93,7 @@ module Semverify
       --pre to specify a different pre-release type such as alpha, beta, rc, etc.
       For instance:
 
-      /x5 $ semverify next-major --pre --pre-type=alpha
+      $ semverify next-major --pre --pre-type=alpha
 
       increments '1.2.3' to '2.0.0-alpha.1'.
 
@@ -144,7 +144,7 @@ module Semverify
       --pre can be used to specify that the version should be incremented AND
       given a pre-release part. For instance:
 
-      /x5 $ semverify next-minor --pre
+      $ semverify next-minor --pre
 
       increments '1.2.3' to '2.0.0-pre.1'.
 
@@ -152,7 +152,7 @@ module Semverify
       --pre to specify a different pre-release type such as alpha, beta, rc, etc.
       For instance:
 
-      /x5 $ semverify next-patch --pre --pre-type=alpha
+      $ semverify next-patch --pre --pre-type=alpha
 
       increments '1.2.3' to '1.2.4-alpha.1'.
 
@@ -203,7 +203,7 @@ module Semverify
       --pre can be used to specify that the version should be incremented AND
       given a pre-release part. For instance:
 
-      /x5 $ semverify next-patch --pre
+      $ semverify next-patch --pre
 
       increments '1.2.3' to '1.2.4-pre.1'.
 
@@ -211,7 +211,7 @@ module Semverify
       --pre to specify a different pre-release type such as alpha, beta, rc, etc.
       For instance:
 
-      /x5 $ semverify next-patch --pre --pre-type=alpha
+      $ semverify next-patch --pre --pre-type=alpha
 
       increments '1.2.3' to '1.2.4-alpha.1'.
 
@@ -260,7 +260,7 @@ module Semverify
 
       By default, the existing pre-release type is preserved. For instance:
 
-      /x5 $ semverify next-pre
+      $ semverify next-pre
 
       Increments 1.2.3-alpha.1 to 1.2.3-alpha.2.
 
@@ -270,16 +270,16 @@ module Semverify
 
       For example, if the version starts as 1.2.3-alpha.4, then:
 
-      /x5 $ semverify current
-      /x5 1.2.3-alpha.4
-      /x5 $ semver next-pre --pre-type=beta
-      /x5 1.2.3-beta.1
-      /x5 $ semver next-pre --pre-type=beta
-      /x5 1.2.3-beta.2
-      /x5 $ semver next-pre --pre-type=rc
-      /x5 1.2.3-rc.1
-      /x5 $ semverify next-release
-      /x5 1.2.3
+      $ semverify current
+      1.2.3-alpha.4
+      $ semver next-pre --pre-type=beta
+      1.2.3-beta.1
+      $ semver next-pre --pre-type=beta
+      1.2.3-beta.2
+      $ semver next-pre --pre-type=rc
+      1.2.3-rc.1
+      $ semverify next-release
+      1.2.3
 
       The command fails if the existing pre-release type is not lexically less than or
       equal to TYPE. For example, it the current version is '1.2.3-beta.1' and the TYPE
