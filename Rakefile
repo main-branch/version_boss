@@ -36,8 +36,9 @@ RSpec::Core::RakeTask.new do
   if RUBY_PLATFORM == 'java'
     ENV['JAVA_OPTS'] = '-Djdk.io.File.enableADS=true'
     ENV['JRUBY_OPTS'] = '--debug'
-    ENV['NOCOV'] = 'TRUE'
+    ENV['COV_NO_FAIL'] = 'TRUE'
   end
+  ENV['COV_SHOW_UNCOVERED'] = 'TRUE'
 end
 
 CLEAN << 'coverage'
