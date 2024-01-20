@@ -1,3 +1,12 @@
+## v0.3.4 (2024-01-20)
+
+[Full Changelog](https://github.com/main-branch/semverify/compare/v0.3.3..v0.3.4)
+
+Changes since v0.3.3:
+
+* cf1dd7c Add env coverage options to use when running rspec (#25)
+* 4e5cc25 Add command line examples to the README.md (#24)
+
 ## v0.3.3 (2024-01-11)
 
 [Full Changelog](https://github.com/main-branch/semverify/compare/v0.3.2..v0.3.3)
