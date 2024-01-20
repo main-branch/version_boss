@@ -42,7 +42,9 @@ semverify help [COMMAND]
 ```
 
 * [Installation](#installation)
-* [Command Line Usage](#command-line-usage)
+* [Command Line](#command-line)
+  * [Usage](#usage)
+  * [Examples](#examples)
 * [Library Usage](#library-usage)
 * [Development](#development)
 * [Contributing](#contributing)
@@ -62,7 +64,9 @@ If bundler is not being used to manage dependencies, install the gem by executin
 gem install semverify
 ```
 
-## Command Line Usage
+## Command Line
+
+### Usage
 
 The `semverify` command line has built in help for all its commands. List the
 commands by invoking `semverify` with no arguments or `semverify help` as
@@ -110,6 +114,34 @@ Description:
 
   Use `--quiet` to ensure that a gem version could be found and is valid without producing any output.
 $
+```
+
+### Examples
+
+```Ruby
+semverify current # 0.1.0
+
+semverify validate 1.0.0 # exitcode=0
+semverify validate bad_version # exitcode=1
+
+semverify patch # 0.1.0 -> 0.1.1
+semverify minor # 0.1.1 -> 0.2.0
+semverify major # 0.2.0 -> 1.0.0
+
+# Pre-release with default pre-release type
+semverify major --pre # 0.1.1 -> 1.0.0-pre.1
+
+# Pre-release with non-default pre-release type
+semverify major --pre --pre-type=alpha # 0.1.1 -> 2.0.0-alpha.1
+
+# Increment pre-release
+semverify pre # 1.0.0-alpha.1 -> 1.0.0-alpha.2
+
+# Change the pre-release type
+semverify pre --pre-type=beta # 1.0.0-alpha.2 -> 1.0.0-beta.1
+
+# Create release from pre-release
+semverify release # 1.0.0-beta.1 -> 1.0.0
 ```
 
 ## Library Usage
