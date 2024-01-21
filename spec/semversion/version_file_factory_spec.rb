@@ -24,7 +24,7 @@ RSpec.describe Semverify::VersionFileFactory do
       around do |example|
         Dir.mktmpdir do |dir|
           Dir.chdir(dir) do
-            File.write('VERSION', '1.2.3-pre.1+build.999')
+            File.write('VERSION', '1.2.3.pre.1')
             example.run
           end
         end
@@ -37,7 +37,7 @@ RSpec.describe Semverify::VersionFileFactory do
           have_attributes(
             path: 'VERSION',
             content_before: '',
-            version: Semverify::IncrementableSemver.new('1.2.3-pre.1+build.999'),
+            version: Semverify::IncrementableGemVersion.new('1.2.3.pre.1'),
             content_after: ''
           )
         )
@@ -66,7 +66,7 @@ RSpec.describe Semverify::VersionFileFactory do
           have_attributes(
             path: 'lib/semverify/version.rb',
             content_before: "module Semverify\n  VERSION = '",
-            version: Semverify::IncrementableSemver.new('0.1.0'),
+            version: Semverify::IncrementableGemVersion.new('0.1.0'),
             content_after: "'\nend\n"
           )
         )
@@ -79,7 +79,7 @@ RSpec.describe Semverify::VersionFileFactory do
           Dir.chdir(dir) do
             File.write('semverify.gemspec', <<~GEMSPEC)
               Gem::Specification.new do |spec|
-                spec.version = '2.0.0-pre.1'
+                spec.version = '2.0.0.pre.1'
               end
             GEMSPEC
             example.run
@@ -94,7 +94,7 @@ RSpec.describe Semverify::VersionFileFactory do
           have_attributes(
             path: 'semverify.gemspec',
             content_before: "Gem::Specification.new do |spec|\n  spec.version = '",
-            version: Semverify::IncrementableSemver.new('2.0.0-pre.1'),
+            version: Semverify::IncrementableGemVersion.new('2.0.0.pre.1'),
             content_after: "'\nend\n"
           )
         )

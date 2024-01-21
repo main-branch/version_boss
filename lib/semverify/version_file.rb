@@ -20,13 +20,13 @@ module Semverify
     # @param version [String] the version
     # @param content_after [String] the content after the version
     #
-    # @raise [Semverify::Error] if the version is not an IncrementableSemver
+    # @raise [Semverify::Error] if the version is not an IncrementableGemVersion
     #
     # @api private
     #
     def initialize(path, content_before, version, content_after)
-      raise Semverify::Error, 'version must be an IncrementableSemver' unless
-        version.is_a?(Semverify::IncrementableSemver)
+      raise Semverify::Error, 'version must be an IncrementableGemVersion' unless
+        version.is_a?(Semverify::IncrementableGemVersion)
 
       @path = path
       @content_before = content_before
@@ -61,11 +61,11 @@ module Semverify
     # The version from the version file
     #
     # @example
-    #   version = Semverify::IncrementableSemver.new('1.2.3')
+    #   version = Semverify::IncrementableGemVersion.new('1.2.3')
     #   version_file = Semverify::VersionFile.new('lib/semverify/version.rb', 'VERSION = "', version, '"')
     #   version_file.version.to_s # => '1.2.3'
-    # @return [Semverify::IncrementableSemver]
-    # @raise [Semverify::Error] if the version is not an IncrementableSemver
+    # @return [Semverify::IncrementableGemVersion]
+    # @raise [Semverify::Error] if the version is not an IncrementableGemVersion
     # @api public
     attr_reader :version
 
@@ -82,17 +82,17 @@ module Semverify
 
     # Update the version in the version file
     #
-    # @param new_version [Semverify::IncrementableSemver] the new version
+    # @param new_version [Semverify::IncrementableGemVersion] the new version
     # @example
     #   version_file = Semverify::VersionFile.new('lib/semverify/version.rb', 'VERSION = "', '1.2.3', '"')
     #   version_file.version = '1.2.4'
     # @return [Void]
-    # @raise [Semverify::Error] if new_version is not an IncrementableSemver
+    # @raise [Semverify::Error] if new_version is not an IncrementableGemVersion
     # @api public
     #
     def version=(new_version)
-      raise Semverify::Error, 'new_version must be an IncrementableSemver' unless
-        new_version.is_a?(Semverify::IncrementableSemver)
+      raise Semverify::Error, 'new_version must be an IncrementableGemVersion' unless
+        new_version.is_a?(Semverify::IncrementableGemVersion)
 
       @version = version
       File.write(path, content_before + new_version.to_s + content_after)

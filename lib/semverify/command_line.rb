@@ -87,7 +87,7 @@ module Semverify
 
       $ semverify next-major --pre
 
-      increments '1.2.3' to '2.0.0-pre.1'.
+      increments '1.2.3' to '2.0.0.pre.1'.
 
       By default, the pre-release type is 'pre'. --pre-type=TYPE can be used with
       --pre to specify a different pre-release type such as alpha, beta, rc, etc.
@@ -146,7 +146,7 @@ module Semverify
 
       $ semverify next-minor --pre
 
-      increments '1.2.3' to '2.0.0-pre.1'.
+      increments '1.2.3' to '2.0.0.pre.1'.
 
       By default, the pre-release type is 'pre'. --pre-type=TYPE can be used with
       --pre to specify a different pre-release type such as alpha, beta, rc, etc.
@@ -205,7 +205,7 @@ module Semverify
 
       $ semverify next-patch --pre
 
-      increments '1.2.3' to '1.2.4-pre.1'.
+      increments '1.2.3' to '1.2.4.pre.1'.
 
       By default, the pre-release type is 'pre'. --pre-type=TYPE can be used with
       --pre to specify a different pre-release type such as alpha, beta, rc, etc.
@@ -375,7 +375,7 @@ module Semverify
     # @return [void]
     #
     def validate(version)
-      Semverify::IncrementableSemver.new(version)
+      Semverify::IncrementableGemVersion.new(version)
     rescue Semverify::Error => e
       warn e.message unless options[:quiet]
       exit 1
@@ -443,11 +443,11 @@ module Semverify
     # @param args [Hash] The arguments to pass to the method
     # @param version [String] The version to increment
     #
-    # @return [Semverify::IncrementableSemver] the incremented version
+    # @return [Semverify::IncrementableRubyVersion] the incremented version
     # @raise [Semverify::Error] if the version is not a valid IncrementableSemver version
     #
     def increment_literal_version(method, args, version)
-      Semverify::IncrementableSemver.new(version).send(method, **args)
+      Semverify::IncrementableGemVersion.new(version).send(method, **args)
     end
 
     # Increment the gem's version from the gem's version file
@@ -455,7 +455,7 @@ module Semverify
     # @param method [Symbol] The method to call on the IncrementableSemver object
     # @param args [Hash] The arguments to pass to the method
     #
-    # @return [Semverify::IncrementableSemver] the incremented version
+    # @return [Semverify::IncrementableRubyVersion] the incremented version
     # @raise [Semverify::Error] if the version is not a valid IncrementableSemver version
     #
     def increment_gem_version(method, args)

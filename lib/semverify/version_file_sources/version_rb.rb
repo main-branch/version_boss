@@ -16,7 +16,7 @@ module Semverify
             .*
             VERSION\s*=\s*(?<quote>['"])
           )
-          (?<version>#{Semverify::SEMVER_REGEXP.source})
+          (?<version>#{Semverify::RUBYVER_REGEXP.source})
           (?<content_after>\k<quote>.*)
         \z
       /xm

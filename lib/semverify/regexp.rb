@@ -1,6 +1,30 @@
 # frozen_string_literal: true
 
 module Semverify
+  # Match a gem_version within a string
+  RUBYVER_REGEXP = /
+    (?<gem_version>
+      (?<major>0|[1-9]\d*)
+      \.
+      (?<minor>0|[1-9]\d*)
+      \.
+      (?<patch>0|[1-9]\d*)
+      (?<pre_release>
+        (?:
+          \.?
+          [a-z]+
+          (?:
+            \.?
+            (?:[a-z]+|\d+)
+          )*
+        )?
+      )
+    )
+  /x
+
+  # Match a gem_version to the full string
+  RUBYVER_REGEXP_FULL = /\A#{RUBYVER_REGEXP.source}\z/x
+
   # Match a semver within a string
   SEMVER_REGEXP = /
     (?<semver>

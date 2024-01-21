@@ -19,7 +19,7 @@ module Semverify
       def self.find
         Dir[glob].filter_map do |path|
           if (match = File.read(path).match(content_regexp))
-            version = Semverify::IncrementableSemver.new(match[:version])
+            version = Semverify::IncrementableGemVersion.new(match[:version])
             Semverify::VersionFile.new(path, match[:content_before], version, match[:content_after])
           end
         end.first

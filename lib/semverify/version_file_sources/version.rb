@@ -13,7 +13,7 @@ module Semverify
       VERSION_REGEXP = /
         \A
           (?<content_before>\s*)
-          (?<version>#{Semverify::SEMVER_REGEXP.source})
+          (?<version>#{Semverify::RUBYVER_REGEXP.source})
           (?<content_after>\s*)
         \z
       /x
