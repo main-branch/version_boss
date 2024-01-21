@@ -31,7 +31,7 @@ RSpec.describe Semverify::CommandLine do
     end
 
     context 'with a valid version file' do
-      let(:expected_version) { '1.2.3-pre.1+build.999' }
+      let(:expected_version) { '1.2.3.pre.1' }
 
       before do
         File.write('VERSION', expected_version)

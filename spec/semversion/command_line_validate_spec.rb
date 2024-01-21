@@ -7,7 +7,7 @@ RSpec.describe Semverify::CommandLine do
     subject { described_class.start(['validate', *args]) }
 
     let(:args) { [] }
-    let(:expected_version) { '1.2.3-pre.1+build.999' }
+    let(:expected_version) { '1.2.3.pre.1' }
 
     context 'when VERSION is not given' do
       it 'should exit with exitstatus 1 and an error to stderr' do

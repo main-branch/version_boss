@@ -15,7 +15,7 @@ RSpec.describe Semverify::CommandLine do
     subject { described_class.start(['current', *args]) }
 
     let(:args) { [] }
-    let(:expected_version) { '1.2.3-pre.1+build.999' }
+    let(:expected_version) { '1.2.3.pre.1' }
 
     context 'when a version file could not be found' do
       it 'should exit with exitstatus 1 and an error to stderr' do

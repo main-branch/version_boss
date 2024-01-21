@@ -129,7 +129,7 @@ semverify minor # 0.1.1 -> 0.2.0
 semverify major # 0.2.0 -> 1.0.0
 
 # Pre-release with default pre-release type
-semverify major --pre # 0.1.1 -> 1.0.0-pre.1
+semverify major --pre # 0.1.1 -> 1.0.0.pre.1
 
 # Pre-release with non-default pre-release type
 semverify major --pre --pre-type=alpha # 0.1.1 -> 2.0.0-alpha.1

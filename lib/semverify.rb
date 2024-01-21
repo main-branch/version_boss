@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require 'semverify/command_line'
+require 'semverify/incrementable_gem_version'
 require 'semverify/incrementable_semver'
 require 'semverify/regexp'
+require 'semverify/gem_version'
 require 'semverify/semver'
 require 'semverify/version_file'
 require 'semverify/version_file_factory'
