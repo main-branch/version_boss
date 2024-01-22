@@ -7,38 +7,38 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/maintainability)](https://codeclimate.com/github/main-branch/semverify/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/test_coverage)](https://codeclimate.com/github/main-branch/semverify/test_coverage)
 
-Parse, compare, and increment RubyGem versions.
+Parse, compare, and increment Gem and Semver versions.
 
-This gem installs the `semverify` CLI tool to display and increment a gem's version
+This gem installs the `gem-version` CLI tool to display and increment a gem's version
 based on SemVer rules. This tool can replace the `bump` command from the
 [bump gem](https://rubygems.org/gems/bump/) for incrementing gem version strings.
 
-This gem also provides the `Semverify::Semver` class which knows how to parse,
+This gem also provides the `Semverify::Gem::Version` class which knows how to parse,
 validate, and compare [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html) version
-strings.
+strings. The `Semverify::Gem::IncrementableVersion` class knows how to increment
+a version based on SemVer rules.
 
-Both the CLI tool and the library code support prerelease versions and versions
-with build metadata.
+Both the CLI tool and the library code support prerelease versions.
 
 Example CLI commands:
 
 ```bash
 # Increment the gem version
-semverify {next-major|next-minor|next-patch} [--pre [--pretype=TYPE]] [--build=METADATA] [--dryrun]
-semverify next-pre [--pretype=TYPE] [--build=METADATA] [--dryrun]
-semverify next-release [--build=METADATA] [--dryrun]
+gem-version {next-major|next-minor|next-patch} [--pre [--pretype=TYPE]] [--build=METADATA] [--dryrun]
+gem-version next-pre [--pretype=TYPE] [--build=METADATA] [--dryrun]
+gem-version next-release [--build=METADATA] [--dryrun]
 
 # Command to display the current gem version
-semverify current
+gem-version current
 
 # Display the gem version file
-semverify file
+gem-version file
 
 # Validate that a version conforms to SemVer 2.0.0
-semverify validate VERSION
+gem-version validate VERSION
 
 # Get more detailed help for each command listed above
-semverify help [COMMAND]
+gem-version help [COMMAND]
 ```
 
 * [Installation](#installation)
@@ -68,41 +68,41 @@ gem install semverify
 
 ### Usage
 
-The `semverify` command line has built in help for all its commands. List the
-commands by invoking `semverify` with no arguments or `semverify help` as
+The `gem-version` command line has built in help for all its commands. List the
+commands by invoking `gem-version` with no arguments or `gem-version help` as
 follows:
 
 ```shell
-semverify help
+gem-version help
 ```
 
 The output is the following:
 
 ```shell
 Commands:
-  semverify current [-q]                                              # Show the current gem version
-  semverify file [-q]                                                 # Show the path to the file containing the g...
-  semverify help [COMMAND]                                            # Describe available commands or one specifi...
-  semverify next-major [VERSION] [-p [-t TYPE]] [-b BUILD] [-n] [-q]  # Increment the version's major part
-  semverify next-minor [VERSION] [-p [-t TYPE]] [-b BUILD] [-n] [-q]  # Increment the version's minor part
-  semverify next-patch [VERSION] [-p [-t TYPE]] [-b BUILD] [-n] [-q]  # Increment the version's patch part
-  semverify next-pre [VERSION] [-t TYPE] [-b BUILD] [-n] [-q]         # Increment the version's pre-release part
-  semverify next-release [VERSION] [-b BUILD] [-n] [-q]               # Increment a pre-release version to the rel...
-  semverify validate VERSION [-q]                                     # Validate the given version
+  gem-version current [-q]                                              # Show the current gem version
+  gem-version file [-q]                                                 # Show the path to the file containing the g...
+  gem-version help [COMMAND]                                            # Describe available commands or one specifi...
+  gem-version next-major [VERSION] [-p [-t TYPE]] [-b BUILD] [-n] [-q]  # Increment the version's major part
+  gem-version next-minor [VERSION] [-p [-t TYPE]] [-b BUILD] [-n] [-q]  # Increment the version's minor part
+  gem-version next-patch [VERSION] [-p [-t TYPE]] [-b BUILD] [-n] [-q]  # Increment the version's patch part
+  gem-version next-pre [VERSION] [-t TYPE] [-b BUILD] [-n] [-q]         # Increment the version's pre-release part
+  gem-version next-release [VERSION] [-b BUILD] [-n] [-q]               # Increment a pre-release version to the rel...
+  gem-version validate VERSION [-q]                                     # Validate the given version
 $
 ```
 
-The `semverify help COMMAND` command will give further help for a specific command:
+The `gem-version help COMMAND` command will give further help for a specific command:
 
 ```shell
-semverify help current
+gem-version help current
 ```
 
 The output is the following:
 
 ```shell
 Usage:
-  semverify current [-q]
+  gem-version current [-q]
 
 Options:
   -q, [--quiet], [--no-quiet]  # Do not print the current version to stdout
@@ -119,29 +119,29 @@ $
 ### Examples
 
 ```Ruby
-semverify current # 0.1.0
+gem-version current # 0.1.0
 
-semverify validate 1.0.0 # exitcode=0
-semverify validate bad_version # exitcode=1
+gem-version validate 1.0.0 # exitcode=0
+gem-version validate bad_version # exitcode=1
 
-semverify patch # 0.1.0 -> 0.1.1
-semverify minor # 0.1.1 -> 0.2.0
-semverify major # 0.2.0 -> 1.0.0
+gem-version patch # 0.1.0 -> 0.1.1
+gem-version minor # 0.1.1 -> 0.2.0
+gem-version major # 0.2.0 -> 1.0.0
 
 # Pre-release with default pre-release type
-semverify major --pre # 0.1.1 -> 1.0.0.pre.1
+gem-version major --pre # 0.1.1 -> 1.0.0.pre.1
 
 # Pre-release with non-default pre-release type
-semverify major --pre --pre-type=alpha # 0.1.1 -> 2.0.0-alpha.1
+gem-version major --pre --pre-type=alpha # 0.1.1 -> 2.0.0-alpha.1
 
 # Increment pre-release
-semverify pre # 1.0.0-alpha.1 -> 1.0.0-alpha.2
+gem-version pre # 1.0.0-alpha.1 -> 1.0.0-alpha.2
 
 # Change the pre-release type
-semverify pre --pre-type=beta # 1.0.0-alpha.2 -> 1.0.0-beta.1
+gem-version pre --pre-type=beta # 1.0.0-alpha.2 -> 1.0.0-beta.1
 
 # Create release from pre-release
-semverify release # 1.0.0-beta.1 -> 1.0.0
+gem-version release # 1.0.0-beta.1 -> 1.0.0
 ```
 
 ## Library Usage
@@ -150,16 +150,16 @@ semverify release # 1.0.0-beta.1 -> 1.0.0
 
 The main classes are:
 
-* **Semverify::Semver**: Parse and compare generic semver version strings. See
+* **Semverify::Gem::Version**: Parse and compare generic semver version strings. See
   [semver.org](https://semver.org) for details on what makes a valid semver string.
 
-* **Semverify::IncrementableSemver**: Extends the Semverify::Semver class that knows
+* **Semverify::Gem::IncrementableVersion**: Extends the Semverify::Semver class that knows
   how to increment (aka bump) parts of the version string (major, minor, patch,
   pre-release). Some additional restrictions are put onto the pre-release part
   so that the pre-release part of the version can be incremented.
 
-* **Semverify::VersionFileFactory**: find the gem's version file and returns a
-  **Semverify::VersionFile** that knows it's path, the contained version, and how to update
+* **Semverify::Gem::VersionFileFactory**: find the gem's version file and returns a
+  **Semverify::Gem::VersionFile** that knows it's path, the contained version, and how to update
   the version file with a new version.
 
 ## Development

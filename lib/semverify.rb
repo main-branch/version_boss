@@ -1,20 +1,10 @@
 # frozen_string_literal: true
 
-require 'semverify/command_line'
-require 'semverify/incrementable_gem_version'
-require 'semverify/incrementable_semver'
-require 'semverify/regexp'
-require 'semverify/gem_version'
-require 'semverify/semver'
-require 'semverify/version_file'
-require 'semverify/version_file_factory'
-require 'semverify/version_file_sources'
-require 'semverify/version'
+require_relative 'semverify/gem'
+require_relative 'semverify/semver'
 
-# Parse and compare semver versions AND bump versions for Ruby Gems
+# Parse, compare, and increment versions according to the SemVer 2.0.0
 module Semverify
-  # Errors reported by the Semverify library
+  # Errors reported by the Semverify gem
   class Error < StandardError; end
-
-  # Your code goes here...
 end
