@@ -10,23 +10,26 @@
 Parse, compare, and increment Gem and Semver versions.
 
 This gem installs the `gem-version` CLI tool to display and increment a gem's version
-based on SemVer rules. This tool can replace the `bump` command from the
-[bump gem](https://rubygems.org/gems/bump/) for incrementing gem version strings.
+based on SemVer rules.
 
-This gem also provides the `Semverify::Gem::Version` class which knows how to parse,
-validate, and compare [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html) version
-strings. The `Semverify::Gem::IncrementableVersion` class knows how to increment
-a version based on SemVer rules.
+`gem-version` can replace the `bump` command from the [bump
+gem](https://rubygems.org/gems/bump/) for incrementing gem version strings.
 
-Both the CLI tool and the library code support prerelease versions.
+How `gem-version` differs from `bump`:
+
+* `gem-version` can manage pre-release versions
+* `bump` can commit and tag the version file changes it makes. There is no plan to
+  add this functionality to `gem-version`.
+* `bump` can update the version in extra files you to specify extra files to
+  increment the version in
 
 Example CLI commands:
 
-```bash
+```shell
 # Increment the gem version
-gem-version {next-major|next-minor|next-patch} [--pre [--pretype=TYPE]] [--build=METADATA] [--dryrun]
-gem-version next-pre [--pretype=TYPE] [--build=METADATA] [--dryrun]
-gem-version next-release [--build=METADATA] [--dryrun]
+gem-version {next-major|next-minor|next-patch} [--pre [--pretype=TYPE]] [--dryrun]
+gem-version next-pre [--pretype=TYPE] [--dryrun]
+gem-version next-release [--dryrun]
 
 # Command to display the current gem version
 gem-version current
@@ -46,6 +49,8 @@ gem-version help [COMMAND]
   * [Usage](#usage)
   * [Examples](#examples)
 * [Library Usage](#library-usage)
+  * [Semverify::Gem classes](#semverifygem-classes)
+  * [Semverify::Semver classes](#semverifysemver-classes)
 * [Development](#development)
 * [Contributing](#contributing)
 * [License](#license)
@@ -118,7 +123,7 @@ $
 
 ### Examples
 
-```Ruby
+```shell
 gem-version current # 0.1.0
 
 gem-version validate 1.0.0 # exitcode=0
@@ -144,34 +149,53 @@ gem-version pre --pre-type=beta # 1.0.0-alpha.2 -> 1.0.0-beta.1
 gem-version release # 1.0.0-beta.1 -> 1.0.0
 ```
 
+This gem also provides the following classes:
+
 ## Library Usage
 
-[Detailed API documenation](https://rubydoc.info/gems/semverify/) is hosted on rubygems.org.
+[Detailed API documenation](https://rubydoc.info/gems/semverify/) is hosted on
+rubygems.org.
 
 The main classes are:
 
-* **Semverify::Gem::Version**: Parse and compare generic semver version strings. See
-  [semver.org](https://semver.org) for details on what makes a valid semver string.
+### Semverify::Gem classes
 
-* **Semverify::Gem::IncrementableVersion**: Extends the Semverify::Semver class that knows
-  how to increment (aka bump) parts of the version string (major, minor, patch,
-  pre-release). Some additional restrictions are put onto the pre-release part
-  so that the pre-release part of the version can be incremented.
+* **Semverify::Gem::Version** knows how to parse, validate, and compare [Ruby Gem
+  version strings](https://guides.rubygems.org/patterns/#semantic-versioning).
+
+* **Semverify::Gem::IncrementableVersion** knows how to increment Ruby Gem version
+  strings according to SemVer rules.
 
 * **Semverify::Gem::VersionFileFactory**: find the gem's version file and returns a
-  **Semverify::Gem::VersionFile** that knows it's path, the contained version, and how to update
-  the version file with a new version.
+  **Semverify::Gem::VersionFile** that knows it's path, the contained version, and
+  how to update the version file with a new version.
+
+### Semverify::Semver classes
+
+* **Semverify::Semver::Version** knows how to parse, validate, and compare version
+  strings that conform to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html)
+
+* **Semverify::Semver::IncrementableVersion** knows how to increment Semver version
+  strings according to SemVer rules.
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake
+spec` to run the tests. You can also run `bin/console` for an interactive prompt that
+will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To
+release a new version, update the version number in `version.rb`, and then run
+`bundle exec rake release`, which will create a git tag for the version, push git
+commits and the created tag, and push the `.gem` file to
+[rubygems.org](https://rubygems.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/main-branch/semverify.
+Bug reports and pull requests are welcome on GitHub at
+https://github.com/main-branch/semverify.
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT
+License](https://opensource.org/licenses/MIT).
