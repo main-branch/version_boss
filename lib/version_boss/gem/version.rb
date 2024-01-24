@@ -164,26 +164,6 @@ module VersionBoss
       #
       attr_reader :pre_release_identifiers
 
-      # @attribute build_metadata [r]
-      #
-      # The build_metadata part of the version
-      #
-      # Will be an empty string if the version has no build_metadata part.
-      #
-      # @example
-      #   gem_version = VersionBoss::GemVersion.new('1.2.3.alpha.1+build.001')
-      #   gem_version.build_metadata #=> 'build.001'
-      #
-      # @example When the version has no build_metadata part
-      #   gem_version = VersionBoss::GemVersion.new('1.2.3')
-      #   gem_version.build_metadata #=> ''
-      #
-      # @return [String]
-      #
-      # @api public
-      #
-      attr_reader :build_metadata
-
       # Compare two GemVersion objects
       #
       # See the [Precedence Rules](https://gem_version.org/spec/v2.0.0.html#spec-item-11)
@@ -284,7 +264,6 @@ module VersionBoss
 
         core_parts(match_data)
         pre_release_part(match_data)
-        build_metadata_part(match_data)
       end
 
       # Compare the major, minor, and patch parts of this GemVersion to other
@@ -332,13 +311,13 @@ module VersionBoss
         pre_release_identifiers.size < other.pre_release_identifiers.size ? -1 : 0
       end
 
-      # Raise a error if other is not a valid Semver
+      # Raise a error if other is not a valid Gem version
       # @param other [GemVersion] the other to check
       # @return [void]
-      # @raise [VersionBoss::Error] if other is not a valid Semver
+      # @raise [VersionBoss::Error] if other is not a valid Gem version
       # @api private
       def assert_other_is_a_gem_version(other)
-        raise VersionBoss::Error, 'other must be a Semver' unless other.is_a?(Version)
+        raise VersionBoss::Error, 'other must be a VersionBoss::Gem::Version' unless other.is_a?(Version)
       end
 
       # Raise a error if the given version is not a string
@@ -350,15 +329,15 @@ module VersionBoss
         raise VersionBoss::Error, 'Version must be a string' unless version.is_a?(String)
       end
 
-      # Raise a error if this version object is not a valid Semver
+      # Raise a error if this version object is not a valid Gem version
       # @return [void]
-      # @raise [VersionBoss::Error] if other is not a valid Semver
+      # @raise [VersionBoss::Error] if other is not a valid Gem version
       # @api private
       def assert_valid_version
         raise VersionBoss::Error, "Not a valid version string: #{version}" unless valid?
       end
 
-      # Set the major, minor, and patch parts of this Semver
+      # Set the major, minor, and patch parts of this version
       # @param match_data [MatchData] the match data from the version string
       # @return [void]
       # @api private
@@ -368,21 +347,13 @@ module VersionBoss
         @patch = match_data[:patch]
       end
 
-      # Set the pre-release of this Semver
+      # Set the pre-release of this version
       # @param match_data [MatchData] the match data from the version string
       # @return [void]
       # @api private
       def pre_release_part(match_data)
         @pre_release = match_data[:pre_release] || ''
         @pre_release_identifiers = tokenize_pre_release_part(@pre_release)
-      end
-
-      # Set the build_metadata of this Semver
-      # @param match_data [MatchData] the match data from the version string
-      # @return [void]
-      # @api private
-      def build_metadata_part(_match_data)
-        @build_metadata = ''
       end
 
       # A pre-release part of a version which consists of an optional prefix and an identifier

@@ -52,11 +52,9 @@ module VersionBoss
       #
       # @return [IncrementableVersion] a new IncrementableVersion object with the major version incremented
       #
-      def next_major(pre: false, pre_type: DEFAULT_PRE_TYPE, build_metadata: nil)
+      def next_major(pre: false, pre_type: DEFAULT_PRE_TYPE)
         version_string = "#{major.to_i + 1}.0.0"
         version_string += ".#{pre_type}.1" if pre
-        build_metadata = self.build_metadata if build_metadata.nil?
-        version_string += "+#{build_metadata}" unless build_metadata.empty?
         IncrementableVersion.new(version_string)
       end
 
@@ -68,11 +66,9 @@ module VersionBoss
       #
       # @return [IncrementableVersion] a new IncrementableVersion object with the major version incremented
       #
-      def next_minor(pre: false, pre_type: DEFAULT_PRE_TYPE, build_metadata: nil)
+      def next_minor(pre: false, pre_type: DEFAULT_PRE_TYPE)
         version_string = "#{major}.#{minor.to_i + 1}.0"
         version_string += ".#{pre_type}.1" if pre
-        build_metadata = self.build_metadata if build_metadata.nil?
-        version_string += "+#{build_metadata}" unless build_metadata.empty?
         IncrementableVersion.new(version_string)
       end
 
@@ -84,11 +80,9 @@ module VersionBoss
       #
       # @return [IncrementableVersion] a new IncrementableVersion object with the patch part incremented
       #
-      def next_patch(pre: false, pre_type: DEFAULT_PRE_TYPE, build_metadata: nil)
+      def next_patch(pre: false, pre_type: DEFAULT_PRE_TYPE)
         version_string = "#{major}.#{minor}.#{patch.to_i + 1}"
         version_string += ".#{pre_type}.1" if pre
-        build_metadata = self.build_metadata if build_metadata.nil?
-        version_string += "+#{build_metadata}" unless build_metadata.empty?
         IncrementableVersion.new(version_string)
       end
 
@@ -99,12 +93,10 @@ module VersionBoss
       #
       # @return [IncrementableVersion] a new object with the pre_release part incremented
       #
-      def next_pre(pre_type: nil, build_metadata: nil)
+      def next_pre(pre_type: nil)
         assert_is_a_pre_release_version
         version_string = "#{major}.#{minor}.#{patch}"
         version_string += next_pre_part(pre_type)
-        build_metadata ||= self.build_metadata
-        version_string += "+#{build_metadata}" unless build_metadata.empty?
         IncrementableVersion.new(version_string)
       end
 
@@ -116,11 +108,9 @@ module VersionBoss
       # @return [IncrementableVersion] a new IncrementableVersion object with the pre_release part dropped
       # @raise [VersionBoss::Error] if the version is not a pre-release version
       #
-      def next_release(build_metadata: nil)
+      def next_release
         assert_is_a_pre_release_version
         version_string = "#{major}.#{minor}.#{patch}"
-        build_metadata ||= self.build_metadata
-        version_string += "+#{build_metadata}" unless build_metadata.empty?
         IncrementableVersion.new(version_string)
       end
 
