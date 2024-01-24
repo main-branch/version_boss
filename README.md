@@ -1,11 +1,11 @@
-# Semverify
+# Version Boss
 
-[![Gem Version](https://badge.fury.io/rb/semverify.svg)](https://badge.fury.io/rb/semverify)
-[![Documentation](https://img.shields.io/badge/Documentation-Latest-green)](https://rubydoc.info/gems/semverify/)
-[![Change Log](https://img.shields.io/badge/CHANGELOG-Latest-green)](https://rubydoc.info/gems/semverify/file/CHANGELOG.md)
-[![Build Status](https://github.com/main-branch/semverify/workflows/CI%20Build/badge.svg?branch=main)](https://github.com/main-branch/semverify/actions?query=workflow%3ACI%20Build)
-[![Maintainability](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/maintainability)](https://codeclimate.com/github/main-branch/semverify/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/test_coverage)](https://codeclimate.com/github/main-branch/semverify/test_coverage)
+[![Gem Version](https://badge.fury.io/rb/version_boss.svg)](https://badge.fury.io/rb/version_boss)
+[![Documentation](https://img.shields.io/badge/Documentation-Latest-green)](https://rubydoc.info/gems/version_boss/)
+[![Change Log](https://img.shields.io/badge/CHANGELOG-Latest-green)](https://rubydoc.info/gems/version_boss/file/CHANGELOG.md)
+[![Build Status](https://github.com/main-branch/version_boss/workflows/CI%20Build/badge.svg?branch=main)](https://github.com/main-branch/version_boss/actions?query=workflow%3ACI%20Build)
+[![Maintainability](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/maintainability)](https://codeclimate.com/github/main-branch/version_boss/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/test_coverage)](https://codeclimate.com/github/main-branch/version_boss/test_coverage)
 
 Parse, compare, and increment Gem and Semver versions.
 
@@ -49,8 +49,8 @@ gem-version help [COMMAND]
   * [Usage](#usage)
   * [Examples](#examples)
 * [Library Usage](#library-usage)
-  * [Semverify::Gem classes](#semverifygem-classes)
-  * [Semverify::Semver classes](#semverifysemver-classes)
+  * [VersionBoss::Gem classes](#versionbossgem-classes)
+  * [VersionBoss::Semver classes](#versionbosssemver-classes)
 * [Development](#development)
 * [Contributing](#contributing)
 * [License](#license)
@@ -60,13 +60,13 @@ gem-version help [COMMAND]
 Install the gem and add to the application's Gemfile by executing:
 
 ```shell
-bundle add semverify
+bundle add version_boss
 ```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```shell
-gem install semverify
+gem install version_boss --group=development
 ```
 
 ## Command Line
@@ -153,29 +153,29 @@ This gem also provides the following classes:
 
 ## Library Usage
 
-[Detailed API documenation](https://rubydoc.info/gems/semverify/) is hosted on
+[Detailed API documenation](https://rubydoc.info/gems/version_boss/) is hosted on
 rubygems.org.
 
 The main classes are:
 
-### Semverify::Gem classes
+### VersionBoss::Gem classes
 
-* **Semverify::Gem::Version** knows how to parse, validate, and compare [Ruby Gem
+* **VersionBoss::Gem::Version** knows how to parse, validate, and compare [Ruby Gem
   version strings](https://guides.rubygems.org/patterns/#semantic-versioning).
 
-* **Semverify::Gem::IncrementableVersion** knows how to increment Ruby Gem version
+* **VersionBoss::Gem::IncrementableVersion** knows how to increment Ruby Gem version
   strings according to SemVer rules.
 
-* **Semverify::Gem::VersionFileFactory**: find the gem's version file and returns a
-  **Semverify::Gem::VersionFile** that knows it's path, the contained version, and
+* **VersionBoss::Gem::VersionFileFactory**: find the gem's version file and returns a
+  **VersionBoss::Gem::VersionFile** that knows it's path, the contained version, and
   how to update the version file with a new version.
 
-### Semverify::Semver classes
+### VersionBoss::Semver classes
 
-* **Semverify::Semver::Version** knows how to parse, validate, and compare version
+* **VersionBoss::Semver::Version** knows how to parse, validate, and compare version
   strings that conform to [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html)
 
-* **Semverify::Semver::IncrementableVersion** knows how to increment Semver version
+* **VersionBoss::Semver::IncrementableVersion** knows how to increment Semver version
   strings according to SemVer rules.
 
 ## Development
@@ -193,7 +193,7 @@ commits and the created tag, and push the `.gem` file to
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at
-https://github.com/main-branch/semverify.
+https://github.com/main-branch/version_boss.
 
 ## License
 

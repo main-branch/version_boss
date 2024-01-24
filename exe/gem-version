@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'semverify'
+require 'version_boss'
 
-Semverify::Gem::CommandLine.start(ARGV)
+VersionBoss::Gem::CommandLine.start(ARGV)

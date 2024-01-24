@@ -454,4 +454,4 @@ SimpleCov.start
 
 # Make sure to require your project AFTER SimpleCov.start
 #
-require 'semverify'
+require 'version_boss'
