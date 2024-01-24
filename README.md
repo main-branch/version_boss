@@ -85,16 +85,15 @@ The output is the following:
 
 ```shell
 Commands:
-  gem-version current [-q]                                              # Show the current gem version
-  gem-version file [-q]                                                 # Show the path to the file containing the g...
-  gem-version help [COMMAND]                                            # Describe available commands or one specifi...
-  gem-version next-major [VERSION] [-p [-t TYPE]] [-b BUILD] [-n] [-q]  # Increment the version's major part
-  gem-version next-minor [VERSION] [-p [-t TYPE]] [-b BUILD] [-n] [-q]  # Increment the version's minor part
-  gem-version next-patch [VERSION] [-p [-t TYPE]] [-b BUILD] [-n] [-q]  # Increment the version's patch part
-  gem-version next-pre [VERSION] [-t TYPE] [-b BUILD] [-n] [-q]         # Increment the version's pre-release part
-  gem-version next-release [VERSION] [-b BUILD] [-n] [-q]               # Increment a pre-release version to the rel...
-  gem-version validate VERSION [-q]                                     # Validate the given version
-$
+  gem-version current [-q]                                   # Show the current gem version
+  gem-version file [-q]                                      # Show the path to the file containing the gem version
+  gem-version help [COMMAND]                                 # Describe available commands or one specific command
+  gem-version next-major [VERSION] [-p [-t TYPE]] [-n] [-q]  # Increment the version's major part
+  gem-version next-minor [VERSION] [-p [-t TYPE]] [-n] [-q]  # Increment the version's minor part
+  gem-version next-patch [VERSION] [-p [-t TYPE]] [-n] [-q]  # Increment the version's patch part
+  gem-version next-pre [VERSION] [-t TYPE] [-n] [-q]         # Increment the version's pre-release part
+  gem-version next-release [VERSION] [-n] [-q]               # Increment a pre-release version to the release version
+  gem-version validate VERSION [-q]                          # Validate the given version
 ```
 
 The `gem-version help COMMAND` command will give further help for a specific command:

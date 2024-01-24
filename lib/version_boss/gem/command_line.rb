@@ -69,7 +69,7 @@ module VersionBoss
         puts version_file.path unless options[:quiet]
       end
 
-      desc 'next-major [VERSION] [-p [-t TYPE]] [-b BUILD] [-n] [-q]', "Increment the version's major part"
+      desc 'next-major [VERSION] [-p [-t TYPE]] [-n] [-q]', "Increment the version's major part"
 
       long_desc <<-LONG_DESC
       Increase the current gem version to the next major version, update the
@@ -103,11 +103,6 @@ module VersionBoss
       is 'alpha', the the command will fail since the new version would sort before the
       existing version ('beta' is not less than or equal to 'alpha').
 
-      Use --build=BUILD to set the build metadata for the new version (See
-      [Build Metadata in the Semantic Versioning Specification](https://semver.org/spec/v2.0.0.html#spec-item-10)).
-      If --build is not given, the incremented version retain the previous build
-      metadata. Pass an empty string to remove the build metadata (--build="")
-
       Use --dry-run to run this command without updating the version file.
 
       Use --quiet to increment the version without producing any output.
@@ -116,7 +111,6 @@ module VersionBoss
       option :pre, type: :boolean, aliases: '-p', desc: 'Create a pre-release version'
       option :'pre-type', type: :string, aliases: '-t', default: 'pre', banner: 'TYPE',
                           desc: 'The type of pre-release version (alpha, beta, etc.)'
-      option :build, type: :string, aliases: '-b', desc: 'The build metadata to add to the version'
       option :'dry-run', type: :boolean, aliases: '-n', desc: 'Do not write the new version to the version file'
       option :quiet, type: :boolean, aliases: '-q', desc: 'Do not print the new version to stdout'
 
@@ -128,7 +122,7 @@ module VersionBoss
         increment_core_version(:next_major, version)
       end
 
-      desc 'next-minor [VERSION] [-p [-t TYPE]] [-b BUILD] [-n] [-q]', "Increment the version's minor part"
+      desc 'next-minor [VERSION] [-p [-t TYPE]] [-n] [-q]', "Increment the version's minor part"
 
       long_desc <<-LONG_DESC
       Increase the current gem version to the next minor version, update the
@@ -162,11 +156,6 @@ module VersionBoss
       is 'alpha', the the command will fail since the new version would sort before the
       existing version ('beta' is not less than or equal to 'alpha').
 
-      Use --build=BUILD to set the build metadata for the new version (See
-      [Build Metadata in the Semantic Versioning Specification](https://semver.org/spec/v2.0.0.html#spec-item-10)).
-      If --build is not given, the incremented version retain the previous build
-      metadata. Pass an empty string to remove the build metadata (--build="")
-
       Use --dry-run to run this command without updating the version file.
 
       Use --quiet to increment the version without producing any output.
@@ -175,7 +164,6 @@ module VersionBoss
       option :pre, type: :boolean, aliases: '-p', desc: 'Create a pre-release version'
       option :'pre-type', type: :string, aliases: '-t', default: 'pre', banner: 'TYPE',
                           desc: 'The type of pre-release version (alpha, beta, etc.)'
-      option :build, type: :string, aliases: '-b', desc: 'The build metadata to add to the version'
       option :'dry-run', type: :boolean, aliases: '-n', desc: 'Do not write the new version to the version file'
       option :quiet, type: :boolean, aliases: '-q', desc: 'Do not print the new version to stdout'
 
@@ -187,7 +175,7 @@ module VersionBoss
         increment_core_version(:next_minor, version)
       end
 
-      desc 'next-patch [VERSION] [-p [-t TYPE]] [-b BUILD] [-n] [-q]', "Increment the version's patch part"
+      desc 'next-patch [VERSION] [-p [-t TYPE]] [-n] [-q]', "Increment the version's patch part"
 
       long_desc <<-LONG_DESC
       Increase the current gem version to the next patch version, update the
@@ -221,11 +209,6 @@ module VersionBoss
       is 'alpha', the the command will fail since the new version would sort before the
       existing version ('beta' is not less than or equal to 'alpha').
 
-      Use --build=BUILD to set the build metadata for the new version (See
-      [Build Metadata in the Semantic Versioning Specification](https://semver.org/spec/v2.0.0.html#spec-item-10)).
-      If --build is not given, the incremented version retain the previous build
-      metadata. Pass an empty string to remove the build metadata (--build="")
-
       Use --dry-run to run this command without updating the version file.
 
       Use --quiet to increment the version without producing any output.
@@ -234,7 +217,6 @@ module VersionBoss
       option :pre, type: :boolean, aliases: '-p', desc: 'Create a pre-release version'
       option :'pre-type', type: :string, aliases: '-t', default: 'pre', banner: 'TYPE',
                           desc: 'The type of pre-release version (alpha, beta, etc.)'
-      option :build, type: :string, aliases: '-b', desc: 'The build metadata to add to the version'
       option :'dry-run', type: :boolean, aliases: '-n', desc: 'Do not write the new version to the version file'
       option :quiet, type: :boolean, aliases: '-q', desc: 'Do not print the new version to stdout'
 
@@ -246,7 +228,7 @@ module VersionBoss
         increment_core_version(:next_patch, version)
       end
 
-      desc 'next-pre [VERSION] [-t TYPE] [-b BUILD] [-n] [-q]', "Increment the version's pre-release part"
+      desc 'next-pre [VERSION] [-t TYPE] [-n] [-q]', "Increment the version's pre-release part"
 
       long_desc <<-LONG_DESC
       Increase the current gem version to the next pre-release version, update the
@@ -287,11 +269,6 @@ module VersionBoss
       given type is 'alpha', then the command will fail since the new version would sort
       before the existing version (since 'beta' is not <= 'alpha').
 
-      Use --build=BUILD to set the build metadata for the new version (See
-      [Build Metadata in the Semantic Versioning Specification](https://semver.org/spec/v2.0.0.html#spec-item-10)).
-      If --build is not given, the incremented version retain the previous build
-      metadata. Pass an empty string to remove the build metadata (--build="")
-
       Use --dry-run to run this command without updating the version file.
 
       Use --quiet to increment the version without producing any output.
@@ -299,7 +276,6 @@ module VersionBoss
 
       option :'pre-type', type: :string, aliases: '-t', banner: 'TYPE',
                           desc: 'The type of pre-release version (alpha, beta, etc.)'
-      option :build, type: :string, aliases: '-b', desc: 'The build metadata to add to the version'
       option :'dry-run', type: :boolean, aliases: '-n', desc: 'Do not write the new version to the version file'
       option :quiet, type: :boolean, aliases: '-q', desc: 'Do not print the new version to stdout'
 
@@ -310,14 +286,13 @@ module VersionBoss
       def next_pre(version = nil)
         args = {}
         args[:pre_type] = options[:'pre-type'] if options[:'pre-type']
-        args[:build_metadata] = options[:build] if options[:build]
 
         new_version = increment_version(:next_pre, args, version)
 
         puts new_version unless options[:quiet]
       end
 
-      desc 'next-release [VERSION] [-b BUILD] [-n] [-q]', 'Increment a pre-release version to the release version'
+      desc 'next-release [VERSION] [-n] [-q]', 'Increment a pre-release version to the release version'
 
       long_desc <<-LONG_DESC
       Increase the current gem version to the next release version, update the
@@ -332,17 +307,11 @@ module VersionBoss
       VERSION implies --dry-run. The command fails if VERSION is not a valid
       pre-release version.
 
-      Use --build=BUILD to set the build metadata for the new version (See
-      [Build Metadata in the Semantic Versioning Specification](https://semver.org/spec/v2.0.0.html#spec-item-10)).
-      If --build is not given, the incremented version retain the previous build
-      metadata. Pass an empty string to remove the build metadata (--build="")
-
       Use --dry-run to run this command without updating the version file.
 
       Use --quiet to increment the version without producing any output.
       LONG_DESC
 
-      option :build, type: :string, aliases: '-b', desc: 'The build metadata to add to the version'
       option :'dry-run', type: :boolean, aliases: '-n', desc: 'Do not write the new version to the version file'
       option :quiet, type: :boolean, aliases: '-q', desc: 'Do not print the new version to stdout'
 
@@ -352,8 +321,6 @@ module VersionBoss
       # @return [void]
       def next_release(version = nil)
         args = {}
-        args[:build_metadata] = options[:build] if options[:build]
-
         new_version = increment_version(:next_release, args, version)
 
         puts new_version unless options[:quiet]
@@ -397,7 +364,6 @@ module VersionBoss
         {}.tap do |args|
           args[:pre] = options[:pre] if options[:pre]
           args[:pre_type] = options[:'pre-type'] if options[:'pre-type']
-          args[:build_metadata] = options[:build] if options[:build]
         end
       end
 
