@@ -55,8 +55,8 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
       context 'when arg pre: true is given' do
         let(:args) { { pre: true } }
         let(:version) { '1.2.3' }
-        let(:expected_version) { described_class.new('2.0.0.pre.1') }
-        it 'should increment the major part and set the pre-release part to "pre.1"' do
+        let(:expected_version) { described_class.new('2.0.0.pre1') }
+        it 'should increment the major part and set the pre-release part to "pre1"' do
           expect(subject).to eq(expected_version)
         end
       end
@@ -64,8 +64,8 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
       context "when args pre: true, pre_suffix: 'alpha' are given" do
         let(:args) { { pre: true, pre_type: 'alpha' } }
         let(:version) { '1.2.3' }
-        let(:expected_version) { described_class.new('2.0.0.alpha.1') }
-        it 'should increment the major part and set the pre-release part to "alpha.1"' do
+        let(:expected_version) { described_class.new('2.0.0.alpha1') }
+        it 'should increment the major part and set the pre-release part to "alpha1"' do
           expect(subject).to eq(expected_version)
         end
       end
@@ -73,7 +73,7 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
 
     context 'when the version has a pre-release part' do
       context 'with out any args' do
-        let(:version) { '1.2.3.alpha.1' }
+        let(:version) { '1.2.3.alpha1' }
         let(:expected_version) { described_class.new('2.0.0') }
         it 'should increment the major part and clear the pre-release part' do
           expect(subject).to eq(expected_version)
@@ -82,18 +82,18 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
 
       context 'when the arg pre: true is given' do
         let(:args) { { pre: true } }
-        let(:version) { '1.2.3.pre.3' }
-        let(:expected_version) { described_class.new('2.0.0.pre.1') }
-        it "should increment the major part and set pre-release part to 'pre.1'" do
+        let(:version) { '1.2.3.pre3' }
+        let(:expected_version) { described_class.new('2.0.0.pre1') }
+        it "should increment the major part and set pre-release part to 'pre1'" do
           expect(subject).to eq(expected_version)
         end
       end
 
       context 'when the args pre: true, pre_type: "alpha" are given' do
         let(:args) { { pre: true, pre_type: 'alpha' } }
-        let(:version) { '1.2.3.pre.3' }
-        let(:expected_version) { described_class.new('2.0.0.alpha.1') }
-        it "should increment the major part and set pre-release part to 'alpha.1'" do
+        let(:version) { '1.2.3.pre3' }
+        let(:expected_version) { described_class.new('2.0.0.alpha1') }
+        it "should increment the major part and set pre-release part to 'alpha1'" do
           expect(subject).to eq(expected_version)
         end
       end
@@ -115,8 +115,8 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
       context 'when arg pre: true is given' do
         let(:args) { { pre: true } }
         let(:version) { '1.2.3' }
-        let(:expected_version) { described_class.new('1.3.0.pre.1') }
-        it 'should incrementthe minor part and set the pre-release part to "pre.1"' do
+        let(:expected_version) { described_class.new('1.3.0.pre1') }
+        it 'should incrementthe minor part and set the pre-release part to "pre1"' do
           expect(subject).to eq(expected_version)
         end
       end
@@ -124,8 +124,8 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
       context "when args pre: true, pre_suffix: 'alpha' are given" do
         let(:args) { { pre: true, pre_type: 'alpha' } }
         let(:version) { '1.2.3' }
-        let(:expected_version) { described_class.new('1.3.0.alpha.1') }
-        it 'should increment the minor part and set the pre-release part to "alpha.1"' do
+        let(:expected_version) { described_class.new('1.3.0.alpha1') }
+        it 'should increment the minor part and set the pre-release part to "alpha1"' do
           expect(subject).to eq(expected_version)
         end
       end
@@ -133,7 +133,7 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
 
     context 'when the version has a pre-release part' do
       context 'with out any args' do
-        let(:version) { '1.2.3.alpha.1' }
+        let(:version) { '1.2.3.alpha1' }
         let(:expected_version) { described_class.new('1.3.0') }
         it 'should increment the minor part and clear the pre-release part' do
           expect(subject).to eq(expected_version)
@@ -142,9 +142,9 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
 
       context 'when the arg pre: true is given' do
         let(:args) { { pre: true } }
-        let(:version) { '1.2.3.pre.3' }
-        let(:expected_version) { described_class.new('1.3.0.pre.1') }
-        it "should increment the minor part and set pre-release part to 'pre.1'" do
+        let(:version) { '1.2.3.pre3' }
+        let(:expected_version) { described_class.new('1.3.0.pre1') }
+        it "should increment the minor part and set pre-release part to 'pre1'" do
           expect(subject).to eq(expected_version)
         end
       end
@@ -152,8 +152,8 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
       context 'when the args pre: true, pre_type: "alpha" are given' do
         let(:args) { { pre: true, pre_type: 'alpha' } }
         let(:version) { '1.2.3.pre.3' }
-        let(:expected_version) { described_class.new('1.3.0.alpha.1') }
-        it "should increment the minor part and set pre-release part to 'alpha.1'" do
+        let(:expected_version) { described_class.new('1.3.0.alpha1') }
+        it "should increment the minor part and set pre-release part to 'alpha1'" do
           expect(subject).to eq(expected_version)
         end
       end
@@ -221,7 +221,7 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
       context 'when arg pre: true is given' do
         let(:args) { { pre: true } }
         let(:version) { '1.2.3' }
-        let(:expected_version) { described_class.new('1.2.4.pre.1') }
+        let(:expected_version) { described_class.new('1.2.4.pre1') }
         it 'should increment the patch part and set the pre-release part to "pre.1"' do
           expect(subject).to eq(expected_version)
         end
@@ -230,7 +230,7 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
       context "when args pre: true, pre_suffix: 'alpha' are given" do
         let(:args) { { pre: true, pre_type: 'alpha' } }
         let(:version) { '1.2.3' }
-        let(:expected_version) { described_class.new('1.2.4.alpha.1') }
+        let(:expected_version) { described_class.new('1.2.4.alpha1') }
         it 'should increment the patch part and set the pre-release part to "alpha.1"' do
           expect(subject).to eq(expected_version)
         end
@@ -249,7 +249,7 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
       context 'when the arg pre: true is given' do
         let(:args) { { pre: true } }
         let(:version) { '1.2.3.pre.3' }
-        let(:expected_version) { described_class.new('1.2.4.pre.1') }
+        let(:expected_version) { described_class.new('1.2.4.pre1') }
         it "should increment the patch part and set pre-release part to 'pre.1'" do
           expect(subject).to eq(expected_version)
         end
@@ -258,8 +258,8 @@ RSpec.describe VersionBoss::Gem::IncrementableVersion do
       context 'when the args pre: true, pre_type: "alpha" are given' do
         let(:args) { { pre: true, pre_type: 'alpha' } }
         let(:version) { '1.2.3.pre.3' }
-        let(:expected_version) { described_class.new('1.2.4.alpha.1') }
-        it "should increment the patch part and set pre-release part to 'alpha.1'" do
+        let(:expected_version) { described_class.new('1.2.4.alpha1') }
+        it "should increment the patch part and set pre-release part to 'alpha1'" do
           expect(subject).to eq(expected_version)
         end
       end

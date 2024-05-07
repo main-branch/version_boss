@@ -254,15 +254,15 @@ RSpec.shared_examples 'Gem Core Version Incrementer' do |part, from_version, to_
 
     context 'when --pre is given' do
       let(:args) { [version, '--pre'] }
-      it "should output #{to_version}.pre.1 (use the default pre-release type 'pre')" do
-        expect { subject }.to output("#{to_version}.pre.1\n").to_stdout
+      it "should output #{to_version}.pre1 (use the default pre-release type 'pre')" do
+        expect { subject }.to output("#{to_version}.pre1\n").to_stdout
       end
     end
 
     context 'when --pre and --pre-type=alpha are given' do
       let(:args) { [version, '--pre', '--pre-type=alpha'] }
-      it "should output #{to_version}.alpha.1 (use the given pre-release type)" do
-        expect { subject }.to output("#{to_version}.alpha.1\n").to_stdout
+      it "should output #{to_version}.alpha1 (use the given pre-release type)" do
+        expect { subject }.to output("#{to_version}.alpha1\n").to_stdout
       end
     end
   end
@@ -278,16 +278,16 @@ RSpec.shared_examples 'Gem Core Version Incrementer' do |part, from_version, to_
     context 'when given the --pre option' do
       let(:args) { [version, '--pre'] }
 
-      it "should output #{to_version}.pre.1 (using the default pre-release type 'pre')" do
-        expect { subject }.to output("#{to_version}.pre.1\n").to_stdout
+      it "should output #{to_version}.pre1 (using the default pre-release type 'pre')" do
+        expect { subject }.to output("#{to_version}.pre1\n").to_stdout
       end
     end
 
     context 'when given the --pre and --pre-type=alpha options' do
       let(:args) { [version, '--pre', '--pre-type=alpha'] }
 
-      it "should output #{to_version}.alpha.1 (using the pre-release type given)" do
-        expect { subject }.to output("#{to_version}.alpha.1\n").to_stdout
+      it "should output #{to_version}.alpha1 (using the pre-release type given)" do
+        expect { subject }.to output("#{to_version}.alpha1\n").to_stdout
       end
     end
 
