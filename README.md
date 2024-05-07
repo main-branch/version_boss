@@ -9,17 +9,17 @@
 
 Parse, compare, and increment Gem and Semver versions.
 
-This gem installs the `gem-version` CLI tool to display and increment a gem's version
+This gem installs the `gem-version-boss` CLI tool to display and increment a gem's version
 based on SemVer rules.
 
-`gem-version` can replace the `bump` command from the [bump
+`gem-version-boss` can replace the `bump` command from the [bump
 gem](https://rubygems.org/gems/bump/) for incrementing gem version strings.
 
-How `gem-version` differs from `bump`:
+How `gem-version-boss` differs from `bump`:
 
-* `gem-version` can manage pre-release versions
+* `gem-version-boss` can manage pre-release versions
 * `bump` can commit and tag the version file changes it makes. There is no plan to
-  add this functionality to `gem-version`.
+  add this functionality to `gem-version-boss`.
 * `bump` can update the version in extra files you to specify extra files to
   increment the version in
 
@@ -27,21 +27,21 @@ Example CLI commands:
 
 ```shell
 # Increment the gem version
-gem-version {next-major|next-minor|next-patch} [--pre [--pretype=TYPE]] [--dryrun]
-gem-version next-pre [--pretype=TYPE] [--dryrun]
-gem-version next-release [--dryrun]
+gem-version-boss {next-major|next-minor|next-patch} [--pre [--pretype=TYPE]] [--dryrun]
+gem-version-boss next-pre [--pretype=TYPE] [--dryrun]
+gem-version-boss next-release [--dryrun]
 
 # Command to display the current gem version
-gem-version current
+gem-version-boss current
 
 # Display the gem version file
-gem-version file
+gem-version-boss file
 
 # Validate that a version conforms to SemVer 2.0.0
-gem-version validate VERSION
+gem-version-boss validate VERSION
 
 # Get more detailed help for each command listed above
-gem-version help [COMMAND]
+gem-version-boss help [COMMAND]
 ```
 
 * [Installation](#installation)
@@ -73,43 +73,43 @@ gem install version_boss --group=development
 
 ### Usage
 
-The `gem-version` command line has built in help for all its commands. List the
-commands by invoking `gem-version` with no arguments or `gem-version help` as
+The `gem-version-boss` command line has built in help for all its commands. List the
+commands by invoking `gem-version-boss` with no arguments or `gem-version-boss help` as
 follows:
 
 ```shell
-gem-version help
+gem-version-boss help
 ```
 
 The output is the following:
 
 ```shell
 Commands:
-  gem-version current [-q]                                   # Show the current gem version
-  gem-version file [-q]                                      # Show the path to the file containing the gem version
-  gem-version help [COMMAND]                                 # Describe available commands or one specific command
-  gem-version next-major [VERSION] [-p [-t TYPE]] [-n] [-q]  # Increment the version's major part
-  gem-version next-minor [VERSION] [-p [-t TYPE]] [-n] [-q]  # Increment the version's minor part
-  gem-version next-patch [VERSION] [-p [-t TYPE]] [-n] [-q]  # Increment the version's patch part
-  gem-version next-pre [VERSION] [-t TYPE] [-n] [-q]         # Increment the version's pre-release part
-  gem-version next-release [VERSION] [-n] [-q]               # Increment a pre-release version to the release version
-  gem-version validate VERSION [-q]                          # Validate the given version
+  gem-version-boss current [-q]                                   # Show the current gem version
+  gem-version-boss file [-q]                                      # Show the path to the file containing the gem version
+  gem-version-boss help [COMMAND]                                 # Describe available commands or one specific command
+  gem-version-boss next-major [VERSION] [-p [-t TYPE]] [-n] [-q]  # Increment the version's major part
+  gem-version-boss next-minor [VERSION] [-p [-t TYPE]] [-n] [-q]  # Increment the version's minor part
+  gem-version-boss next-patch [VERSION] [-p [-t TYPE]] [-n] [-q]  # Increment the version's patch part
+  gem-version-boss next-pre [VERSION] [-t TYPE] [-n] [-q]         # Increment the version's pre-release part
+  gem-version-boss next-release [VERSION] [-n] [-q]               # Increment a pre-release version to the release version
+  gem-version-boss validate VERSION [-q]                          # Validate the given version
 ```
 
-The `gem-version help COMMAND` command will give further help for a specific command:
+The `gem-version-boss help COMMAND` command will give further help for a specific command:
 
 ```shell
-gem-version help current
+gem-version-boss help current
 ```
 
 The output is the following:
 
 ```shell
 Usage:
-  gem-version current [-q]
+  gem-version-boss current [-q]
 
 Options:
-  -q, [--quiet], [--no-quiet]  # Do not print the current version to stdout
+  -q, [--quiet], [--no-quiet], [--skip-quiet]  # Do not print the current version to stdout
 
 Description:
   Output the current gem version from the file that stores the gem version.
@@ -117,35 +117,34 @@ Description:
   The command fails if the gem version could not be found or is invalid.
 
   Use `--quiet` to ensure that a gem version could be found and is valid without producing any output.
-$
 ```
 
 ### Examples
 
 ```shell
-gem-version current # 0.1.0
+gem-version-boss current # 0.1.0
 
-gem-version validate 1.0.0 # exitcode=0
-gem-version validate bad_version # exitcode=1
+gem-version-boss validate 1.0.0 # exitcode=0
+gem-version-boss validate bad_version # exitcode=1
 
-gem-version patch # 0.1.0 -> 0.1.1
-gem-version minor # 0.1.1 -> 0.2.0
-gem-version major # 0.2.0 -> 1.0.0
+gem-version-boss next-patch # 0.1.0 -> 0.1.1
+gem-version-boss next-minor # 0.1.1 -> 0.2.0
+gem-version-boss next-major # 0.2.0 -> 1.0.0
 
 # Pre-release with default pre-release type
-gem-version major --pre # 0.1.1 -> 1.0.0.pre.1
+gem-version-boss next-major --pre # 0.1.1 -> 1.0.0.pre1
 
 # Pre-release with non-default pre-release type
-gem-version major --pre --pre-type=alpha # 0.1.1 -> 2.0.0-alpha.1
+gem-version-boss next-major --pre --pre-type=alpha # 0.1.1 -> 2.0.0-alpha1
 
 # Increment pre-release
-gem-version pre # 1.0.0-alpha.1 -> 1.0.0-alpha.2
+gem-version-boss next-pre # 1.0.0-alpha1 -> 1.0.0-alpha2
 
 # Change the pre-release type
-gem-version pre --pre-type=beta # 1.0.0-alpha.2 -> 1.0.0-beta.1
+gem-version-boss pre --pre-type=beta # 1.0.0-alpha2 -> 1.0.0-beta1
 
 # Create release from pre-release
-gem-version release # 1.0.0-beta.1 -> 1.0.0
+gem-version-boss release # 1.0.0-beta1 -> 1.0.0
 ```
 
 This gem also provides the following classes:
