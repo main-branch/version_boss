@@ -47,14 +47,14 @@ RSpec.describe VersionBoss::Gem::Version do
     end
 
     context 'with a version that includes a pre-release part' do
-      let(:version) { '1.2.3.pre.1' }
+      let(:version) { '1.2.3.pre1' }
       it do
         is_expected.to(
           have_attributes(
             major: '1',
             minor: '2',
             patch: '3',
-            pre_release: '.pre.1'
+            pre_release: '.pre1'
           )
         )
       end

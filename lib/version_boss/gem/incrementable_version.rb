@@ -54,7 +54,7 @@ module VersionBoss
       #
       def next_major(pre: false, pre_type: DEFAULT_PRE_TYPE)
         version_string = "#{major.to_i + 1}.0.0"
-        version_string += ".#{pre_type}.1" if pre
+        version_string += ".#{pre_type}1" if pre
         IncrementableVersion.new(version_string)
       end
 
@@ -68,7 +68,7 @@ module VersionBoss
       #
       def next_minor(pre: false, pre_type: DEFAULT_PRE_TYPE)
         version_string = "#{major}.#{minor.to_i + 1}.0"
-        version_string += ".#{pre_type}.1" if pre
+        version_string += ".#{pre_type}1" if pre
         IncrementableVersion.new(version_string)
       end
 
@@ -82,7 +82,7 @@ module VersionBoss
       #
       def next_patch(pre: false, pre_type: DEFAULT_PRE_TYPE)
         version_string = "#{major}.#{minor}.#{patch.to_i + 1}"
-        version_string += ".#{pre_type}.1" if pre
+        version_string += ".#{pre_type}1" if pre
         IncrementableVersion.new(version_string)
       end
 
@@ -117,7 +117,7 @@ module VersionBoss
       # The pre-release type (for example, 'alpha', 'beta', 'pre', etc.)
       #
       # @example
-      #   VersionBoss::IncrementableVersion.new('1.2.3.pre.1').pre_type # => 'pre'
+      #   VersionBoss::IncrementableVersion.new('1.2.3.pre1').pre_type # => 'pre'
       #
       # @return [String]
       #
@@ -130,11 +130,11 @@ module VersionBoss
       # Ruby Gem versions can optionally prefix the pre-release type with a period.
       #
       # @example
-      #   VersionBoss::GemVersion.new('1.2.3.pre.1').pre_type_prefix # => '-'
+      #   VersionBoss::GemVersion.new('1.2.3.pre1').pre_type_prefix # => '-'
       # Semver requires a hyphen prefix.
       #
       # @example
-      #   VersionBoss::IncrementableVersion.new('1.2.3.pre.1').pre_type # => 'pre'
+      #   VersionBoss::IncrementableVersion.new('1.2.3.pre1').pre_type # => 'pre'
       #
       # @return ['.', '']
       #
