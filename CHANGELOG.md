@@ -1,3 +1,52 @@
+## v0.1.0 (2024-05-07)
+
+[Full Changelog](https://github.com/main-branch/version_boss/compare/26b5491..v0.1.0)
+
+Changes:
+
+* f802a44 Set initial version number
+* f43d795 Create prerelease without dot like "1.0.0.pre1" instead of "1.0.0.pre.1"
+* 7ba673a Rename the script 'gem-version' to 'gem-version-boss'
+* 16dfc48 Fix YARD in Rakefile and coverage
+* 53a6e1b Remove build_metadata from Gem versions (#36)
+* 0ecd483 Update Code Climate ID after renaming the repository (#35)
+* f83acac Update Code Climate ID after renaming the repository (#34)
+* b8b78dc Rename the gem from semverify to version_boss (#32)
+* 3d14540 Update README.md for the Semverify::Gem class (#31)
+* 562bac9 Remove the "sig" directory from Git (#30)
+* 5d0c857 Separate gem code and semver code into their own modules (#29)
+* 4c85840 Add Gem version functionality (#27)
+* 7404b15 Release v0.3.4
+* cf1dd7c Add env coverage options to use when running rspec (#25)
+* 4e5cc25 Add command line examples to the README.md (#24)
+* 46323a8 Release v0.3.3
+* 8219bf1 Remove markdown from gemspec description (#21)
+* 7c1585b Release v0.3.2
+* 91c3780 Update README and gemspec introduction text (#19)
+* 0d584a8 Release v0.3.1
+* 51f649f Add Ruby 3.3 to CI build (#17)
+* 3255436 Update rubocop configuration for new Rubocop changes (#15)
+* 4cbeb23 Release v0.3.0
+* 83cf403 Update CodeClimate badges after project rename (#13)
+* 7079244 Rename gem from 'semversion' to 'semverify' (#11)
+* 64ae102 Release v0.2.0
+* 7a8069c Integrate the create_github_release gem (#9)
+* 96cdae4 Add Library Usage documentation to README.md (#8)
+* 8196c2e Add JRuby Linux and Windows builds to CI builds (#7)
+* e6b0739 Add windows build to CI builds (#6)
+* 59e310f Fix reported CodeClimate complexity issues (#3)
+* 2d28b30 Integrate CodeClimate maintainability and test coverage tracking (#1)
+* 2bda849 Add CODEOWNERS file to indicate who can review PRs
+* 4599554 Add the CommandLine class and semversion script
+* 6204835 Add the #next_release method to IncrementableSemver
+* 4219c88 Add the #next_pre method to IncrementableSemver
+* 6f3bd22 Add the #next_major, #next_minor, #next_patch methods to IncrementableSemver
+* 76782ac Add the IncrementableSemver class
+* 98d12cc Add the VersionFile and the VersionFileFactory classes
+* 713fddd Add the Semver class
+* e5c9864 Update README.md
+* 26b5491 Initial version
+
 ## v0.3.4 (2024-01-20)
 
 [Full Changelog](https://github.com/main-branch/semverify/compare/v0.3.3..v0.3.4)
