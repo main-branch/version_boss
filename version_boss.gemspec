@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'thor', '~> 1.3'
+  spec.add_dependency 'thor', '~> 1.3'
 
   spec.add_development_dependency 'bundler-audit', '~> 0.9'
   spec.add_development_dependency 'create_github_release', '~> 1.3'
