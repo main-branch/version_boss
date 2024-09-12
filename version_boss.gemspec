@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.homepage = 'http://github.com/main-branch/version_boss'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 3.0.0'
+  spec.required_ruby_version = '>= 3.1.0'
 
   spec.metadata['allowed_push_host'] = 'https://rubygems.org'
 
@@ -35,6 +35,10 @@ Gem::Specification.new do |spec|
   spec.bindir = 'exe'
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
+  spec.requirements = [
+    'Platform: Mac, Linux, or Windows',
+    'Ruby: MRI 3.1 or later, TruffleRuby 24 or later, or JRuby 9.4 or later'
+  ]
 
   spec.add_dependency 'thor', '~> 1.3'
 
