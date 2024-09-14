@@ -18,7 +18,9 @@ module VersionBoss
         # @return [VersionBoss::Gem::VersionFile, nil] the version file or nil if no version file was found
         #
         def self.find
+          # :nocov: JRuby does not mark the following line as covered
           Dir[glob].filter_map do |path|
+            # :nocov:
             if (match = File.read(path).match(content_regexp))
               version = VersionBoss::Gem::IncrementableVersion.new(match[:version])
               VersionBoss::Gem::VersionFile.new(path, match[:content_before], version, match[:content_after])

@@ -38,6 +38,13 @@ RSpec.describe VersionBoss::Semver::IncrementableVersion do
         expect { subject }.to raise_error(VersionBoss::Error)
       end
     end
+
+    context 'when the version is an empty string' do
+      let(:version) { '' }
+      it 'is expected to raise an VersionBoss::Error' do
+        expect { subject }.to raise_error(VersionBoss::Error)
+      end
+    end
   end
 
   describe '#next_major' do

@@ -55,6 +55,8 @@ RSpec.describe VersionBoss::Gem::VersionFile do
       end
     ORIGINAL_CONTENT
 
+    # :nocov: JRuby does not mark the #{new_version} as covered
+
     let(:expected_content) { <<~UPDATED_CONTENT }
       # frozen_string_literal: true
 
@@ -62,6 +64,8 @@ RSpec.describe VersionBoss::Gem::VersionFile do
         VERSION = '#{new_version}'
       end
     UPDATED_CONTENT
+
+    # :nocov:
 
     around do |example|
       Dir.mktmpdir do |dir|

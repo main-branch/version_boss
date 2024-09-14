@@ -31,6 +31,9 @@ jobs:
           - ruby: "jruby-9.4"
             operating-system: windows-latest
 
+    env:
+      JRUBY_OPTS: --debug
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4

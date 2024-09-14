@@ -31,14 +31,7 @@ module VersionBoss
       # @return [Boolean] true if the version string is a valid semver and meets the conditions above
       #
       def valid?
-        super && (
-          pre_release.empty? ||
-          (
-            pre_release_identifiers.size == 2 &&
-            pre_type.is_a?(String) &&
-            pre_number.is_a?(Integer)
-          )
-        )
+        super && (pre_release.empty? || (pre_release_identifiers.size == 2 && pre_number.is_a?(Integer)))
       end
 
       # The default pre-release identifier
@@ -194,9 +187,11 @@ module VersionBoss
       def assert_pre_type_is_valid(pre_type)
         return if self.pre_type <= pre_type
 
+        # :nocov: JRuby coverage does not report this line correctly
         message = 'Cannot increment the pre-release identifier ' \
                   "from '#{self.pre_type}' to '#{pre_type}' " \
                   "because '#{self.pre_type}' is lexically less than '#{pre_type}'"
+        # :nocov:
 
         raise VersionBoss::Error, message
       end
