@@ -26,8 +26,9 @@ module VersionBoss
       # @api private
       #
       def initialize(path, content_before, version, content_after)
-        raise VersionBoss::Error, 'version must be an IncrementableVersion' unless
-          version.is_a?(VersionBoss::Gem::IncrementableVersion)
+        unless version.is_a?(VersionBoss::Gem::IncrementableVersion)
+          raise VersionBoss::Error, 'version must be an IncrementableVersion'
+        end
 
         @path = path
         @content_before = content_before
@@ -92,8 +93,9 @@ module VersionBoss
       # @api public
       #
       def version=(new_version)
-        raise VersionBoss::Error, 'new_version must be an IncrementableVersion' unless
-          new_version.is_a?(VersionBoss::Gem::IncrementableVersion)
+        unless new_version.is_a?(VersionBoss::Gem::IncrementableVersion)
+          raise VersionBoss::Error, 'new_version must be an IncrementableVersion'
+        end
 
         @version = version
         File.write(path, content_before + new_version.to_s + content_after)

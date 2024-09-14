@@ -10,6 +10,8 @@ module VersionBoss
       # @api public
       #
       class VersionRb < Base
+        # :nocov: JRuby does not mark the line with VersionBoss::Gem::REGEXP.source as covered
+
         # The regexp to find the version and surrounding content within the version.rb file
         VERSION_REGEXP = /
           \A
@@ -21,6 +23,8 @@ module VersionBoss
             (?<content_after>\k<quote>.*)
           \z
         /xm
+
+        # :nocov:
 
         private
 
