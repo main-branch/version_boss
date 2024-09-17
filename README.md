@@ -6,6 +6,7 @@
 [![Build Status](https://github.com/main-branch/version_boss/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/main-branch/version_boss/actions/workflows/continuous-integration.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/maintainability)](https://codeclimate.com/github/main-branch/version_boss/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/test_coverage)](https://codeclimate.com/github/main-branch/version_boss/test_coverage)
+[![Slack](https://img.shields.io/badge/slack-main--branch/version__boss-yellow.svg?logo=slack)](https://main-branch.slack.com/archives/C07MCMDBJLX)
 
 Parse, compare, and increment Gem and Semver versions.
 
