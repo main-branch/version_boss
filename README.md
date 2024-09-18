@@ -1,4 +1,4 @@
-# Version Boss
+# The `version_boss` gem
 
 [![Gem Version](https://badge.fury.io/rb/version_boss.svg)](https://badge.fury.io/rb/version_boss)
 [![Documentation](https://img.shields.io/badge/Documentation-Latest-green)](https://rubydoc.info/gems/version_boss/)
@@ -8,10 +8,10 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/test_coverage)](https://codeclimate.com/github/main-branch/version_boss/test_coverage)
 [![Slack](https://img.shields.io/badge/slack-main--branch/version__boss-yellow.svg?logo=slack)](https://main-branch.slack.com/archives/C07MCMDBJLX)
 
-Parse, compare, and increment Gem and Semver versions.
+Parse, compare, and increment Gem and [SemVer](https://semver.org) versions.
 
-This gem installs the `gem-version-boss` CLI tool to display and increment a gem's version
-based on SemVer rules.
+This gem installs the `gem-version-boss` command-line tool to display and increment a
+gem's version based on [Semantic Versioning](https://semver.org) rules.
 
 `gem-version-boss` can replace the `bump` command from the [bump
 gem](https://rubygems.org/gems/bump/) for incrementing gem version strings.
@@ -19,10 +19,8 @@ gem](https://rubygems.org/gems/bump/) for incrementing gem version strings.
 How `gem-version-boss` differs from `bump`:
 
 * `gem-version-boss` can manage pre-release versions
-* `bump` can commit and tag the version file changes it makes. There is no plan to
-  add this functionality to `gem-version-boss`.
-* `bump` can update the version in extra files you to specify extra files to
-  increment the version in
+* `gem-version-boss` can not commit or tag the version file changes it makes
+* `gem-version-boss` can not update multiple files at a time
 
 Example CLI commands:
 
@@ -38,7 +36,7 @@ gem-version-boss current
 # Display the gem version file
 gem-version-boss file
 
-# Validate that a version conforms to SemVer 2.0.0
+# Validate that a version is valid
 gem-version-boss validate VERSION
 
 # Get more detailed help for each command listed above
@@ -58,16 +56,27 @@ gem-version-boss help [COMMAND]
 
 ## Installation
 
-Install the gem and add to the application's Gemfile by executing:
+To install the gem, add to the following line to your application's gemspec OR
+Gemfile:
 
-```shell
-bundle add version_boss
+gemspec:
+
+```ruby
+  spec.add_development_dependency "version_boss", '~> 0.1'
 ```
+
+Gemfile:
+
+```ruby
+gem "version_boss", "~> 0.1", groups: [:development, :test]
+```
+
+and then run `bundle install`.
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```shell
-gem install version_boss --group=development
+gem install version_boss
 ```
 
 ## Command Line
@@ -122,33 +131,37 @@ Description:
 
 ### Examples
 
+Assuming the gem version starts at 1.2.3:
+
 ```shell
-gem-version-boss current # 0.1.0
+$ gem-version-boss current
+1.2.3
 
-gem-version-boss validate 1.0.0 # exitcode=0
-gem-version-boss validate bad_version # exitcode=1
+$ gem-version-boss next-patch
+1.2.4
 
-gem-version-boss next-patch # 0.1.0 -> 0.1.1
-gem-version-boss next-minor # 0.1.1 -> 0.2.0
-gem-version-boss next-major # 0.2.0 -> 1.0.0
+$ gem-version-boss next-minor
+1.3.0
 
-# Pre-release with default pre-release type
-gem-version-boss next-major --pre # 0.1.1 -> 1.0.0.pre1
+$ gem-version-boss next-major
+2.0.0
 
-# Pre-release with non-default pre-release type
-gem-version-boss next-major --pre --pre-type=alpha # 0.1.1 -> 2.0.0-alpha1
+# Create a pre-release version for the next major version
+$ gem-version-boss next-major --pre --pre-type=alpha
+3.0.0.alpha1
 
-# Increment pre-release
-gem-version-boss next-pre # 1.0.0-alpha1 -> 1.0.0-alpha2
+# Increment the pre-release version
+$ gem-version-boss next-pre
+3.0.0.alpha2
 
-# Change the pre-release type
-gem-version-boss pre --pre-type=beta # 1.0.0-alpha2 -> 1.0.0-beta1
+# Change the pre-release type to "beta"
+$ gem-version-boss next-pre --pre-type=beta
+3.0.0.beta1
 
-# Create release from pre-release
-gem-version-boss release # 1.0.0-beta1 -> 1.0.0
+# Create a release version from the pre-release version
+$ gem-version-boss next-release
+3.0.0
 ```
-
-This gem also provides the following classes:
 
 ## Library Usage
 
@@ -160,7 +173,9 @@ The main classes are:
 ### VersionBoss::Gem classes
 
 * **VersionBoss::Gem::Version** knows how to parse, validate, and compare [Ruby Gem
-  version strings](https://guides.rubygems.org/patterns/#semantic-versioning).
+  version strings](https://guides.rubygems.org/patterns/#semantic-versioning) which
+  may include [prerelease
+  versions](https://guides.rubygems.org/patterns/#prerelease-gems).
 
 * **VersionBoss::Gem::IncrementableVersion** knows how to increment Ruby Gem version
   strings according to SemVer rules.
