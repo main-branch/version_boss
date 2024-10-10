@@ -1,3 +1,28 @@
+## v0.2.0 (2024-10-10)
+
+[Full Changelog](https://github.com/main-branch/version_boss/compare/v0.1.0..v0.2.0)
+
+Changes since v0.1.0:
+
+* 777871d chore: update create_github_release dependency
+* 8225040 build: remove semver pr label check
+* 3853ff7 build: enforce conventional commit message formatting
+* 3c08516 Clarify gem description and installation instructions
+* 012f717 Add TargetRubyVersion in .rubocop.yml
+* 4065647 Use shared Rubocop config
+* 1dc115f Update copyright notice in this project
+* 4a3f092 Update links in gemspec
+* a4475f2 Add Slack badge for this project in README
+* 28234d4 Update “Build Status” link the README
+* e5b59d7 Standardize YARD and Markdown Lint configurations
+* aa5851a Set JRuby —debug option when running tests in GitHub Actions workflows
+* 3869e9c Integrate SimpleCov::RSpec into the project
+* 4fe44a8 Use latest version of create_github_release
+* a6ae0af Update continuous integration and experimental ruby builds
+* 44ea99f Enforce the use of semver tags on PRs
+* baabc32 Auto correct new rubocop offenses
+* 8f74384 Release v0.1.0
+
 ## v0.1.0 (2024-05-07)
 
 [Full Changelog](https://github.com/main-branch/version_boss/compare/26b5491..v0.1.0)
