@@ -4,8 +4,6 @@
 [![Documentation](https://img.shields.io/badge/Documentation-Latest-green)](https://rubydoc.info/gems/version_boss/)
 [![Change Log](https://img.shields.io/badge/CHANGELOG-Latest-green)](https://rubydoc.info/gems/version_boss/file/CHANGELOG.md)
 [![Build Status](https://github.com/main-branch/version_boss/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/main-branch/version_boss/actions/workflows/continuous-integration.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/maintainability)](https://codeclimate.com/github/main-branch/version_boss/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/44a42ed085fe162e5dff/test_coverage)](https://codeclimate.com/github/main-branch/version_boss/test_coverage)
 [![Conventional
 Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![Slack](https://img.shields.io/badge/slack-main--branch/version__boss-yellow.svg?logo=slack)](https://main-branch.slack.com/archives/C07MCMDBJLX)
@@ -47,15 +45,15 @@ gem-version-boss help [COMMAND]
 
 * [Installation](#installation)
 * [Command Line](#command-line)
-  * [Usage](#usage)
-  * [Examples](#examples)
+    * [Usage](#usage)
+    * [Examples](#examples)
 * [Library Usage](#library-usage)
-  * [VersionBoss::Gem classes](#versionbossgem-classes)
-  * [VersionBoss::Semver classes](#versionbosssemver-classes)
+    * [VersionBoss::Gem classes](#versionbossgem-classes)
+    * [VersionBoss::Semver classes](#versionbosssemver-classes)
 * [Development](#development)
 * [Contributing](#contributing)
-  * [Commit message guidelines](#commit-message-guidelines)
-  * [Pull request guidelines](#pull-request-guidelines)
+    * [Commit message guidelines](#commit-message-guidelines)
+    * [Pull request guidelines](#pull-request-guidelines)
 * [License](#license)
 
 ## Installation
