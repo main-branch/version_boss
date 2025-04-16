@@ -23,6 +23,13 @@ Changes since v0.1.0:
 * baabc32 Auto correct new rubocop offenses
 * 8f74384 Release v0.1.0
 
+## [0.2.1](https://github.com/main-branch/version_boss/compare/v0.2.0...v0.2.1) (2025-04-16)
+
+
+### Bug Fixes
+
+* Automate commit-to-publish workflow ([be256ae](https://github.com/main-branch/version_boss/commit/be256ae4dfdf051fcaaf760113011859806a6ccb))
+
 ## v0.1.0 (2024-05-07)
 
 [Full Changelog](https://github.com/main-branch/version_boss/compare/26b5491..v0.1.0)
