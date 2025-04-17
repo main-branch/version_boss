@@ -23,6 +23,13 @@ Changes since v0.1.0:
 * baabc32 Auto correct new rubocop offenses
 * 8f74384 Release v0.1.0
 
+## [0.2.2](https://github.com/main-branch/version_boss/compare/v0.2.1...v0.2.2) (2025-04-17)
+
+
+### Bug Fixes
+
+* Do not trigger build workflows after merging to main or for release PRs ([1f2dd37](https://github.com/main-branch/version_boss/commit/1f2dd370492349112d7415af09fb4dc6ec90314e))
+
 ## [0.2.1](https://github.com/main-branch/version_boss/compare/v0.2.0...v0.2.1) (2025-04-16)
 
 
