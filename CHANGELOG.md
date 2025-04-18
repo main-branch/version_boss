@@ -23,6 +23,13 @@ Changes since v0.1.0:
 * baabc32 Auto correct new rubocop offenses
 * 8f74384 Release v0.1.0
 
+## [0.2.3](https://github.com/main-branch/version_boss/compare/v0.2.2...v0.2.3) (2025-04-18)
+
+
+### Other Changes
+
+* Configure release-please to includes all changes in the CHANGELOG ([d6a43fa](https://github.com/main-branch/version_boss/commit/d6a43fa34a27fd532f9166b59740293a8775358c))
+
 ## [0.2.2](https://github.com/main-branch/version_boss/compare/v0.2.1...v0.2.2) (2025-04-17)
 
 
