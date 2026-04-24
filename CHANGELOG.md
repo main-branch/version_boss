@@ -23,6 +23,13 @@ Changes since v0.1.0:
 * baabc32 Auto correct new rubocop offenses
 * 8f74384 Release v0.1.0
 
+## [0.2.4](https://github.com/main-branch/version_boss/compare/v0.2.3...v0.2.4) (2026-04-24)
+
+
+### Other Changes
+
+* **dependencies:** Update dependencies for all GitHub Actions workflows ([4051ebb](https://github.com/main-branch/version_boss/commit/4051ebbecaf1b59f4dd5d15644158607623e2870))
+
 ## [0.2.3](https://github.com/main-branch/version_boss/compare/v0.2.2...v0.2.3) (2025-04-18)
 
 
